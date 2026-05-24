@@ -487,6 +487,11 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
+resetFilters();
+    const wishlistBtn = document.querySelector('.wishlist-count-btn');
+    if (wishlistBtn) {
+        wishlistBtn.classList.add('active');
+    }
 const filtered = products.filter(p => wishlist.includes(p.id));
 renderProducts(filtered, true);
 }
@@ -499,8 +504,12 @@ if(category === 'all'){ renderProducts(products);}
 else {renderProducts(products.filter(p => p.cat === category));}
 }
 function resetFilters() {
-    const btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(btn => btn.classList.remove('active'));
+    // Մաքրում է բոլոր ֆիլտրի կոճակները
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Մաքրում է նաև սրտիկի կոճակը
+    const wishlistBtn = document.querySelector('.wishlist-count-btn');
+    if (wishlistBtn) wishlistBtn.classList.remove('active');
 }
 
 function searchProducts() {
