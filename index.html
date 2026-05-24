@@ -106,21 +106,31 @@ transform: scale(1.1) rotate(5deg);
     border-color: var(--brand-color);
     color: var(--brand-color);
     transform: translateY(-2px);
-}.theme-toggle { 
-    background: var(--card-bg); 
-    color: white; 
-    border: 1px solid var(--brand-color); 
-    width: 44px; 
-    height: 44px; 
-    border-radius: 50%; 
-    cursor: pointer; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    transition: all 0.3s ease; /* Սահունության համար */
+}.theme-toggle {
+    /* Պատճենում ենք wishlist-ի հիմնական ոճերը */
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
     
+    /* Փոխարենը տանք կոնկրետ չափսեր, օգտագործում ենք նույն padding-ը */
+    padding: 10px; 
+    /* Որպեսզի լինի կլոր, width-ն ու height-ը պետք է հավասար լինեն padding-ի հետ */
+    width: 45px; 
+    height: 45px;
+    
+    border-radius: 50%; /* Կլորացնում ենք */
+    
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Հեռացնում ենք այն քառակուսի պիքսելը */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    
+    transition: all 0.3s ease;
 }
-
 .theme-toggle:hover {
     background: var(--brand-color);
     border-color: var(--brand-color);
