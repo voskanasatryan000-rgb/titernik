@@ -432,42 +432,50 @@ else renderProducts(products.filter(p => p.cat === category));
 }
 
 function searchProducts() {
-    const input = document.getElementById('searchInput');
-    const term = input.value.trim().toLowerCase();
-    const container = document.getElementById('productsContainer');
-    
-    // 1. Եթե դատարկ է, ցույց ենք տալիս բոլոր ապրանքները և դուրս գալիս
-    if (term === "") {
-        renderProducts(products);
-        return;
-    }
+    try {
+        const searchInput = document.getElementById('searchInput');
+        const container = document.getElementById('productsContainer');
+        
+        if (!searchInput || !container) {
+            console.error("Input-ը կամ Container-ը չի գտնվել:");
+            return;
+        }
 
-    // 2. Զտում ենք ճիշտ ձևով (ստուգում ենք ID-ն և Կատեգորիան)
-    const filteredProducts = products.filter(p => {
-        const productId = String(p.id).toLowerCase();
-        const productCat = String(p.cat).toLowerCase();
-        return productId.includes(term) || productCat.includes(term);
-    });
+        const term = searchInput.value.trim().toLowerCase();
+        console.log("Որոնվող բառը:", term); // Սա կերևա Console-ում
 
-    // 3. Մաքրում ենք էկրանը նոր արդյունքից առաջ
-    container.innerHTML = "";
+        // Եթե դատարկ է, վերադարձնում ենք բոլորը
+        if (term === "") {
+            renderProducts(products);
+            return;
+        }
 
-    // 4. Ստուգում ենք արդյունքի քանակը
-    if (filteredProducts.length === 0) {
-        container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; width: 100%;">
-                <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
-                <h3 style="color: var(--text-color); margin-bottom: 10px;">Արդյունք չի գտնվել</h3>
-                <p style="color: var(--text-color); opacity: 0.6;">"${term}" բառով կամ ID-ով ոչինչ չկա:</p>
-                <button onclick="document.getElementById('searchInput').value=''; searchProducts();" 
-                        style="margin-top: 20px; padding: 10px 25px; border: 1px solid var(--border-color); background: var(--brand-color); color: white; border-radius: 25px; cursor: pointer;">
-                    Տեսնել ամբողջը
-                </button>
-            </div>
-        `;
-    } else {
-        // 5. Եթե գտել է, նկարում ենք ՄԻԱՅՆ գտնվածները
-        renderProducts(filteredProducts);
+        // Զտում ենք ապրանքները
+        const filteredProducts = products.filter(p => {
+            const idMatch = p.id && String(p.id).toLowerCase().includes(term);
+            const catMatch = p.cat && String(p.cat).toLowerCase().includes(term);
+            return idMatch || catMatch;
+        });
+
+        console.log("Գտնված ապրանքներ:", filteredProducts.length);
+
+        if (filteredProducts.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 100px 20px; width: 100%;">
+                    <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
+                    <h3 style="color: var(--text-color); font-family: Playfair Display, serif;">Արդյունք չի գտնվել</h3>
+                    <p style="color: var(--text-color); opacity: 0.6;">"${term}"-ին համապատասխան ոչինչ չկա:</p>
+                    <button onclick="document.getElementById('searchInput').value=''; renderProducts(products);" 
+                            style="margin-top: 20px; padding: 10px 20px; border: 1px solid var(--border-color); background: none; color: var(--text-color); border-radius: 30px; cursor: pointer;">
+                        Տեսնել ամբողջը
+                    </button>
+                </div>
+            `;
+        } else {
+            renderProducts(filteredProducts);
+        }
+    } catch (error) {
+        console.error("Որոնման սխալ:", error);
     }
 }
 function openImage(src) {
