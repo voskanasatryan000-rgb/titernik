@@ -509,7 +509,35 @@ function resetFilters() {
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
     if (wishlistBtn) wishlistBtn.classList.remove('active');
 }
+function animateToWishlist(event) {
+    // 1. Ստանում ենք սեղմված ապրանքի նկարը
+    const productCard = event.target.closest('.product-card');
+    const img = productCard.querySelector('img');
+    
+    // 2. Ստեղծում ենք նկարի պատճենը (թռչող տարրը)
+    const flyingImg = img.cloneNode();
+    flyingImg.style.position = 'fixed';
+    flyingImg.style.width = '50px'; // Փոքրացնում ենք
+    flyingImg.style.top = img.getBoundingClientRect().top + 'px';
+    flyingImg.style.left = img.getBoundingClientRect().left + 'px';
+    flyingImg.style.transition = 'all 0.8s ease-in-out';
+    flyingImg.style.zIndex = '1000';
+    
+    document.body.appendChild(flyingImg);
 
+    // 3. Ուղարկում ենք դեպի սրտիկի կոճակը (վերևի աջ անկյուն)
+    setTimeout(() => {
+        flyingImg.style.top = '20px'; // Սրտիկի կոճակի դիրքը
+        flyingImg.style.left = '90%'; 
+        flyingImg.style.width = '20px';
+        flyingImg.style.opacity = '0';
+    }, 50);
+
+    // 4. Հեռացնում ենք էկրանից, երբ հասնի
+    setTimeout(() => {
+        flyingImg.remove();
+    }, 900);
+}
 function searchProducts() {
     const searchInput = document.getElementById('searchInput');
     const catalog = document.getElementById('catalog'); // Քո կոդում ID-ն սա է
