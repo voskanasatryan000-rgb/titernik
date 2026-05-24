@@ -432,8 +432,26 @@ else renderProducts(products.filter(p => p.cat === category));
 }
 
 function searchProducts() {
-const term = document.getElementById('searchInput').value.toLowerCase();
-renderProducts(products.filter(p => p.id.toLowerCase().includes(term) || p.cat.toLowerCase().includes(term)));
+    const term = document.getElementById('searchInput').value.toLowerCase();
+    const filteredProducts = products.filter(p => 
+        p.id.toLowerCase().includes(term) || 
+        p.cat.toLowerCase().includes(term) ||
+        (p.name && p.name.toLowerCase().includes(term)) // Եթե անուն ունեն ապրանքները
+    );
+
+    const container = document.getElementById('productsContainer'); // Համոզվիր, որ ID-ն ճիշտ է
+
+    if (filteredProducts.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--text-color);">
+                <p style="font-size: 20px;">🔍</p>
+                <p>Նման ապրանք չի գտնվել:</p>
+                <p style="font-size: 14px; opacity: 0.6;">Փորձեք փնտրել այլ բառով:</p>
+            </div>
+        `;
+    } else {
+        renderProducts(filteredProducts);
+    }
 }
 
 function openImage(src) {
@@ -448,7 +466,7 @@ alert("Պատվերի կոդը պատճենվեց:");
 
 
 
- renderProducts(products);
+renderProducts(products);
 
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
