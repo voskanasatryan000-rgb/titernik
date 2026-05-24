@@ -153,63 +153,72 @@ transform: scale(1.1) rotate(5deg);
     transform: scale(0.95);
     transition: 0.1s;
 }
-/* --- Wishlist Count Button (Գլխավոր կոճակը) --- */
+/* --- Wishlist Count Button (Գլխավոր կոճակը վերևում) --- */
 .wishlist-count-btn { 
-    background: var(--card-bg); 
-    color: var(--text-color); 
-    border: 1px solid var(--border-color); 
-    border-radius: 25px; 
-    padding: 10px 20px; 
-    cursor: pointer; 
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
+    background: var(--card-bg) !important; 
+    color: var(--text-color) !important; 
+    border: 1px solid var(--border-color) !important; 
+    border-radius: 25px !important; 
+    padding: 10px 20px !important; 
+    cursor: pointer !important; 
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
-/* Սրտիկի էմոջին թողնում ենք անփոփոխ, որ միշտ կարմիր լինի */
+/* Սրտիկի էմոջին թողնում ենք իր բնական կարմիր գույնով */
 .wishlist-count-btn span.heart { 
-    font-size: 18px;
-    /* color: inherit;  <-- Այս տողը հանեցինք, որ էմոջիի կարմիրը չկորչի */
-    transition: transform 0.3s ease;
+    font-size: 18px !important;
+    color: initial !important; /* Սա թույլ չի տա, որ տեքստի գույնը ազդի էմոջիի վրա */
+    display: inline-block !important;
+    transition: transform 0.3s ease !important;
 }
 
 /* --- Back Button (Հետ կոճակը) --- */
 .back-btn {
-    padding: 15px 30px;
-    background: var(--brand-color);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 30px;
-    display: inline-block;
-    transition: all 0.3s ease;
+    padding: 15px 30px !important;
+    background: var(--brand-color) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    margin-bottom: 30px !important;
+    display: inline-block !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
 /* --- ՄԻԱՅՆ ՀԱՄԱԿԱՐԳԻՉՆԵՐԻ ՀԱՄԱՐ (Hover) --- */
 @media (hover: hover) {
     .wishlist-count-btn:hover {
-        border-color: var(--brand-color);
-        /* color: #ff4757; <-- Հանեցինք սա, որ թիվը չկարմրի, միայն եզրագիծը փոխվի */
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: var(--brand-color) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
     }
 
     .back-btn:hover { 
-        transform: scale(1.05); 
-        background: #7a626b; 
+        transform: scale(1.05) !important; 
+        background: #7a626b !important; 
     }
 }
 
 /* --- ՀԵՌԱԽՈՍՆԵՐԻ ԵՎ ՍԵՂՄԱՆ ՀԱՄԱՐ (Active) --- */
 .back-btn:active, 
 .wishlist-count-btn:active {
-    transform: scale(0.95);
-    opacity: 0.8;
+    transform: scale(0.95) !important;
+    opacity: 0.8 !important;
+}
+
+/* Սա լրացուցիչ ապահովություն է, որ հեռախոսով սրտիկը չփոխվի */
+@media (max-width: 768px) {
+    .wishlist-count-btn span.heart {
+        color: initial !important;
+    }
 }
 .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
 /* Հեռացրել ենք border-bottom-ը կատեգորիաների վերնագրերից */
