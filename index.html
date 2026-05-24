@@ -506,9 +506,12 @@ function searchProducts() {
 
     const term = searchInput.value.trim().toLowerCase();
 
+    resetFilters();
+
     // 1. Եթե դատարկ է, ցուցադրում ենք բոլորը
     if (term === "") {
         renderProducts(products);
+        document.querySelector('.all-btn').classList.add('active');
         return;
     }
 
@@ -527,8 +530,8 @@ function searchProducts() {
                 <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
                 <h3 style="color: var(--text-color); font-family: 'Playfair Display', serif;">Արդյունք չի գտնվել</h3>
                 <p style="color: var(--text-color); opacity: 0.6;">"${term}"-ին համապատասխան ոչինչ չկա:</p>
-                <button onclick="document.getElementById('searchInput').value=''; renderProducts(products);" 
-                        style="margin-top: 25px; padding: 10px 25px; border: 1px solid var(--border-color); background: var(--brand-color); color: white; border-radius: 30px; cursor: pointer;">
+                <button onclick="document.getElementById('searchInput').value=''; renderProducts(products); resetFilters(); document.querySelector('.all-btn').classList.add('active');"
+                        style="margin-top: 30px; padding: 15px 30px; border: 1px solid var(--border-color); background: var(--brand-color); color: white; border-radius: 30px; cursor: pointer;">
                     Տեսնել ամբողջը
                 </button>
             </div>
