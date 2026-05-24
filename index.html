@@ -103,12 +103,20 @@ transform: scale(1.1) rotate(5deg);
     font-size: 11px; 
     text-transform: uppercase; 
     font-weight: bold; 
+    transition: all 0.3s ease;
 }
-.filter-btn:hover, .filter-btn.active { 
+    .filter-btn:hover {
     border-color: var(--brand-color);
     color: var(--brand-color);
     transform: translateY(-2px);
-}.theme-toggle {
+    }
+    
+    .filter-btn.active { 
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+    transform: translateY(-2px);
+}
+    .theme-toggle {
     /* Պատճենում ենք wishlist-ի հիմնական ոճերը */
     background: var(--card-bg);
     color: var(--text-color);
@@ -481,9 +489,13 @@ renderProducts(filtered, true);
 function filterCategory(category) {
 const btns = document.querySelectorAll('.filter-btn');
 btns.forEach(btn => btn.classList.remove('active'));
-if(event && event.target.classList.contains('filter-btn')) event.target.classList.add('active');
-if(category === 'all') renderProducts(products);
-else renderProducts(products.filter(p => p.cat === category));
+if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
+if(category === 'all'){ renderProducts(products);}
+else {renderProducts(products.filter(p => p.cat === category));}
+}
+function resetFilters() {
+    const btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(btn => btn.classList.remove('active'));
 }
 
 function searchProducts() {
