@@ -651,8 +651,15 @@ function searchProducts() {
     }
 }
 function openImage(src) {
-document.getElementById('overlayImg').src = src;
-document.getElementById('overlay').style.display = 'flex';
+    // 1. Նկարի ցուցադրում
+    document.getElementById('overlayImg').src = src;
+    document.getElementById('overlay').style.display = 'flex';
+
+    // 2. Ավելացում «Վերջերս դիտված» ցուցակում
+    const product = products.find(p => p.img === src);
+    if (product) {
+        addToRecentlyViewed(product.id);
+    }
 }
 
 function copyToClipboard(id) {
