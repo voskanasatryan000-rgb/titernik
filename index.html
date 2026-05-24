@@ -168,16 +168,33 @@ transform: scale(1.1) rotate(5deg);
     transition: all 0.3s ease !important;
     text-decoration: none !important;
 }
-
-/* Սրտիկի էմոջին թողնում ենք իր բնական կարմիր գույնով */
-.wishlist-count-btn span.heart { 
-    font-size: 18px !important;
-    color: initial !important; /* Սա թույլ չի տա, որ տեքստի գույնը ազդի էմոջիի վրա */
-    display: inline-block !important;
-    transition: transform 0.3s ease !important;
+/* --- Wishlist Count Button --- */
+.wishlist-count-btn { 
+    background: var(--card-bg) !important; 
+    color: var(--text-color) !important; 
+    border: 1px solid var(--border-color) !important; 
+    border-radius: 25px !important; 
+    padding: 8px 18px !important; /* Մի փոքր փոքրացրի, որ ավելի սիրուն լինի */
+    cursor: pointer !important; 
+    font-weight: bold !important;
+    display: inline-flex !important; /* Որ կոճակը չփռվի ամբողջ էջով */
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
-/* --- Back Button (Հետ կոճակը) --- */
+/* Սրտիկի էմոջիի պաշտպանություն */
+.wishlist-count-btn span.heart { 
+    font-size: 18px !important;
+    color: initial !important; 
+    display: inline-block !important;
+    -webkit-text-fill-color: initial !important; /* iPhone-ի համար */
+    transition: transform 0.3s ease !important;
+    vertical-align: middle !important;
+}
+
+/* --- Back Button --- */
 .back-btn {
     padding: 15px 30px !important;
     background: var(--brand-color) !important;
@@ -193,7 +210,7 @@ transform: scale(1.1) rotate(5deg);
     text-decoration: none !important;
 }
 
-/* --- ՄԻԱՅՆ ՀԱՄԱԿԱՐԳԻՉՆԵՐԻ ՀԱՄԱՐ (Hover) --- */
+/* --- Համակարգիչների համար (Hover) --- */
 @media (hover: hover) {
     .wishlist-count-btn:hover {
         border-color: var(--brand-color) !important;
@@ -207,17 +224,18 @@ transform: scale(1.1) rotate(5deg);
     }
 }
 
-/* --- ՀԵՌԱԽՈՍՆԵՐԻ ԵՎ ՍԵՂՄԱՆ ՀԱՄԱՐ (Active) --- */
+/* --- Հեռախոսների և սեղմման համար (Active) --- */
 .back-btn:active, 
 .wishlist-count-btn:active {
     transform: scale(0.95) !important;
     opacity: 0.8 !important;
 }
 
-/* Սա լրացուցիչ ապահովություն է, որ հեռախոսով սրտիկը չփոխվի */
+/* iPhone-ի էմոջիի գույնի վերջնական ֆիքս */
 @media (max-width: 768px) {
     .wishlist-count-btn span.heart {
         color: initial !important;
+        -webkit-text-fill-color: initial !important;
     }
 }
 .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
@@ -285,8 +303,8 @@ border-radius: 6px;
 <button class="filter-btn" onclick="filterCategory('Թևնոցներ')">Թևնոցներ</button>
 <button class="filter-btn" onclick="filterCategory('Ժամացույցներ')">Ժամացույցներ</button>
 <button class="filter-btn" onclick="filterCategory('Տուփեր')">Տուփեր</button>
-<button class="wishlist-count-btn" onclick="showWishlist()">❤️ <span id="wishCount">0</span></button>
-<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+<button class="wishlist-count-btn" onclick="showWishlist()"><span class="main-heart">❤️</span> <span id="wishCount">0</span>
+</button><button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </div>
 </header>
 
