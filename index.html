@@ -484,29 +484,35 @@ icon.classList.toggle('active');
 updateWishCount();
 }
 function animateToWishlist(event) {
+    // 1. Ստանում ենք սկզբնակետը (սեղմված սրտիկը)
     const btn = event.target;
-    const rect = btn.getBoundingClientRect(); // Սա հենց էն կետն է, որտեղ սեղմել ես
+    const startRect = btn.getBoundingClientRect();
     
+    // 2. Ստանում ենք վերջնակետը (Wishlist-ի վերևի կոճակը)
+    const wishlistBtn = document.querySelector('.wishlist-count-btn');
+    const endRect = wishlistBtn.getBoundingClientRect();
+    
+    // Ստեղծում ենք թռչող տարրը
     const flyer = document.createElement('div');
     flyer.innerText = '❤';
     flyer.style.position = 'fixed';
     flyer.style.fontSize = '24px';
     flyer.style.color = '#ff4757';
-    flyer.style.top = rect.top + 'px';
-    flyer.style.left = rect.left + 'px';
-    flyer.style.transition = 'all 0.6s ease-in-out';
+    flyer.style.top = startRect.top + 'px';
+    flyer.style.left = startRect.left + 'px';
+    flyer.style.transition = 'all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1)';
     flyer.style.zIndex = '9999';
     document.body.appendChild(flyer);
 
-    // Թռիչքը դեպի վերին սրտիկի կոճակ (փոխիր 10px-ը և 90%-ը ըստ քո կայքի)
+    // 3. Թռիչքը դեպի հենց այն տեղը, որտեղ կոճակն է
     setTimeout(() => {
-        flyer.style.top = '10px';
-        flyer.style.left = '90%';
+        flyer.style.top = endRect.top + 'px';  // Հիմա կգնա կոճակի վերև
+        flyer.style.left = endRect.left + 'px'; // Հիմա կգնա կոճակի ձախ կողմ
         flyer.style.fontSize = '10px';
         flyer.style.opacity = '0';
     }, 50);
 
-    setTimeout(() => flyer.remove(), 700);
+    setTimeout(() => flyer.remove(), 800);
 }
 function updateWishCount() {
 document.getElementById('wishCount').innerText = wishlist.length;
