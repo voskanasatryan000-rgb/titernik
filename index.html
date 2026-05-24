@@ -304,7 +304,7 @@ border-radius: 6px;
 
 <div class="nav-controls">
 <input type="text" id="searchInput" class="search-bar" placeholder="Որոնել..." oninput="searchProducts()">
-<button class="filter-btn active" onclick="filterCategory('all')">Բոլորը</button>
+<button class="filter-btn all-btn" onclick="filterCategory('all')">Բոլորը</button>
 <button class="filter-btn" onclick="filterCategory('Մատանիներ')">Մատանիներ</button>
 <button class="filter-btn" onclick="filterCategory('Վզնոցներ')">Վզնոցներ</button>
 <button class="filter-btn" onclick="filterCategory('Ականջօղեր')">Ականջօղեր</button>
@@ -551,7 +551,7 @@ alert("Պատվերի կոդը պատճենվեց:");
 
 
 renderProducts(products);
-
+document.querySelector('.all-btn').classList.add('active');
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
