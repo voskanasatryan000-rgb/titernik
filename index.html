@@ -317,8 +317,8 @@ border-radius: 6px;
 <button class="filter-btn" onclick="filterCategory('Ժամացույցներ')">Ժամացույցներ</button>
 <button class="filter-btn" onclick="filterCategory('Տուփեր')">Տուփեր</button>
 <button class="wishlist-count-btn" onclick="showWishlist()">
-    <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
-    <span id="wishCount">0</span>
+    <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
+    <span id="wishCount">0</span>
 </button></button><button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </div>
 </header>
@@ -449,23 +449,24 @@ if(isWishlist) {
     }
     updateWishCount();
 }function appendCards(items, container) {
-items.forEach(p => {
-const isWished = wishlist.includes(p.id) ? 'active' : '';
-container.innerHTML += `
-<div class="card" id="card-${p.id}">
-<button class="wish-icon ${isWished}" onclick="toggleWishlist('${p.id}')">❤</button>
-<div class="img-container" onclick="openImage('${p.img}')">
-<img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
-</div>
-<div class="price">${p.price} ֏</div>
-<span class="id-tag">ID: ${p.id}</span>
-<a href="https://ig.me/m/titernik_accessories" target="_blank" class="order-btn" onclick="copyToClipboard('${p.id}')">Պատվիրել</a>
-</div>
-`;
-});
+    items.forEach(p => {
+        const isWished = wishlist.includes(p.id) ? 'active' : '';
+        // Ավելացնում ենք event-ը toggleWishlist-ի մեջ
+        container.innerHTML += `
+            <div class="card" id="card-${p.id}">
+                <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
+                <div class="img-container" onclick="openImage('${p.img}')">
+                    <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
+                </div>
+                <div class="price">${p.price} ֏</div>
+                <span class="id-tag">ID: ${p.id}</span>
+                <a href="https://ig.me/m/titernik_accessories" target="_blank" class="order-btn" onclick="copyToClipboard('${p.id}')">Պատվիրել</a>
+            </div>
+        `;
+    });
 }
 
-function toggleWishlist(id) {
+function toggleWishlist(event,id) {
 if(wishlist.includes(id)) {
 wishlist = wishlist.filter(item => item !== id);
 const card = document.getElementById(`card-${id}`);
@@ -474,6 +475,7 @@ card.remove();
 }
 } else {
 wishlist.push(id);
+    animateToWishlist(event);
 }
 localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
 document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
@@ -481,7 +483,31 @@ icon.classList.toggle('active');
 });
 updateWishCount();
 }
+function animateToWishlist(event) {
+    const btn = event.target;
+    const rect = btn.getBoundingClientRect(); // Սա հենց էն կետն է, որտեղ սեղմել ես
+    
+    const flyer = document.createElement('div');
+    flyer.innerText = '❤';
+    flyer.style.position = 'fixed';
+    flyer.style.fontSize = '24px';
+    flyer.style.color = '#ff4757';
+    flyer.style.top = rect.top + 'px';
+    flyer.style.left = rect.left + 'px';
+    flyer.style.transition = 'all 0.6s ease-in-out';
+    flyer.style.zIndex = '9999';
+    document.body.appendChild(flyer);
 
+    // Թռիչքը դեպի վերին սրտիկի կոճակ (փոխիր 10px-ը և 90%-ը ըստ քո կայքի)
+    setTimeout(() => {
+        flyer.style.top = '10px';
+        flyer.style.left = '90%';
+        flyer.style.fontSize = '10px';
+        flyer.style.opacity = '0';
+    }, 50);
+
+    setTimeout(() => flyer.remove(), 700);
+}
 function updateWishCount() {
 document.getElementById('wishCount').innerText = wishlist.length;
 }
@@ -509,35 +535,7 @@ function resetFilters() {
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
     if (wishlistBtn) wishlistBtn.classList.remove('active');
 }
-function animateToWishlist(event) {
-    // 1. Ստանում ենք սեղմված ապրանքի նկարը
-    const productCard = event.target.closest('.product-card');
-    const img = productCard.querySelector('img');
-    
-    // 2. Ստեղծում ենք նկարի պատճենը (թռչող տարրը)
-    const flyingImg = img.cloneNode();
-    flyingImg.style.position = 'fixed';
-    flyingImg.style.width = '50px'; // Փոքրացնում ենք
-    flyingImg.style.top = img.getBoundingClientRect().top + 'px';
-    flyingImg.style.left = img.getBoundingClientRect().left + 'px';
-    flyingImg.style.transition = 'all 0.8s ease-in-out';
-    flyingImg.style.zIndex = '1000';
-    
-    document.body.appendChild(flyingImg);
 
-    // 3. Ուղարկում ենք դեպի սրտիկի կոճակը (վերևի աջ անկյուն)
-    setTimeout(() => {
-        flyingImg.style.top = '20px'; // Սրտիկի կոճակի դիրքը
-        flyingImg.style.left = '90%'; 
-        flyingImg.style.width = '20px';
-        flyingImg.style.opacity = '0';
-    }, 50);
-
-    // 4. Հեռացնում ենք էկրանից, երբ հասնի
-    setTimeout(() => {
-        flyingImg.remove();
-    }, 900);
-}
 function searchProducts() {
     const searchInput = document.getElementById('searchInput');
     const catalog = document.getElementById('catalog'); // Քո կոդում ID-ն սա է
