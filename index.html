@@ -433,6 +433,7 @@ else renderProducts(products.filter(p => p.cat === category));
 
 function searchProducts() {
     const term = document.getElementById('searchInput').value.toLowerCase();
+    const container = document.getElementById('productsContainer'); // Ստուգիր այս ID-ն
     
     // 1. Զտում ենք ապրանքները
     const filteredProducts = products.filter(p => 
@@ -440,26 +441,25 @@ function searchProducts() {
         p.cat.toLowerCase().includes(term)
     );
 
-    // 2. Գտնում ենք այն DIV-ը, որտեղ հայտնվում են ապրանքները
-    // Քո կոդում դա հավանաբար productsContainer-ն է կամ նման մի բան
-    const container = document.getElementById('productsContainer'); 
+    // 2. Մաքրում ենք կոնտեյները նախքան նոր բան գրելը
+    container.innerHTML = '';
 
     // 3. Ստուգում ենք արդյունքը
     if (filteredProducts.length === 0) {
-        // Եթե ոչ մի բան չի գտնվել, ցույց ենք տալիս հաղորդագրությունը
         container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-color);">
-                <span style="font-size: 40px;">🔍</span>
-                <h3 style="margin-top: 20px;">Արդյունք չի գտնվել</h3>
-                <p style="opacity: 0.7;">Փորձեք այլ բառ կամ ստուգեք տառասխալները:</p>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; width: 100%;">
+                <div style="font-size: 40px; margin-bottom: 15px;">🔍</div>
+                <h3 style="color: var(--text-color); margin-bottom: 10px;">Արդյունք չի գտնվել</h3>
+                <p style="color: var(--text-color); opacity: 0.6; font-size: 14px;">
+                    "${term}" բառով ոչինչ չկա: Փորձեք այլ բան:
+                </p>
             </div>
         `;
     } else {
-        // Եթե գտնվել է, նկարում ենք ֆիլտրված ապրանքները
+        // Եթե գտնվել է, նկարում ենք
         renderProducts(filteredProducts);
     }
 }
-
 function openImage(src) {
 document.getElementById('overlayImg').src = src;
 document.getElementById('overlay').style.display = 'flex';
