@@ -493,11 +493,8 @@ resetFilters();
         wishlistBtn.classList.add('active');
     }
 const filtered = products.filter(p => wishlist.includes(p.id));
-    if (filtered.length === 0) {
-        container.innerHTML = '<p class="empty-msg">Ձեր նախընտրածների ցանկը դատարկ է</p>';
-    } else {
 renderProducts(filtered, true);
-} }
+}
 function filterCategory(category) {
 resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
