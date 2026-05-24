@@ -440,10 +440,25 @@ navigator.clipboard.writeText("Բարև ձեզ, ցանկանում եմ պատվ
 alert("Պատվերի կոդը պատճենվեց:");
 }
 
-renderProducts(products);
-</script>
 
+
+ renderProducts(products);
+
+    // Ավելացրու այս հատվածը այստեղ
+    const themeBtn = document.querySelector('.theme-toggle');
+    if (themeBtn) {
+        const removeFocus = function() {
+            setTimeout(() => {
+                themeBtn.blur();
+            }, 100);
+        };
+
+        themeBtn.addEventListener('click', removeFocus);
+        themeBtn.addEventListener('touchend', removeFocus);
+    }
+</script>
 </body>
 </html>
+    
 
 
