@@ -153,6 +153,7 @@ transform: scale(1.1) rotate(5deg);
     transform: scale(0.95);
     transition: 0.1s;
 }
+/* --- Wishlist Count Button (Գլխավոր կոճակը) --- */
 .wishlist-count-btn { 
     background: var(--card-bg); 
     color: var(--text-color); 
@@ -164,35 +165,17 @@ transform: scale(1.1) rotate(5deg);
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.3s ease; /* Սահուն անցման համար */
+    transition: all 0.3s ease;
 }
 
-/* Սրտիկի նախնական գույնը թող լինի նույնը, ինչ տեքստինը */
+/* Սրտիկի էմոջին թողնում ենք անփոփոխ, որ միշտ կարմիր լինի */
 .wishlist-count-btn span.heart { 
-    color: inherit; 
-    transition: color 0.3s ease;
+    font-size: 18px;
+    /* color: inherit;  <-- Այս տողը հանեցինք, որ էմոջիի կարմիրը չկորչի */
+    transition: transform 0.3s ease;
 }
 
-/* ՄԻԱՅՆ ՀԱՄԱԿԱՐԳԻՉՆԵՐԻ ՀԱՄԱՐ (Hover էֆեկտ) */
-@media (hover: hover) {
-    .wishlist-count-btn:hover {
-        border-color: var(--brand-color);
-        color: #ff4757;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.1);
-    }
-
-    /* Hover-ի ժամանակ նոր սրտիկը կդառնա կարմիր */
-    .wishlist-count-btn:hover span.heart {
-        color: #ff4757;
-    }
-
-    .back-btn:hover { 
-        transform: scale(1.05); 
-        background: #7a626b; 
-    }
-}
-
+/* --- Back Button (Հետ կոճակը) --- */
 .back-btn {
     padding: 15px 30px;
     background: var(--brand-color);
@@ -207,8 +190,24 @@ transform: scale(1.1) rotate(5deg);
     transition: all 0.3s ease;
 }
 
-/* ՀԵՌԱԽՈՍԻ ՀԱՄԱՐ (Active վիճակ, երբ մատով սեղմում ես) */
-.back-btn:active, .wishlist-count-btn:active {
+/* --- ՄԻԱՅՆ ՀԱՄԱԿԱՐԳԻՉՆԵՐԻ ՀԱՄԱՐ (Hover) --- */
+@media (hover: hover) {
+    .wishlist-count-btn:hover {
+        border-color: var(--brand-color);
+        /* color: #ff4757; <-- Հանեցինք սա, որ թիվը չկարմրի, միայն եզրագիծը փոխվի */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn:hover { 
+        transform: scale(1.05); 
+        background: #7a626b; 
+    }
+}
+
+/* --- ՀԵՌԱԽՈՍՆԵՐԻ ԵՎ ՍԵՂՄԱՆ ՀԱՄԱՐ (Active) --- */
+.back-btn:active, 
+.wishlist-count-btn:active {
     transform: scale(0.95);
     opacity: 0.8;
 }
