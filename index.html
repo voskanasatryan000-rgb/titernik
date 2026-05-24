@@ -497,8 +497,7 @@ renderProducts(filtered, true);
 }
 
 function filterCategory(category) {
-const btns = document.querySelectorAll('.filter-btn');
-btns.forEach(btn => btn.classList.remove('active'));
+resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
 if(category === 'all'){ renderProducts(products);}
 else {renderProducts(products.filter(p => p.cat === category));}
