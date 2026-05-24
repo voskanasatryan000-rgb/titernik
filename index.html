@@ -487,13 +487,23 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
-resetFilters();
+    resetFilters();
+    
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
     if (wishlistBtn) {
         wishlistBtn.classList.add('active');
     }
-const filtered = products.filter(p => wishlist.includes(p.id));
-renderProducts(filtered, true);
+
+    const filtered = products.filter(p => wishlist.includes(p.id));
+    
+    // Ավելացնում ենք ստուգումը
+    const container = document.getElementById('products-container'); // Համոզվիր, որ սա քո ցուցադրման տեղի ID-ն է
+    
+    if (filtered.length === 0) {
+        container.innerHTML = '<p class="empty-msg">Ձեր նախընտրածների ցանկը դատարկ է</p>';
+    } else {
+        renderProducts(filtered, true);
+    }
 }
 
 function filterCategory(category) {
