@@ -432,50 +432,43 @@ else renderProducts(products.filter(p => p.cat === category));
 }
 
 function searchProducts() {
-    try {
-        const searchInput = document.getElementById('searchInput');
-        const container = document.getElementById('productsContainer');
-        
-        if (!searchInput || !container) {
-            console.error("Input-ը կամ Container-ը չի գտնվել:");
-            return;
-        }
+    const searchInput = document.getElementById('searchInput');
+    const catalog = document.getElementById('catalog'); // Քո կոդում ID-ն սա է
+    
+    if (!searchInput || !catalog) return;
 
-        const term = searchInput.value.trim().toLowerCase();
-        console.log("Որոնվող բառը:", term); // Սա կերևա Console-ում
+    const term = searchInput.value.trim().toLowerCase();
 
-        // Եթե դատարկ է, վերադարձնում ենք բոլորը
-        if (term === "") {
-            renderProducts(products);
-            return;
-        }
+    // 1. Եթե դատարկ է, ցուցադրում ենք բոլորը
+    if (term === "") {
+        renderProducts(products);
+        return;
+    }
 
-        // Զտում ենք ապրանքները
-        const filteredProducts = products.filter(p => {
-            const idMatch = p.id && String(p.id).toLowerCase().includes(term);
-            const catMatch = p.cat && String(p.cat).toLowerCase().includes(term);
-            return idMatch || catMatch;
-        });
+    // 2. Զտում ենք ապրանքները
+    const filteredProducts = products.filter(p => {
+        const idStr = p.id ? String(p.id).toLowerCase() : "";
+        const catStr = p.cat ? String(p.cat).toLowerCase() : "";
+        return idStr.includes(term) || catStr.includes(term);
+    });
 
-        console.log("Գտնված ապրանքներ:", filteredProducts.length);
-
-        if (filteredProducts.length === 0) {
-            container.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 100px 20px; width: 100%;">
-                    <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
-                    <h3 style="color: var(--text-color); font-family: Playfair Display, serif;">Արդյունք չի գտնվել</h3>
-                    <p style="color: var(--text-color); opacity: 0.6;">"${term}"-ին համապատասխան ոչինչ չկա:</p>
-                    <button onclick="document.getElementById('searchInput').value=''; renderProducts(products);" 
-                            style="margin-top: 20px; padding: 10px 20px; border: 1px solid var(--border-color); background: none; color: var(--text-color); border-radius: 30px; cursor: pointer;">
-                        Տեսնել ամբողջը
-                    </button>
-                </div>
-            `;
-        } else {
-            renderProducts(filteredProducts);
-        }
-    } catch (error) {
-        console.error("Որոնման սխալ:", error);
+    // 3. Ստուգում ենք արդյունքը
+    if (filteredProducts.length === 0) {
+        // Մաքրում ենք կատալոգը և գրում տեքստը
+        catalog.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 100px 20px; width: 100%;">
+                <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
+                <h3 style="color: var(--text-color); font-family: 'Playfair Display', serif;">Արդյունք չի գտնվել</h3>
+                <p style="color: var(--text-color); opacity: 0.6;">"${term}"-ին համապատասխան ոչինչ չկա:</p>
+                <button onclick="document.getElementById('searchInput').value=''; renderProducts(products);" 
+                        style="margin-top: 25px; padding: 10px 25px; border: 1px solid var(--border-color); background: var(--brand-color); color: white; border-radius: 30px; cursor: pointer;">
+                    Տեսնել ամբողջը
+                </button>
+            </div>
+        `;
+    } else {
+        // 4. Կանչում ենք քո ֆունկցիան՝ փոխանցելով միայն զտվածները
+        renderProducts(filteredProducts);
     }
 }
 function openImage(src) {
