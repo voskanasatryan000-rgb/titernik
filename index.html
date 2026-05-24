@@ -434,27 +434,28 @@ else renderProducts(products.filter(p => p.cat === category));
 function searchProducts() {
     const term = document.getElementById('searchInput').value.toLowerCase();
     
-    // Զտում ենք ապրանքները
+    // 1. Զտում ենք ապրանքները
     const filteredProducts = products.filter(p => 
         p.id.toLowerCase().includes(term) || 
         p.cat.toLowerCase().includes(term)
     );
 
-    // Գտնում ենք այն DIV-ը, որտեղ հայտնվում են ապրանքները
-    // Ստուգիր քո HTML-ում՝ արդյոք ID-ն սա է, թե օրինակ 'catalog-container'
-    const container = document.getElementById('products-grid') || document.querySelector('.products-grid');
+    // 2. Գտնում ենք այն DIV-ը, որտեղ հայտնվում են ապրանքները
+    // Քո կոդում դա հավանաբար productsContainer-ն է կամ նման մի բան
+    const container = document.getElementById('productsContainer'); 
 
+    // 3. Ստուգում ենք արդյունքը
     if (filteredProducts.length === 0) {
-        // Եթե ոչ մի բան չի գտնվել, փոխում ենք container-ի ներսի տեքստը
+        // Եթե ոչ մի բան չի գտնվել, ցույց ենք տալիս հաղորդագրությունը
         container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-color);">
-                <span style="font-size: 50px;">🔍</span>
-                <h3 style="margin-top: 15px;">Նման ապրանք չի գտնվել</h3>
-                <p style="opacity: 0.6;">Ստուգեք տառասխալները կամ փնտրեք այլ բառով:</p>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-color);">
+                <span style="font-size: 40px;">🔍</span>
+                <h3 style="margin-top: 20px;">Արդյունք չի գտնվել</h3>
+                <p style="opacity: 0.7;">Փորձեք այլ բառ կամ ստուգեք տառասխալները:</p>
             </div>
         `;
     } else {
-        // Եթե գտնվել է, կանչում ենք քո ստանդարտ ֆունկցիան
+        // Եթե գտնվել է, նկարում ենք ֆիլտրված ապրանքները
         renderProducts(filteredProducts);
     }
 }
