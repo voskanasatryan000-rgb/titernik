@@ -202,6 +202,23 @@ transform: scale(1.1) rotate(5deg);
     vertical-align: middle !important;
 }
 
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    z-index: 15;
+}
+
 /* --- Back Button --- */
 .back-btn {
     padding: 15px 30px !important;
@@ -287,6 +304,10 @@ border-radius: 6px;
 .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:2000; }
 .overlay img { max-width: 90%; max-height: 90%; border-radius: 10px; }
 
+#recent-viewed-section { margin-top: 60px; padding: 20px 5%; border-top: 1px solid var(--border-color); }
+#recentGrid { display: flex; gap: 15px; overflow-x: auto; padding: 10px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+#recentGrid .card { min-width: 220px; max-width: 220px; scroll-snap-align: start; }
+
 @media (max-width: 600px) {
 .logo-text { font-size: 32px; letter-spacing: 6px; }
 .logo-text::after { font-size: 20px; }
@@ -324,6 +345,11 @@ border-radius: 6px;
 </header>
 
 <div class="container" id="catalog"></div>
+
+<section id="recent-viewed-section" style="display: none;">
+    <h2 class="category-title" style="padding-left: 5%;">Վերջերս դիտված</h2>
+    <div id="recentGrid" style="padding: 0 5% 20px 5%;"></div>
+</section>
 
 <div class="overlay" id="overlay" onclick="this.style.display='none'">
 <img id="overlayImg" src="" alt="Preview">
@@ -465,7 +491,46 @@ if(isWishlist) {
         `;
     });
 }
+function addToRecentlyViewed(id) {
+    let recent = JSON.parse(localStorage.getItem('titernik_recent')) || [];
+    recent = recent.filter(item => item !== id);
+    recent.unshift(id);
+    recent = recent.slice(0, 10);
+    localStorage.setItem('titernik_recent', JSON.stringify(recent));
+    renderRecentViewed();
+}
 
+function renderRecentViewed() {
+    const ids = JSON.parse(localStorage.getItem('titernik_recent')) || [];
+    const section = document.getElementById('recent-viewed-section');
+    const container = document.getElementById('recentGrid');
+    
+    if (ids.length > 0) {
+        section.style.display = 'block';
+        container.innerHTML = ids.map(id => {
+            const p = products.find(prod => prod.id === id);
+            return p ? `
+                <div class="card" style="position: relative;">
+                    <div class="remove-btn" onclick="removeFromRecent('${p.id}')">×</div>
+                    <div class="img-container" onclick="openImage('${p.img}')">
+                        <img src="${p.img}" class="loaded" alt="${p.cat}">
+                    </div>
+                    <div class="price">${p.price} ֏</div>
+                    <span class="id-tag">ID: ${p.id}</span>
+                </div>` : '';
+        }).join('');
+    } else {
+        section.style.display = 'none';
+    }
+}
+
+// Նոր ֆունկցիա ջնջելու համար
+function removeFromRecent(id) {
+    let recent = JSON.parse(localStorage.getItem('titernik_recent')) || [];
+    recent = recent.filter(item => item !== id);
+    localStorage.setItem('titernik_recent', JSON.stringify(recent));
+    renderRecentViewed();
+}
 function toggleWishlist(event,id) {
 if(wishlist.includes(id)) {
 wishlist = wishlist.filter(item => item !== id);
@@ -598,6 +663,7 @@ alert("Պատվերի կոդը պատճենվեց:");
 
 
 renderProducts(products);
+renderRecentViewed();
 document.querySelector('.all-btn').classList.add('active');
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
