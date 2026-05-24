@@ -432,41 +432,41 @@ else renderProducts(products.filter(p => p.cat === category));
 }
 
 function searchProducts() {
-    const term = document.getElementById('searchInput').value.toLowerCase();
+    const input = document.getElementById('searchInput');
+    const term = input.value.trim().toLowerCase();
     const container = document.getElementById('productsContainer');
     
-    // 1. Զտում ենք ապրանքները ըստ ID-ի կամ Կատեգորիայի
-    const filteredProducts = products.filter(p => 
-        p.id.toLowerCase().includes(term) || 
-        p.cat.toLowerCase().includes(term)
-    );
-
-    // 2. Եթե որոնման դաշտը դատարկ է, պարզապես ցույց ենք տալիս բոլորը կամ դուրս գալիս
-    if (term.trim() === "") {
+    // 1. Եթե դատարկ է, ցույց ենք տալիս բոլոր ապրանքները և դուրս գալիս
+    if (term === "") {
         renderProducts(products);
         return;
     }
 
-    // 3. Ստուգում ենք արդյունքը
+    // 2. Զտում ենք ճիշտ ձևով (ստուգում ենք ID-ն և Կատեգորիան)
+    const filteredProducts = products.filter(p => {
+        const productId = String(p.id).toLowerCase();
+        const productCat = String(p.cat).toLowerCase();
+        return productId.includes(term) || productCat.includes(term);
+    });
+
+    // 3. Մաքրում ենք էկրանը նոր արդյունքից առաջ
+    container.innerHTML = "";
+
+    // 4. Ստուգում ենք արդյունքի քանակը
     if (filteredProducts.length === 0) {
-        // Մաքրում ենք կոնտեյները և տեղադրում հաղորդագրությունը
         container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; width: 100%;">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; width: 100%;">
                 <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
-                <h3 style="color: var(--text-color); font-family: sans-serif; margin-bottom: 10px;">
-                    Արդյունք չի գտնվել
-                </h3>
-                <p style="color: var(--text-color); opacity: 0.6; font-size: 15px;">
-                    "${term}" բառով ոչինչ չկա: Փորձեք այլ բառ կամ ID:
-                </p>
+                <h3 style="color: var(--text-color); margin-bottom: 10px;">Արդյունք չի գտնվել</h3>
+                <p style="color: var(--text-color); opacity: 0.6;">"${term}" բառով կամ ID-ով ոչինչ չկա:</p>
                 <button onclick="document.getElementById('searchInput').value=''; searchProducts();" 
-                        style="margin-top: 20px; padding: 10px 20px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 20px; cursor: pointer;">
-                    Մաքրել որոնումը
+                        style="margin-top: 20px; padding: 10px 25px; border: 1px solid var(--border-color); background: var(--brand-color); color: white; border-radius: 25px; cursor: pointer;">
+                    Տեսնել ամբողջը
                 </button>
             </div>
         `;
     } else {
-        // Եթե կան համապատասխան ապրանքներ, նկարում ենք դրանք
+        // 5. Եթե գտել է, նկարում ենք ՄԻԱՅՆ գտնվածները
         renderProducts(filteredProducts);
     }
 }
