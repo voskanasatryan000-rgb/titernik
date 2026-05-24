@@ -487,25 +487,27 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
+    console.log("Wishlist ֆունկցիան աշխատեց"); // Սա կերևա Console-ում
     resetFilters();
     
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
-    if (wishlistBtn) {
-        wishlistBtn.classList.add('active');
-    }
+    if (wishlistBtn) wishlistBtn.classList.add('active');
 
     const filtered = products.filter(p => wishlist.includes(p.id));
-    
-    // Ավելացնում ենք ստուգումը
-    const container = document.getElementById('products-container'); // Համոզվիր, որ սա քո ցուցադրման տեղի ID-ն է
-    
+    console.log("Զտված ապրանքներ:", filtered); // Սա կերևա Console-ում
+
+    const container = document.getElementById('products-container');
+    if (!container) {
+        console.error("Չկա container ID products-container");
+        return;
+    }
+
     if (filtered.length === 0) {
-        container.innerHTML = '<p class="empty-msg">Ձեր նախընտրածների ցանկը դատարկ է</p>';
+        container.innerHTML = '<p>Ձեր նախընտրածների ցանկը դատարկ է</p>';
     } else {
         renderProducts(filtered, true);
     }
 }
-
 function filterCategory(category) {
 resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
