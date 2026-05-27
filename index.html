@@ -161,6 +161,34 @@ transform: scale(1.1) rotate(5deg);
     transform: scale(0.95);
     transition: 0.1s;
 }
+    #backToTop {
+    display: none; /* Սկզբից թաքցված է */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: #333; /* Կարող ես դնել քո կայքի հիմնական գույնը */
+    color: white;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%; /* Կլոր սարքելու համար */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+/* Dark mode-ի համար (եթե ունես) */
+[data-theme="dark"] #backToTop {
+    background-color: #fff;
+    color: #000;
+}
 /* --- Wishlist Count Button (Գլխավոր կոճակը վերևում) --- */
 .wishlist-count-btn { 
     background: var(--card-bg) !important; 
@@ -730,6 +758,18 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+window.onscroll = function() {
+    const btn = document.getElementById("backToTop");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
 renderProducts(products);
 renderRecentViewed();
 document.querySelector('.all-btn').classList.add('active');
@@ -746,6 +786,7 @@ document.querySelector('.all-btn').classList.add('active');
         themeBtn.addEventListener('touchend', removeFocus);
     }
 </script>
+<button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
 </html>    
 
