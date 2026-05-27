@@ -703,10 +703,13 @@ function shareProduct(id, category) {
     };
 
     if (navigator.share) {
-        navigator.share(shareData);
+        // Հեռախոսների համար
+        navigator.share(shareData)
+        .catch((error) => console.log('Error sharing', error));
     } else {
-        navigator.clipboard.writeText(shareUrl);
-        alert("Ապրանքի հղումը պատճենվեց:");
+        // Համակարգչի համար (եթե API-ն չկա)
+        navigator.clipboard.writeText(`${shareData.text} ${shareUrl}`);
+        alert("Հղումը պատճենվեց:");
     }
 }
 // Սա աշխատում է, երբ էջը թարմացվում է
