@@ -63,25 +63,38 @@ text-transform: uppercase;
 cursor: pointer;
 user-select: none;
 line-height: 1;
-display: flex;
+display: inline-block;
 align-items: center;
 transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .logo-text:hover { transform: scale(1.08); }
-/* Թիթեռնիկի էֆեկտը (ըստ ցանկության) */
-.logo-text::after {
-content: '🦋';
-font-size: 35px;
-margin-left: 10px;
-opacity: 0.8;
+.main-brand-group {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 15px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hover-ը հիմա աշխատում է երկուսի վրա միաժամանակ */
+.main-brand-group:hover {
+    transform: scale(1.08);
+}
+
+.brand-butterfly-img {
+    height: 45px !important; /* Բարձրությունը հավասարեցված է տեքստին */
+    width: auto !important;
+    display: block;
+    transform: translateY(2px); /* Մի փոքր իջեցնում ենք կատարյալ կենտրոնի համար */
 }
 
 /* Ինստագրամի կլորացված լոգոն */
 .instagram-brand-img {
-width: 45px;
-height: 45px;
+width: 50px;
+height: 50px;
 border-radius: 50%;
 object-fit: cover;
+display: block;
 border: 1.5px solid var(--brand-color);
 padding: 2px;
 transition: 0.3s;
@@ -449,11 +462,15 @@ border-radius: 6px;
 #recentGrid .card { min-width: 220px; max-width: 220px; scroll-snap-align: start; }
 
 @media (max-width: 600px) {
-.logo-text { font-size: 32px; letter-spacing: 6px; }
-.logo-text::after { font-size: 20px; }
-.grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-.img-container { height: 180px; }
-.instagram-brand-img { width: 38px; height: 38px; }
+    .logo-text { 
+        font-size: 32px !important; 
+        letter-spacing: 6px !important; }
+    .main-brand-group {gap: 8px !important; }
+    .brand-butterfly-img {height: 30px !important; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .img-container { height: 180px; }
+    .instagram-brand-img { width: 38px; height: 38px; }
+}
 }
 </style>
 </head>
@@ -461,11 +478,14 @@ border-radius: 6px;
 
 <header>
 <div class="logo-container">
-<div class="logo-text" onclick="location.reload()">Titernik</div>
-
-<a href="https://instagram.com/titernik_accessories" target="_blank" class="instagram-brand-link">
-<img src="https://i.ibb.co/0yCKxRJc/525866179-18138447826422674-3535024923479947642-n.jpg" alt="Instagram" class="instagram-brand-img">
-</a>
+        <div class="main-brand-group" onclick="location.reload()">
+            <span class="logo-text">Titernik</span>
+            <img src="https://i.ibb.co/zHbTnW3r/IMAGE-2026-05-28-01-53-17.jpg" alt="Butterfly" class="brand-butterfly-img">
+        </div>
+    
+        <a href="https://instagram.com/titernik_accessories" target="_blank" class="instagram-brand-link">
+            <img src="https://i.ibb.co/0yCKxRJc/525866179-18138447826422674-3535024923479947642-n.jpg" alt="Instagram" class="instagram-brand-img">
+        </a>
 </div>
 
 <div class="nav-controls">
