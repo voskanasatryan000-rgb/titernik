@@ -218,7 +218,37 @@ transform: scale(1.1) rotate(5deg);
     font-size: 12px;
     z-index: 15;
 }
+.share-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Wish-icon-ի կողքին */
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: 0.3s; transform 0.2s ease;
+}
 
+.share-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+.wish-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+/* Dark Mode-ի համար */
+[data-theme="dark"] .share-icon {
+    background: rgba(255, 255, 255, 0.8);
+    color: white;
+}
 /* --- Back Button --- */
 .back-btn {
     padding: 15px 30px !important;
@@ -280,7 +310,7 @@ transform: scale(1.1) rotate(5deg);
 .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0; }
 .img-container img.loaded { opacity: 1; }
 
-.wish-icon { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.9); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: #ccc; z-index: 10; }
+.wish-icon { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.9); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: #ccc; z-index: 10; transition: transform 0.2s ease;}
 .wish-icon.active { color: #ff4757; }
 
 .price { font-size: 19px; color: var(--brand-color); font-weight: bold; margin: 12px 0 5px; }
@@ -481,6 +511,7 @@ if(isWishlist) {
         container.innerHTML += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
@@ -661,14 +692,38 @@ function openImage(src) {
         addToRecentlyViewed(product.id);
     }
 }
+function shareProduct(id, category) {
+    // Սարքում ենք հատուկ լինկ հենց այդ ապրանքի համար
+    const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
+    
+    const shareData = {
+        title: 'Titernik Accessories',
+        text: `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}`,
+        url: shareUrl
+    };
 
-function copyToClipboard(id) {
-navigator.clipboard.writeText("Բարև ձեզ, ցանկանում եմ պատվիրել այս ապրանքը: Կոդ: " + id);
-alert("Պատվերի կոդը պատճենվեց:");
+    if (navigator.share) {
+        navigator.share(shareData);
+    } else {
+        navigator.clipboard.writeText(shareUrl);
+        alert("Ապրանքի հղումը պատճենվեց:");
+    }
 }
+// Սա աշխատում է, երբ էջը թարմացվում է
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-
-
+    if (productId) {
+        // 1. Գրում ենք ID-ն search-ի դաշտում
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = productId;
+            // 2. Կանչում ենք քո search ֆունկցիան
+            searchProducts(); 
+        }
+    }
+});
 renderProducts(products);
 renderRecentViewed();
 document.querySelector('.all-btn').classList.add('active');
@@ -686,7 +741,8 @@ document.querySelector('.all-btn').classList.add('active');
     }
 </script>
 </body>
-</html>
+</html>    
+
     
 
 
