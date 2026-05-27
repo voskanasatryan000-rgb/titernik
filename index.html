@@ -694,7 +694,7 @@ function openImage(src) {
 }
 function shareProduct(id, category) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const fullMessage = `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}\n\n${shareUrl}`;
+    const fullMessage = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
 
     if (navigator.share) {
         // Ուղարկում ենք ՄԻԱՅՆ text դաշտը, որտեղ ամեն ինչ արդեն կպած է
