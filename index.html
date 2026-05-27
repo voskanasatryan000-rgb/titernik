@@ -425,7 +425,7 @@ border-radius: 6px;
 <button class="wishlist-count-btn" onclick="showWishlist()">
     <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
     <span id="wishCount">0</span>
-</button></button><button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</button><button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </div>
 </header>
 
@@ -437,7 +437,7 @@ border-radius: 6px;
 </section>
 
 <div class="overlay" id="overlay" onclick="this.style.display='none'">
-    <span id="wishCount">0</span>
+    <span class="close-overlay">&times;</span>
 <img id="overlayImg" src="" alt="Preview">
 </div>
 
@@ -679,7 +679,7 @@ resetFilters();
 const filtered = products.filter(p => wishlist.includes(p.id));
 renderProducts(filtered, true);
 }
-function filterCategory(category) {
+function filterCategory(event, category) {
 resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
 if(category === 'all'){ renderProducts(products);}
