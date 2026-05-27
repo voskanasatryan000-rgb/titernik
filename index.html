@@ -694,18 +694,26 @@ function openImage(src) {
 }
 function shareProduct(id, category) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const fullText = `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}`;
+    const fullMessage = `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}\n\n${shareUrl}`;
 
     if (navigator.share) {
+        // Ուղարկում ենք ՄԻԱՅՆ text դաշտը, որտեղ ամեն ինչ արդեն կպած է
         navigator.share({
-            // Միացնում ենք տեքստն ու լինկը text դաշտում
-            text: fullText + "\n" + shareUrl 
+            text: fullMessage
         })
-        .catch(err => console.log('Error sharing:', err));
+        .catch(err => {
+            // Եթե սխալ տա, ուղղակի պատճենում ենք
+            copyFallback(fullMessage);
+        });
     } else {
-        navigator.clipboard.writeText(fullText + " " + shareUrl);
-        alert("Հղումը պատճենվեց:");
+        copyFallback(fullMessage);
     }
+}
+
+// Օգնող ֆունկցիա պատճենելու համար
+function copyFallback(text) {
+    navigator.clipboard.writeText(text);
+    alert("Հղումը և կոդը պատճենվեց, կարող եք ուղարկել:");
 }
 // Սա աշխատում է, երբ էջը թարմացվում է
 window.addEventListener('DOMContentLoaded', () => {
