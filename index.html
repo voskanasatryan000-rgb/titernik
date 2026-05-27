@@ -116,6 +116,33 @@ transform: scale(1.1) rotate(5deg);
     color: var(--brand-color);
     transform: translateY(-2px);
 }
+    .close-overlay {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 45px;
+    font-weight: 150;
+    cursor: pointer;
+    z-index: 1001; /* Որ լինի նկարից էլ վերև */
+    transition: 0.3s ease;
+    line-height: 0.8;
+}
+
+.close-overlay:hover {
+    color: #ffffff;
+    transform: scale(1.2);
+}
+
+/* Հեռախոսների համար մի քիչ ավելի ներքև դնենք, որ մատով հարմար լինի */
+@media only screen and (max-width: 700px){
+    .close-overlay {
+        top: 15px;
+        right: 25px;
+        font-size: 45px;
+    }
+}
+
     .theme-toggle {
     /* Պատճենում ենք wishlist-ի հիմնական ոճերը */
     background: var(--card-bg);
@@ -410,6 +437,7 @@ border-radius: 6px;
 </section>
 
 <div class="overlay" id="overlay" onclick="this.style.display='none'">
+    <span id="wishCount">0</span>
 <img id="overlayImg" src="" alt="Preview">
 </div>
 
