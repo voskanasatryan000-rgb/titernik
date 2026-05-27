@@ -91,60 +91,58 @@ transition: 0.3s;
 transform: scale(1.1) rotate(5deg);
 }
 @media (max-width: 600px) {
+    /* 1. Սեղմում ենք Header-ը */
     header {
-        padding: 10px 10px; /* Էլ ավելի քչացրինք տարածքը */
+        padding: 8px 5px !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
     }
 
     .logo-container {
-        margin-bottom: 8px;
-        gap: 8px;
+        margin-bottom: 5px !important;
+        gap: 5px !important;
     }
 
     .logo-text {
-        font-size: 22px;
-        letter-spacing: 3px;
+        font-size: 20px !important;
+        letter-spacing: 2px !important;
     }
 
-    .instagram-brand-img {
-        width: 30px;
-        height: 30px;
-    }
-
-    /* ԿԱՐԵՎՈՐ. Այս մասը սարքում է սահող տողը */
+    /* 2. ՍԱՐՔՈՒՄ ԵՆՔ ՍԱՀՈՂ ԳԻԾԸ */
     .nav-controls {
-        display: flex;
-        flex-wrap: nowrap; /* Չթողնել, որ կոճակները տողադարձվեն */
-        overflow-x: auto;  /* Միացնել կողք սահելը */
-        gap: 8px;
-        padding: 5px 10px;
-        width: 100%;
-        -webkit-overflow-scrolling: touch; /* iPhone-ների համար սահունություն */
-        justify-content: flex-start;
+        display: flex !important;
+        flex-wrap: nowrap !important; /* Արգելում ենք իրար տակ ընկնելը */
+        overflow-x: auto !important;  /* Միացնում ենք կողք սահելը */
+        justify-content: flex-start !important;
+        gap: 8px !important;
+        padding: 5px 10px !important;
+        width: 100% !important;
+        /* Թաքցնում ենք scroll-ի գիծը բրաուզերների համար */
+        scrollbar-width: none; 
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
     }
 
-    /* Թաքցնում ենք տգեղ scroll-ի գիծը */
     .nav-controls::-webkit-scrollbar {
-        display: none;
+        display: none !important; /* Թաքցնում ենք scroll-ը Chrome/Safari-ում */
     }
 
-    /* Կոճակների չափսերը */
+    /* 3. Կոճակների տեսքը */
     .filter-btn {
-        flex: 0 0 auto; /* Կոճակը չի փոքրանում, պահում է իր տեքստի չափը */
-        padding: 6px 12px;
-        font-size: 10px;
-        white-space: nowrap; /* Տեքստը չի կիսվում */
+        flex: 0 0 auto !important; /* Թույլ չի տալիս կոճակին փոքրանալ */
+        white-space: nowrap !important; /* Տեքստը պահում է մեկ տողով */
+        padding: 6px 12px !important;
+        font-size: 10px !important;
     }
 
     .search-bar {
-        flex: 0 0 auto;
-        width: 130px;
-        padding: 6px 10px;
-        font-size: 10px;
+        flex: 0 0 auto !important;
+        width: 120px !important;
     }
 
     .wishlist-count-btn, .theme-toggle {
-        flex: 0 0 auto;
-        padding: 6px 10px;
+        flex: 0 0 auto !important;
     }
 }
    
