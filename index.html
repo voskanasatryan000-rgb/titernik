@@ -693,22 +693,17 @@ function openImage(src) {
     }
 }
 function shareProduct(id, category) {
-    // Սարքում ենք հատուկ լինկ հենց այդ ապրանքի համար
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    
-    const shareData = {
-        title: 'Titernik Accessories',
-        text: `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}`,
-        url: shareUrl
-    };
+    const fullText = `Նայիր այս սիրուն ${category}-ն: Կոդ: ${id}`;
 
     if (navigator.share) {
-        // Հեռախոսների համար
-        navigator.share(shareData)
-        .catch((error) => console.log('Error sharing', error));
+        navigator.share({
+            // Միացնում ենք տեքստն ու լինկը text դաշտում
+            text: fullText + "\n" + shareUrl 
+        })
+        .catch(err => console.log('Error sharing:', err));
     } else {
-        // Համակարգչի համար (եթե API-ն չկա)
-        navigator.clipboard.writeText(`${shareData.text} ${shareUrl}`);
+        navigator.clipboard.writeText(fullText + " " + shareUrl);
         alert("Հղումը պատճենվեց:");
     }
 }
