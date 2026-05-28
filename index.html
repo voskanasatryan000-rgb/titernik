@@ -53,21 +53,15 @@ gap: 20px;
 margin-bottom: 25px;
 }
 
-/* Տեքստային լոգոն՝ ըստ ձեր նկարի ոճի */
-.logo-text {
-font-family: 'Playfair Display', serif;
-font-size: 50px;
-letter-spacing: 12px;
-color: var(--brand-color);
-text-transform: uppercase;
-cursor: pointer;
-user-select: none;
-line-height: 1;
-display: inline-block;
-align-items: center;
-transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.title-logo-img{
+    height: 70px;
+    width: auto;
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.logo-text:hover { transform: scale(1.08); }
+.title-logo-img:hover { transform: scale(1.08); }
 .main-brand-group {
     display: inline-flex !important;
     align-items: center !important;
@@ -118,11 +112,6 @@ transform: scale(1.1) rotate(5deg) !important;
     .logo-container {
         margin-bottom: 5px !important;
         gap: 5px !important;
-    }
-
-    .logo-text {
-        font-size: 20px !important;
-        letter-spacing: 2px !important;
     }
 
     /* 2. ՍԱՐՔՈՒՄ ԵՆՔ ՍԱՀՈՂ ԳԻԾԸ */
@@ -495,9 +484,8 @@ border-radius: 6px;
 #recentGrid .card { min-width: 220px; max-width: 220px; scroll-snap-align: start; }
 
 @media (max-width: 600px) {
-    .logo-text { 
-        font-size: 32px !important; 
-        letter-spacing: 6px !important; 
+    .title-logo-img{
+        height: 40px !important;
     }
     .main-brand-group {
         gap: 8px !important;
@@ -563,7 +551,9 @@ border-radius: 6px;
 <header>
 <div class="logo-container">
     <div class="main-brand-group" onclick="location.reload()">
-        <span class="logo-text">Titernik</span>
+       <img src="instagramtiternik.png" 
+             alt="Titernik Logo"
+             class="title-logo-img">
         <img src="titernik.png" 
             alt="Butterfly" 
             class="brand-butterfly-img">
