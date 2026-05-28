@@ -285,35 +285,24 @@ transform: scale(1.1) rotate(5deg) !important;
     background-color: #fff;
     color: #000;
 }
-/* --- Wishlist Count Button (Գլխավոր կոճակը վերևում) --- */
-.wishlist-count-btn { 
-    background: var(--card-bg) !important; 
-    color: var(--text-color) !important; 
-    border: 1px solid var(--border-color) !important; 
-    border-radius: 25px !important; 
-    padding: 8px 15px !important; 
-    cursor: pointer !important; 
-    font-weight: bold !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    transition: all 0.3s ease !important;
-    text-decoration: none !important;
-}
+    
 /* --- Wishlist Count Button --- */
 .wishlist-count-btn { 
     background: var(--card-bg) !important; 
     color: var(--text-color) !important; 
-    border: 1px solid var(--border-color) !important; 
+    border: 1px solid var(--border-color)!important; 
     border-radius: 25px !important; 
-    padding: 8px 18px !important; /* Մի փոքր փոքրացրի, որ ավելի սիրուն լինի */
+    padding: 6px 8px !important; 
     cursor: pointer !important; 
     font-weight: bold !important;
-    display: inline-flex !important; /* Որ կոճակը չփռվի ամբողջ էջով */
+    display: inline-flex !important; 
     align-items: center !important;
-    gap: 6px !important;
+    gap: 0px !important;
     transition: all 0.3s ease !important;
     text-decoration: none !important;
+    width: fit-content !important;
+    min-width: unset !important;
+    justify-content: center !important;
 }
 
 /* Սրտիկի էմոջիի պաշտպանություն */
@@ -321,6 +310,8 @@ transform: scale(1.1) rotate(5deg) !important;
     font-size: 18px !important;
     color: initial !important; 
     display: inline-block !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
     -webkit-text-fill-color: initial !important; /* iPhone-ի համար */
     transition: transform 0.3s ease !important;
     vertical-align: middle !important;
@@ -420,6 +411,17 @@ transform: scale(1.1) rotate(5deg) !important;
     .wishlist-count-btn span.heart {
         color: initial !important;
         -webkit-text-fill-color: initial !important;
+    }
+    {
+    .wishlist-count-btn {
+        /* ՍԱ ԿՎԵՐԱՑՆԻ ՁԱԽ ԿՈՂՄԻ ՕԴԸ */
+        padding: 5px 8px !important; 
+        width: fit-content !important;
+        min-width: unset !important;
+        gap: 4px !important;
+    }
+    .wishlist-count-btn .count {
+        font-size: 14px !important;
     }
 }
 .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
