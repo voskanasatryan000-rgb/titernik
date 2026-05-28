@@ -352,11 +352,23 @@ transform: scale(1.1) rotate(5deg) !important;
 }
 /* 1. Սկզբնական վիճակ (Չսեղմված սրտիկ) */
 .wish-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(245,245,245,0.98); /* ավելի սպիտակ */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     display: flex !important;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    font-size: 18px;
+    border: 1px solid rgba(0,0,0,0.06); /* թեթև border */
+    color: #ccc;
+    z-index: 10;
     transition: transform 0.2s ease, filter 0.2s ease !important;
-     /* Պարտադիր մոխրագույն բոլոր սարքերում */
-    filter: grayscale(1) opacity(0.5) !important;
+    filter: grayscale(1) opacity(0.65) !important;
 }
 .wish-icon:hover {
     background: #fff;
