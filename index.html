@@ -352,7 +352,7 @@ transform: scale(1.1) rotate(5deg) !important;
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    transition: 0.3s; transform 0.2s ease;
+    transition: all 0.3s ease;
     
 }
 
@@ -360,24 +360,18 @@ transform: scale(1.1) rotate(5deg) !important;
     background: #fff;
     transform: scale(1.1);
 }
-.wish-icon:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-/* Dark Mode-ի համար */
-[data-theme="dark"] .share-icon {
-    background: rgba(255, 255, 255, 0.8);
-    color: white;
-}
 /* 1. Սկզբնական վիճակ (Չսեղմված սրտիկ) */
 .wish-icon {
-    display: inline-block !important;
+    display: flex !important;
     cursor: pointer;
     transition: transform 0.2s ease, filter 0.2s ease !important;
      /* Պարտադիր մոխրագույն բոլոր սարքերում */
     filter: grayscale(1) opacity(0.5) !important;
 }
-
+.wish-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
 /* 2. Միայն համակարգչի համար (Hover) */
 @media (hover: hover) {
     .wish-icon:hover {
@@ -385,17 +379,13 @@ transform: scale(1.1) rotate(5deg) !important;
         filter: grayscale(0.2) opacity(0.8) !important; /* Մի քիչ վառվում է մոտեցնելիս */
     }
 }
-
 /* 3. ԱԿՏԻՎ ՎԻՃԱԿ (Երբ սեղմված է՝ թե՛ կոմպով, թե՛ հեռախոսով) */
 .wish-icon.active {
     filter: grayscale(0) opacity(1) !important;
     transform: scale(1.2) !important;
-    
-    /* Ուժեղացված գույնի պահպանում */
     color: #ff4757 !important;
     -webkit-text-fill-color: #ff4757 !important;
 }
-
 /* 4. ՀԱՏՈՒԿ ՀԵՌԱԽՈՍՆԵՐԻ ՀԱՄԱՐ (Mobile Touch Fix) */
 @media (max-width: 768px) {
     /* Երբ հեռախոսով սրտիկը ակտիվ ՉԷ, ստիպում ենք մնալ մոխրագույն */
