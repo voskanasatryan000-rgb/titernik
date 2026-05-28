@@ -337,66 +337,75 @@ transform: scale(1.1) rotate(5deg) !important;
     line-height: 1 !important;
     padding-bottom: 2px !important;
 }
-/* 1. Ընդհանուր ոճ կլոր կոճակների համար (Share & Wish) */
-.share-icon, .wish-icon {
+.share-icon {
     position: absolute;
     top: 20px;
-    width: 35px;
-    height: 35px;
-    background: rgba(255, 255, 255, 0.85) !important; /* Սպիտակ թափանցիկ ֆոն */
+    left: 20px; /* Wish-icon-ի կողքին */
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     z-index: 10;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px); /* Ապակե էֆեկտ նկարի վրա */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Թեթև ստվեր */
-    padding: 0 !important;
+    transition: 0.3s; transform 0.2s ease;
+    
 }
 
-/* 2. Դիրքերը */
-.share-icon {
-    left: 15px; /* Մի քիչ ավելի ներս եզրից */
-    color: #555;
+.share-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
 }
-
+.wish-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+/* Dark Mode-ի համար */
+[data-theme="dark"] .share-icon {
+    background: rgba(255, 255, 255, 0.8);
+    color: white;
+}
+/* 1. Սկզբնական վիճակ (Չսեղմված սրտիկ) */
 .wish-icon {
-    right: 15px;
-    color: #bbb; /* Սկզբնական մոխրագույն սրտիկ */
+    display: inline-block !important;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+    
+}
+    
+    /* Պարտադիր մոխրագույն բոլոր սարքերում */
+    filter: grayscale(1) opacity(0.5) !important;
 }
 
-/* 3. Սրտիկի հատուկ ուղղում (որ լինի կլորի մեջտեղում) */
-.wish-icon {
-    padding-top: 2px !important; 
-}
-
-/* 4. Hover էֆեկտներ (միայն համակարգչով նայողների համար) */
+/* 2. Միայն համակարգչի համար (Hover) */
 @media (hover: hover) {
-    .share-icon:hover, .wish-icon:hover {
-        background: #ffffff !important;
+    .wish-icon:hover {
         transform: scale(1.1);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        filter: grayscale(0.2) opacity(0.8) !important; /* Մի քիչ վառվում է մոտեցնելիս */
     }
 }
 
-/* 5. ԱԿՏԻՎ ՎԻՃԱԿ (Երբ սրտիկը սեղմված է) */
+/* 3. ԱԿՏԻՎ ՎԻՃԱԿ (Երբ սեղմված է՝ թե՛ կոմպով, թե՛ հեռախոսով) */
 .wish-icon.active {
-    background: #ffffff !important;
-    color: #ff4757 !important; /* Կարմիր գույն */
-    transform: scale(1.15);
+    filter: grayscale(0) opacity(1) !important;
+    transform: scale(1.2) !important;
+    
+    /* Ուժեղացված գույնի պահպանում */
+    color: #ff4757 !important;
+    -webkit-text-fill-color: #ff4757 !important;
 }
 
-/* 6. Dark Mode-ի աջակցություն */
-[data-theme="dark"] .share-icon, 
-[data-theme="dark"] .wish-icon {
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #333;
+/* 4. ՀԱՏՈՒԿ ՀԵՌԱԽՈՍՆԵՐԻ ՀԱՄԱՐ (Mobile Touch Fix) */
+@media (max-width: 768px) {
+    /* Երբ հեռախոսով սրտիկը ակտիվ ՉԷ, ստիպում ենք մնալ մոխրագույն */
+    .wish-icon:not(.active) {
+        filter: grayscale(1) opacity(0.5) !important;
+    }
 }
-
 /* --- Back Button --- */
 .back-btn {
     padding: 15px 30px !important;
@@ -933,6 +942,10 @@ document.querySelector('.all-btn').classList.add('active');
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
 </html>    
+
+    
+
+
 
     
 
