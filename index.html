@@ -163,7 +163,7 @@ transform: scale(1.1) rotate(5deg) !important;
     /* 4. ՔԱՐՏԵՐԻ ՑԱՆՑ (GRID) */
     .grid {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important; /* Սա է ստիպում, որ լինի 2 սյունակ */
+        grid-template-columns: 1fr 1fr !important; /* Սա է ստիպում, որ լինի 2 սյունակ */
         gap: 10px !important;
         padding: 10px !important;
         width: 100% !important;
@@ -171,7 +171,8 @@ transform: scale(1.1) rotate(5deg) !important;
 
     .card {
         width: 100% !important;
-        margin: 0 !important; /* Հանում ենք ավելորդ մարժաները */
+        margin: 0 !important; 
+        display: block !important;/* Հանում ենք ավելորդ մարժաները */
     }
 }
    
