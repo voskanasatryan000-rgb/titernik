@@ -160,6 +160,19 @@ transform: scale(1.1) rotate(5deg) !important;
     .wishlist-count-btn, .theme-toggle {
         flex: 0 0 auto !important;
     }
+    /* 4. ՔԱՐՏԵՐԻ ՑԱՆՑ (GRID) */
+    .grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* Սա է ստիպում, որ լինի 2 սյունակ */
+        gap: 10px !important;
+        padding: 10px !important;
+        width: 100% !important;
+    }
+
+    .card {
+        width: 100% !important;
+        margin: 0 !important; /* Հանում ենք ավելորդ մարժաները */
+    }
 }
    
 .nav-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
