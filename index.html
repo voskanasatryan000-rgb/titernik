@@ -505,6 +505,38 @@ border-radius: 6px;
     
 }
 }
+.sort-dropdown {
+    position: relative;
+}
+.sort-menu {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 999;
+    min-width: 180px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.sort-menu div {
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-color);
+    transition: 0.2s;
+}
+.sort-menu div:hover {
+    background: var(--brand-color);
+    color: white;
+}
+.sort-menu.open {
+    display: block;
+}
 </style>
 </head>
 <body>
@@ -647,6 +679,32 @@ if (localStorage.getItem('theme') === 'dark') {
 document.documentElement.setAttribute('data-theme', 'dark');
 document.getElementById('themeBtn').innerText = '☀️';
 }
+function toggleSortMenu(cat) {
+    const menu = document.getElementById(`sortMenu-${cat}`);
+    menu.classList.toggle('open');
+    document.addEventListener('click', function handler(e) {
+        if (!e.target.closest('.sort-dropdown')) {
+            menu.classList.remove('open');
+            document.removeEventListener('click', handler);
+        }
+    });
+}
+
+function sortCategory(cat, order) {
+    const grid = document.getElementById(`grid-${cat}`);
+    if (!grid) return;
+    let items = products.filter(p => p.cat === cat);
+    if (order !== 'default') {
+        items = [...items].sort((a, b) => {
+            const priceA = parseInt(a.price.replace(/,/g, ''));
+            const priceB = parseInt(b.price.replace(/,/g, ''));
+            return order === 'asc' ? priceA - priceB : priceB - priceA;
+        });
+    }
+    grid.innerHTML = '';
+    appendCards(items, grid);
+    document.querySelectorAll('.sort-menu').forEach(m => m.classList.remove('open'));
+}
 
 function renderProducts(data, isWishlist = false) {
 const catalog = document.getElementById('catalog');
@@ -665,14 +723,26 @@ if(isWishlist) {
             if(items.length > 0) {
                 const section = document.createElement('section');
                 // Հեռացված է border-bottom գիծը վերնագրից
-                section.innerHTML = `<h2 class="category-title" style="display:block; border-bottom: none;">${cat}</h2><div class="grid"></div>`;
-                catalog.appendChild(section);
+section.innerHTML = `
+    <div style="display:flex; align-items:center; gap:15px; margin: 40px 0 20px;">
+        <h2 class="category-title" style="margin:0;">${cat}</h2>
+        <div class="sort-dropdown">
+            <button class="filter-btn sort-btn" onclick="toggleSortMenu('${cat}')">⇅ ▾</button>
+            <div class="sort-menu" id="sortMenu-${cat}">
+                <div onclick="sortCategory('${cat}', 'asc')">↑ Էժանից թանկ</div>
+                <div onclick="sortCategory('${cat}', 'desc')">↓ Թանկից էժան</div>
+                <div onclick="sortCategory('${cat}', 'default')">↺ Սկզբնական</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid" id="grid-${cat}"></div>`;                catalog.appendChild(section);
                 appendCards(items, section.querySelector('.grid'));
             }
         });
     }
     updateWishCount();
-}function appendCards(items, container) {
+}
+function appendCards(items, container) {
     items.forEach(p => {
         const isWished = wishlist.includes(p.id) ? 'active' : '';
         // Ավելացնում ենք event-ը toggleWishlist-ի մեջ
