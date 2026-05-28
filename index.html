@@ -167,7 +167,6 @@ transform: scale(1.1) rotate(5deg) !important;
         gap: 10px !important;
         padding: 10px !important;
         width: 100% !important;
-        box-sizing: border-box !important;
     }
 
     .card {
@@ -175,7 +174,11 @@ transform: scale(1.1) rotate(5deg) !important;
         min-width: 0 !important;
         max-width: 100% !important;
         margin: 0 !important; 
+        padding: 8px !important;
         display: block !important;/* Հանում ենք ավելորդ մարժաները */
+        box-sizing: border-box !important;
+        border: 1px solid var(--border-color) !important;
+        background: var(--card-bg) !important;      
     }
 }
    
