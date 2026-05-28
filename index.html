@@ -828,19 +828,58 @@ function removeFromRecent(id) {
 }
 function toggleWishlist(event,id) {
 if(wishlist.includes(id)) {
-wishlist = wishlist.filter(item => item !== id);
-const card = document.getElementById(`card-${id}`);
-if(document.getElementById('wishGrid') && card) {
-card.remove();
-}
+    wishlist = wishlist.filter(item => item !== id);
+    const card = document.getElementById(`card-${id}`);
+    if(document.getElementById('wishGrid') && card) {
+        card.remove();
+        // Եթե wishlist-ը դատարկվեց
+        if (wishlist.length === 0) {
+            const catalog = document.getElementById('catalog');
+            catalog.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:100px 20px;
+                    animation: fadeIn 0.5s ease; ">
+                    <div style="font-size:70px; margin-bottom:20px;">
+                        💔
+                    </div>
+                    <h2 style="
+                        color: var(--brand-color);
+                        margin-bottom:10px;
+                        font-family:'Playfair Display', serif;  ">
+                        Նախընտրածներ չունեք
+                    </h2>
+                    <p style="
+                        opacity:0.7;
+                        margin-bottom:30px;  ">
+                        Ավելացրեք սիրելի ապրանքները այստեղ ✨
+                    </p>
+                    <button
+                        onclick="
+                            renderProducts(products);
+                            resetFilters();
+                            document.querySelector('.all-btn').classList.add('active');
+                        "
+                        class="back-btn"
+                    >
+                        ← Վերադառնալ կատալոգ
+                    </button>
+                </div>
+            `;
+        }
+    }
+
 } else {
-wishlist.push(id);
+    wishlist.push(id);
     animateToWishlist(event);
 }
+
 localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
+
 document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
-icon.classList.toggle('active');
+    icon.classList.toggle('active');
 });
+
 updateWishCount();
 }
 function animateToWishlist(event) {
@@ -879,13 +918,70 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
-resetFilters();
+    resetFilters();
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
     if (wishlistBtn) {
         wishlistBtn.classList.add('active');
     }
-const filtered = products.filter(p => wishlist.includes(p.id));
-renderProducts(filtered, true);
+    const filtered = products.filter(p => wishlist.includes(p.id));
+    // Եթե դատարկ է
+    if (filtered.length === 0) {
+        const catalog = document.getElementById('catalog');
+        catalog.innerHTML = `
+            <div style="
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                text-align:center;
+                padding:120px 20px;
+                animation: fadeIn 0.6s ease;
+            ">
+                <div style="
+                    font-size:75px;
+                    margin-bottom:20px;
+                    animation: floatHeart 2s ease-in-out infinite;
+                ">
+                    💔
+                </div>
+                <h2 style="
+                    color: var(--brand-color);
+                    font-size: 32px;
+                    margin-bottom:12px;
+                    font-family:'Playfair Display', serif;
+                    letter-spacing:1px;
+                ">
+                    Նախընտրածներ չկան
+                </h2>
+
+                <p style="
+                    color: var(--text-color);
+                    opacity:0.65;
+                    font-size:15px;
+                    margin-bottom:35px;
+                    max-width:320px;
+                    line-height:1.7;
+                ">
+                    Ձեր սիրելի աքսեսուարները կհայտնվեն այստեղ ✨
+                </p>
+
+                <button
+                    onclick="
+                        renderProducts(products);
+                        resetFilters();
+                        document.querySelector('.all-btn').classList.add('active');
+                    "
+                    class="back-btn"
+                >
+                    ← Վերադառնալ կատալոգ
+                </button>
+            </div>
+        `;
+
+        return;
+    }
+
+    renderProducts(filtered, true);
 }
 function filterCategory(event, category) {
 resetFilters();
