@@ -162,33 +162,24 @@ transform: scale(1.1) rotate(5deg) !important;
     }
     /* 4. ՔԱՐՏԵՐԻ ՑԱՆՑ (GRID) */
     .grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-    padding: 10px !important;
-    width: 100% !important;
-    align-items: start !important;
-}
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Սա է ստիպում, որ լինի 2 սյունակ */
+        gap: 10px !important;
+        padding: 10px !important;
+        width: 100% !important;
+    }
 
     .card {
-        width: auto !important;
+        width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
         margin: 0 !important; 
         padding: 8px !important;
+        display: block !important;/* Հանում ենք ավելորդ մարժաները */
         box-sizing: border-box !important;
         border: 1px solid var(--border-color) !important;
         background: var(--card-bg) !important;      
     }
-    .img-container {
-        height: 170px !important;
-    }
-
-    .container {
-        overflow-x: hidden;
-        padding: 10px !important;
-    }
-}
 }
    
 .nav-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
@@ -1033,6 +1024,14 @@ document.querySelector('.all-btn').classList.add('active');
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
 </html>    
+
+    
+
+
+
+    
+
+  
 
     
 
