@@ -510,10 +510,7 @@ border-radius: 6px;
 }
 .sort-menu {
     display: none;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    right: auto;
+    position: fixed;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -682,7 +679,14 @@ document.getElementById('themeBtn').innerText = '☀️';
 }
 function toggleSortMenu(cat) {
     const menu = document.getElementById(`sortMenu-${cat}`);
+    const btn = menu.previousElementSibling;
+    const rect = btn.getBoundingClientRect();
+    
+    menu.style.top = (rect.bottom + 8) + 'px';
+    menu.style.left = rect.left + 'px';
+    
     menu.classList.toggle('open');
+    
     document.addEventListener('click', function handler(e) {
         if (!e.target.closest('.sort-dropdown')) {
             menu.classList.remove('open');
