@@ -166,11 +166,14 @@ transform: scale(1.1) rotate(5deg) !important;
         grid-template-columns: 1fr 1fr !important; /* Սա է ստիպում, որ լինի 2 սյունակ */
         gap: 10px !important;
         padding: 10px !important;
-        width: 100% !important;
+        width: 100vw !important;
+        box-sizing: border-box !important;
     }
 
     .card {
         width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
         margin: 0 !important; 
         display: block !important;/* Հանում ենք ավելորդ մարժաները */
     }
