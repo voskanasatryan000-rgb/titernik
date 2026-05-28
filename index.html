@@ -682,7 +682,9 @@ const rawData = [
 ];
 
 const products = rawData.map((p, index) => ({
-...p, id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
+...p,
+    img: p.img + '?fm=webp',
+    id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
 }));
 
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
