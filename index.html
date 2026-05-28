@@ -877,7 +877,7 @@ resetFilters();
 const filtered = products.filter(p => wishlist.includes(p.id));
 renderProducts(filtered, true);
 }
-function filterCategory(event, category) {
+function filterCategory(category) {
 resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
 if(category === 'all'){ renderProducts(products);}
