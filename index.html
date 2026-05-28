@@ -128,11 +128,18 @@ transform: scale(1.1) rotate(5deg) !important;
         -ms-overflow-style: auto;
         -webkit-overflow-scrolling: touch;
     }
-
     .nav-controls::-webkit-scrollbar {
-        display: none !important; /* Թաքցնում ենք scroll-ը Chrome/Safari-ում */
-    }
-
+    height: 5px;                   /* Բարձրությունը */
+    background: var(--border-color);
+    border-radius: 10px;
+}
+.nav-controls::-webkit-scrollbar-thumb {
+    background: var(--brand-color);
+    border-radius: 10px;
+}
+.nav-controls::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
     /* 3. Կոճակների տեսքը */
     .filter-btn {
         flex: 0 0 auto !important; /* Թույլ չի տալիս կոճակին փոքրանալ */
