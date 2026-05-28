@@ -612,7 +612,7 @@ border-radius: 6px;
 </div>
 
 <script>
-const rawData = [
+/* const rawData = [
 { cat: "Մատանիներ", price: "5,500", img: "https://i.ibb.co/fGyzNKsF/Screenshot-2026-05-20-at-22-30-51.png" },
 { cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/YCH0bxf/Screenshot-2026-05-20-at-22-32-43.png" },
 { cat: "Մատանիներ", price: "3,500", img: "https://i.ibb.co/ycNR6n15/Screenshot-2026-05-20-at-22-33-30.png" },
@@ -679,16 +679,47 @@ const rawData = [
 { cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/35pCg5Qs/Screenshot-2026-05-20-at-22-31-38.png" },
 { cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/8gkLs8GS/Screenshot-2026-05-20-at-22-32-21.png" },
 { cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/23BFfTQ2/Screenshot-2026-05-20-at-22-32-31.png" }
-];
-
+]; 
 const products = rawData.map((p, index) => ({
 ...p,
     img: p.img + '?fm=webp',
     id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
-}));
+})); */
 
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
+let products = [];
 
+async function loadProductsFromSheet() {
+    try {
+        const response = await fetch(SHEET_URL);
+        const csvText = await response.text();
+        const rows = csvText.split('\n');
+        const headers = rows[0].split(',').map(h => h.trim());
+        const rawData = [];
+        for (let i = 1; i < rows.length; i++) {
+            if (!rows[i].trim()) continue;
+            const values = rows[i].split(',');
+            let obj = {};
+            headers.forEach((h, idx) => { obj[h] = values[idx] ? values[idx].trim() : ''; });
+            if (obj.cat && obj.price && obj.img) rawData.push(obj);
+        }
+        products = rawData.map((p, index) => ({
+            ...p,
+            price: p.price, // արդեն թիվ է, առանց ստորակետի
+            img: p.img,
+            id: p.cat.substring(0,2).toUpperCase() + "-" + (100 + index)
+        }));
+        wishlist = wishlist.filter(id => products.some(p => p.id === id));
+        localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
+        renderProducts(products);
+        renderRecentViewed();
+        document.querySelector('.all-btn').classList.add('active');
+        updateWishCount();
+    } catch (error) {
+        document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը կամ Google Sheets-ի հղումը։</div>`;
+    }
+}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -1111,9 +1142,9 @@ window.onscroll = function() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
-renderProducts(products);
+/*renderProducts(products);
 renderRecentViewed();
-document.querySelector('.all-btn').classList.add('active');
+document.querySelector('.all-btn').classList.add('active'); */
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
@@ -1126,6 +1157,7 @@ document.querySelector('.all-btn').classList.add('active');
         themeBtn.addEventListener('click', removeFocus);
         themeBtn.addEventListener('touchend', removeFocus);
     }
+    loadProductsFromSheet();
 </script>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
