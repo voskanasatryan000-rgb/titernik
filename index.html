@@ -577,13 +577,13 @@ border-radius: 6px;
 
 <div class="nav-controls">
 <input type="text" id="searchInput" class="search-bar" placeholder="Որոնել..." oninput="searchProducts()">
-<button class="filter-btn all-btn" onclick="filterCategory('all')">Բոլորը</button>
-<button class="filter-btn" onclick="filterCategory('Մատանիներ')">Մատանիներ</button>
-<button class="filter-btn" onclick="filterCategory('Վզնոցներ')">Վզնոցներ</button>
-<button class="filter-btn" onclick="filterCategory('Ականջօղեր')">Ականջօղեր</button>
-<button class="filter-btn" onclick="filterCategory('Թևնոցներ')">Թևնոցներ</button>
-<button class="filter-btn" onclick="filterCategory('Ժամացույցներ')">Ժամացույցներ</button>
-<button class="filter-btn" onclick="filterCategory('Տուփեր')">Տուփեր</button>
+<button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
+<button class="filter-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ականջօղեր')">Ականջօղեր</button>
+<button class="filter-btn" onclick="filterCategory(event,'Թևնոցներ')">Թևնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button>
 <button class="wishlist-count-btn" onclick="showWishlist()">
     <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
     <span id="wishCount">0</span>
@@ -887,7 +887,7 @@ resetFilters();
 const filtered = products.filter(p => wishlist.includes(p.id));
 renderProducts(filtered, true);
 }
-function filterCategory(category) {
+function filterCategory(event, category) {
 resetFilters();
 if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
 if(category === 'all'){ renderProducts(products);}
