@@ -1312,6 +1312,13 @@ function scrollToTop() {
         themeBtn.addEventListener('click', removeFocus);
         themeBtn.addEventListener('touchend', removeFocus);
     }
+    document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        document.getElementById('overlay').style.display = 'none';
+    }
+    if (e.key === 'ArrowRight') overlayNext();
+    if (e.key === 'ArrowLeft') overlayPrev();
+});
      document.getElementById('overlay').addEventListener('touchend', e => {
     const diff = touchStartX - e.changedTouches[0].screenX;
     if (Math.abs(diff) < 30) return;
