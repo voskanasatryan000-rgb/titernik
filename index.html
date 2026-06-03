@@ -824,7 +824,7 @@ function appendCards(items, container) {
         container.innerHTML += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
-                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}' '${p.img}')">🔗</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
