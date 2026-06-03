@@ -561,6 +561,26 @@ border-radius: 6px;
 .sort-menu.open {
     display: block;
 }
+#toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    padding: 16px;
+    position: fixed;
+    z-index: 9999;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    transition: visibility 0.3s, opacity 0.3s;
+    opacity: 0;
+}
+#toast.show { visibility: visible;
+             animation: fadein 0.5s;
+             opacity: 1;}
 </style>
 </head>
 <body>
@@ -738,6 +758,46 @@ async function loadProductsFromSheet() {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
 }
+// Օգնող ֆունկցիա ծանուցման համար
+function showToast(message) {
+    let toast = document.getElementById("toast");
+    // Եթե toast դեռ չկա էջում, ստեղծում ենք այն
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+        document.body.appendChild(toast);
+    }
+    toast.innerText = message;
+    toast.className = "show";
+    
+    // 3 վայրկյան հետո թաքցնում ենք
+    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+}
+function copyToClipboardAndOpenInstagram(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը.
+--------------------------
+📦 ID: ${product.id}
+🦋 Անվանում: ${product.cat}
+🏷️ Գին: ${product.price} ֏
+
+🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}
+📸 Նկար: ${product.img}
+--------------------------`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        // Ցույց ենք տալիս toast-ը
+        showToast("Պատճենվեց։ Instagram-ում սեղմիր 'Paste'!");
+        // Բացում ենք Instagram-ը
+        setTimeout(() => {
+            window.open("https://ig.me/m/titernik_accessories", "_blank");
+        }, 500); // Մի փոքր դադար, որպեսզի օգտատերը հասցնի կարդալ ծանուցումը
+    }).catch(err => {
+        console.error('Պատճենելը չհաջողվեց', err);
+    });
+}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -839,8 +899,8 @@ function appendCards(items, container) {
                 </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
-                <a href="https://ig.me/m/titernik_accessories" target="_blank" class="order-btn" onclick="copyToClipboard('${p.id}')">Պատվիրել</a>
-            </div>
+                <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">Պատվիրել</button> 
+                </div>
         `;
     });
 }
@@ -1165,7 +1225,6 @@ document.querySelector('.all-btn').classList.add('active'); */
                 themeBtn.blur();
             }, 100);
         };
-
         themeBtn.addEventListener('click', removeFocus);
         themeBtn.addEventListener('touchend', removeFocus);
     }
