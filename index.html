@@ -1148,8 +1148,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const productId = urlParams.get('id');
 
     if (productId) {
-        // 1. Գրում ենք ID-ն search-ի դաշտում
-        const searchInput = document.getElementById('searchInput');
         if (searchInput) {
             searchInput.value = productId;
             // 2. Կանչում ենք քո search ֆունկցիան
