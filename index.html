@@ -651,6 +651,9 @@ border-radius: 6px;
         height: 180px;
     }
 }
+.overlayImg {
+    transition: opacity 0.2s ease;
+}
 </style>
 </head>
 <body>
@@ -697,8 +700,10 @@ border-radius: 6px;
 </section>
 
 <div class="overlay" id="overlay">
-    <span class="close-overlay">&times;</span>
-<img id="overlayImg" src="" alt="Preview">
+    <span class="close-overlay" onclick="document.getElementById('overlay').style.display='none'">&times;</span>
+    <span style="position:absolute;left:20px;font-size:50px;color:white;cursor:pointer;user-select:none;" onclick="overlayPrev()">&#8249;</span>
+    <img id="overlayImg" src="" alt="Preview">
+    <span style="position:absolute;right:20px;font-size:50px;color:white;cursor:pointer;user-select:none;" onclick="overlayNext()">&#8250;</span>
 </div>
 
 <script>
@@ -1204,17 +1209,49 @@ function searchProducts() {
     }
 }
     
+let currentImageIndex = 0;
+let currentImageList = [];
+
 function openImage(src) {
-    // 1. Նկարի ցուցադրում
+    currentImageList = products.map(p => p.img);
+    currentImageIndex = currentImageList.indexOf(src);
+    
     document.getElementById('overlayImg').src = src;
     document.getElementById('overlay').style.display = 'flex';
 
-    // 2. Ավելացում «Վերջերս դիտված» ցուցակում
     const product = products.find(p => p.img === src);
-    if (product) {
-        addToRecentlyViewed(product.id);
-    }
+    if (product) addToRecentlyViewed(product.id);
 }
+
+function showOverlayImage(index) {
+    const img = document.getElementById('overlayImg');
+    img.style.opacity = '0';
+    setTimeout(() => {
+        img.src = currentImageList[index];
+        img.style.opacity = '1';
+    }, 200);
+}
+
+function overlayNext() {
+    currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
+    showOverlayImage(currentImageIndex);
+}
+
+function overlayPrev() {
+    currentImageIndex = (currentImageIndex - 1 + currentImageList.length) % currentImageList.length;
+    showOverlayImage(currentImageIndex);
+}
+
+// Swipe
+let touchStartX = 0;
+document.getElementById('overlay').addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+document.getElementById('overlay').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) < 50) return;
+    diff > 0 ? overlayNext() : overlayPrev();
+});
     
 async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
