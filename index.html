@@ -1315,7 +1315,7 @@ function scrollToTop() {
     }
      document.getElementById('overlay').addEventListener('touchend', e => {
     const diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) < 50) return;
+    if (Math.abs(diff) < 30) return;
 diff > 0 ? overlayNext() : overlayPrev();
 });
 
