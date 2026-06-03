@@ -719,6 +719,7 @@ border-radius: 6px;
 const products = rawData.map((p, index) => ({
 ...p,
     img: p.img + '?fm=webp',
+    date: p.date,
     id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
 })); */
 
