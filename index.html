@@ -1039,6 +1039,8 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
+    document.getElementById('searchInput').value = '';
+    window.history.replaceState({}, '', window.location.pathname);
     resetFilters();
     const wishlistBtn = document.querySelector('.wishlist-count-btn');
     if (wishlistBtn) {
@@ -1105,10 +1107,19 @@ function showWishlist() {
     renderProducts(filtered, true);
 }
 function filterCategory(event, category) {
-resetFilters();
-if(event && event.target.classList.contains('filter-btn')) {event.target.classList.add('active');}
-if(category === 'all'){ renderProducts(products);}
-else {renderProducts(products.filter(p => p.cat === category));}
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput) searchInput.value = '';
+    // հեռացնում ենք URL-ի ?id=
+    window.history.replaceState({}, '', window.location.pathname);
+    resetFilters();
+    if(event && event.target.classList.contains('filter-btn')) {
+        event.target.classList.add('active');
+    }
+    if(category === 'all'){
+        renderProducts(products);
+    } else {
+        renderProducts(products.filter(p => p.cat === category));
+    }
 }
 function resetFilters() {
     // Մաքրում է բոլոր ֆիլտրի կոճակները
