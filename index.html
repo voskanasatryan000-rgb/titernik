@@ -1142,19 +1142,6 @@ function copyFallback(text) {
     navigator.clipboard.writeText(text);
     alert("Հղումը և կոդը պատճենվեց, կարող եք ուղարկել:");
 }
-// Սա աշխատում է, երբ էջը թարմացվում է
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-
-    if (productId) {
-        if (searchInput) {
-            searchInput.value = productId;
-            // 2. Կանչում ենք քո search ֆունկցիան
-            searchProducts(); 
-        }
-    }
-});
 window.onscroll = function() {
     const btn = document.getElementById("backToTop");
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
