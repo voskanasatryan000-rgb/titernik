@@ -583,17 +583,19 @@ border-radius: 6px;
              animation: fadein 0.5s;
              opacity: 1;}
 .new-badge{
-    position:absolute;
-    top:15px;
-    left:15px;
-    background:#ff4757;
-    color:#fff;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1px;
-    z-index:20;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: #e63946;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 20;
 }
 </style>
 </head>
@@ -903,8 +905,14 @@ section.innerHTML = `
 function appendCards(items, container) {
     let html = '';
     items.forEach(p => {
-        const isWished = wishlist.includes(p.id) ? 'active' : '';
-        const newBadge = p.new === 'yes'
+        const isNew = (() => {
+    if (!p.date) return false;
+    const addedDate = new Date(p.date);
+    const now = new Date();
+    const diffDays = (now - addedDate) / (1000 * 60 * 60 * 24);
+    return diffDays <= 7; // 7 օր NEW
+})();
+const newBadge = isNew
     ? '<div class="new-badge">NEW</div>'
     : '';
         html += `
