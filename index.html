@@ -691,6 +691,9 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujr
 let products = [];
 
 async function loadProductsFromSheet() {
+    const catalog = document.getElementById('catalog');
+    // Ցույց ենք տալիս լոադեր, որպեսզի դատարկ էջը չերևա
+catalog.innerHTML = `<div style="text-align:center; padding:100px; font-size: 18px; color: var(--brand-color);">⏳ Բեռնվում են ապրանքները...</div>`;   
     try {
         const response = await fetch(SHEET_URL);
         const csvText = await response.text();
@@ -726,7 +729,7 @@ async function loadProductsFromSheet() {
             }
         }
     } catch (error) {
-        document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը կամ Google Sheets-ի հղումը։</div>`;
+        document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
 }
 function toggleTheme() {
