@@ -918,8 +918,7 @@ function appendCards(items, container) {
                 <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                  ${newBadge}
-                    <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
-                </div>
+                 <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')" onerror="this.src='https://via.placeholder.com/300x300?text=📷'; this.classList.add('loaded')">                </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
                 <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">Պատվիրել</button>
