@@ -1225,20 +1225,28 @@ function openImage(src) {
 
 function showOverlayImage(index, direction) {
     const img = document.getElementById('overlayImg');
-    const outX = direction === 'next' ? '-60px' : '60px';
-    const inX = direction === 'next' ? '60px' : '-60px';
+    const outX = direction === 'next' ? '-100px' : '100px';
+    const inX = direction === 'next' ? '100px' : '-100px';
+    
+    // 1. Նախ հինը դուրս է գնում
+    img.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     img.style.opacity = '0';
     img.style.transform = `translateX(${outX})`;
+    
+    // 2. Հետո նորը գալիս է հակառակ կողմից
     setTimeout(() => {
         img.src = currentImageList[index];
+        img.style.transition = 'none';
         img.style.transform = `translateX(${inX})`;
+        img.style.opacity = '0';
+        
         setTimeout(() => {
+            img.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             img.style.opacity = '1';
             img.style.transform = 'translateX(0)';
-        }, 50);
-    }, 200);
+        }, 30);
+    }, 320);
 }
-    
 function overlayNext() {
     currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
     showOverlayImage(currentImageIndex, 'next');
