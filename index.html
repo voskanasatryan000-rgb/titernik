@@ -652,7 +652,7 @@ border-radius: 6px;
     }
 }
 .overlayImg {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 </style>
 </head>
@@ -701,9 +701,9 @@ border-radius: 6px;
 
 <div class="overlay" id="overlay">
     <span class="close-overlay" onclick="document.getElementById('overlay').style.display='none'">&times;</span>
-    <span style="position:absolute;left:20px;font-size:50px;color:white;cursor:pointer;user-select:none;" onclick="overlayPrev()">&#8249;</span>
+    <span style="position:absolute;left:20px;font-size:70px;color:white;cursor:pointer;user-select:none;opacity:0.8;" onclick="overlayPrev()">&#8249;</span>
     <img id="overlayImg" src="" alt="Preview">
-    <span style="position:absolute;right:20px;font-size:50px;color:white;cursor:pointer;user-select:none;" onclick="overlayNext()">&#8250;</span>
+    <span style="position:absolute;right:20px;font-size:70px;color:white;cursor:pointer;user-select:none;opacity:0.8;" onclick="overlayNext()">&#8250;</span>
 </div>
 
 <script>
@@ -1223,23 +1223,30 @@ function openImage(src) {
     if (product) addToRecentlyViewed(product.id);
 }
 
-function showOverlayImage(index) {
+function showOverlayImage(index, direction) {
     const img = document.getElementById('overlayImg');
+    const outX = direction === 'next' ? '-60px' : '60px';
+    const inX = direction === 'next' ? '60px' : '-60px';
     img.style.opacity = '0';
+    img.style.transform = `translateX(${outX})`;
     setTimeout(() => {
         img.src = currentImageList[index];
-        img.style.opacity = '1';
+        img.style.transform = `translateX(${inX})`;
+        setTimeout(() => {
+            img.style.opacity = '1';
+            img.style.transform = 'translateX(0)';
+        }, 50);
     }, 200);
 }
-
+    
 function overlayNext() {
     currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
-    showOverlayImage(currentImageIndex);
+    showOverlayImage(currentImageIndex, 'next');
 }
 
 function overlayPrev() {
     currentImageIndex = (currentImageIndex - 1 + currentImageList.length) % currentImageList.length;
-    showOverlayImage(currentImageIndex);
+    showOverlayImage(currentImageIndex, 'prev');
 }
 
 // Swipe
