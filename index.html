@@ -719,7 +719,6 @@ border-radius: 6px;
 const products = rawData.map((p, index) => ({
 ...p,
     img: p.img + '?fm=webp',
-    date: p.date,
     id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
 })); */
 
@@ -906,22 +905,16 @@ section.innerHTML = `
 function appendCards(items, container) {
     let html = '';
     items.forEach(p => {
-        const isNew = (() => {
-    if (!p.date) return false;
-    const addedDate = new Date(p.date);
-    const now = new Date();
-    const diffDays = (now - addedDate) / (1000 * 60 * 60 * 24);
-    return diffDays <= 7; // 7 օր NEW
-})();
-const newBadge = isNew
+              const isWished = wishlist.includes(p.id) ? 'active' : '';
+              const newBadge = p.new === 'yes'
     ? '<div class="new-badge">NEW</div>'
     : '';
         html += `
             <div class="card" id="card-${p.id}">
-            ${newBadge}
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
                 <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
+                 ${newBadge}
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
                 <div class="price">${p.price} ֏</div>
