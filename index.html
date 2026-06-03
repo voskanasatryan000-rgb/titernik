@@ -716,6 +716,15 @@ async function loadProductsFromSheet() {
         renderRecentViewed();
         document.querySelector('.all-btn').classList.add('active');
         updateWishCount();
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        if (productId) {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = productId;
+                searchProducts(); // Սա կֆիլտրի հենց այդ ապրանքը
+            }
+        }
     } catch (error) {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը կամ Google Sheets-ի հղումը։</div>`;
     }
@@ -815,7 +824,7 @@ function appendCards(items, container) {
         container.innerHTML += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
-                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}')">🔗</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}' '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
@@ -1092,24 +1101,33 @@ function openImage(src) {
         addToRecentlyViewed(product.id);
     }
 }
-function shareProduct(id, category) {
+async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const fullMessage = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
+    const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
 
-    if (navigator.share) {
-        // Ուղարկում ենք ՄԻԱՅՆ text դաշտը, որտեղ ամեն ինչ արդեն կպած է
-        navigator.share({
-            text: fullMessage
-        })
-        .catch(err => {
-            // Եթե սխալ տա, ուղղակի պատճենում ենք
-            copyFallback(fullMessage);
-        });
-    } else {
-        copyFallback(fullMessage);
+    try {
+        // 1. Բեռնում ենք նկարը սերվերից
+        const response = await fetch(imgUrl);
+        const blob = await response.blob();
+        // Ստեղծում ենք ֆայլային օբյեկտ
+        const file = new File([blob], 'product.jpg', { type: blob.type });
+
+        // 2. Ուղարկում ենք տեքստը և նկարը միասին
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'Titernik Accessories',
+                text: text
+            });
+        } else {
+            // Եթե սարքը թույլ չի տալիս նկար կցել, միայն տեքստն ենք ուղարկում
+            await navigator.share({ text: text });
+        }
+    } catch (err) {
+        // Եթե սխալ լինի կամ բրաուզերը չաջակցի, պատճենում ենք տեքստը
+        copyFallback(text);
     }
 }
-
 // Օգնող ֆունկցիա պատճենելու համար
 function copyFallback(text) {
     navigator.clipboard.writeText(text);
