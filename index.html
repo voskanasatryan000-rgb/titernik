@@ -657,80 +657,6 @@ border-radius: 6px;
 </div>
 
 <script>
-/* const rawData = [
-{ cat: "Մատանիներ", price: "5,500", img: "https://i.ibb.co/fGyzNKsF/Screenshot-2026-05-20-at-22-30-51.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/YCH0bxf/Screenshot-2026-05-20-at-22-32-43.png" },
-{ cat: "Մատանիներ", price: "3,500", img: "https://i.ibb.co/ycNR6n15/Screenshot-2026-05-20-at-22-33-30.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/0yJb0n2q/Screenshot-2026-05-20-at-22-33-44.png" },
-{ cat: "Մատանիներ", price: "6,500", img: "https://i.ibb.co/spwf9rpt/Screenshot-2026-05-20-at-22-35-07.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/Nd1gRRDC/Screenshot-2026-05-20-at-22-37-15.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/GfybXVnP/Screenshot-2026-05-20-at-22-37-30.png" },
-{ cat: "Մատանիներ", price: "2,500", img: "https://i.ibb.co/xK9QbYWt/Screenshot-2026-05-20-at-22-38-33.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/gbFWRh39/Screenshot-2026-05-20-at-22-39-08.png" },
-{ cat: "Մատանիներ", price: "4,000", img: "https://i.ibb.co/GvhSRBJ9/Screenshot-2026-05-20-at-22-39-21.png" },
-{ cat: "Մատանիներ", price: "4,500", img: "https://i.ibb.co/xPMt4kL/Screenshot-2026-05-20-at-22-39-35.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/qM4QycGP/Screenshot-2026-05-20-at-22-29-57.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/21jBS1h6/Screenshot-2026-05-20-at-22-30-09.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/XfxnGyfF/Screenshot-2026-05-20-at-22-33-36.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/DPBn4gLz/Screenshot-2026-05-20-at-22-33-53.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/FLgmPV3H/Screenshot-2026-05-20-at-22-33-59.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/67VZgVYB/Screenshot-2026-05-20-at-22-34-21.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/b5kgxXg6/Screenshot-2026-05-20-at-22-34-30.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/hJJk0D77/Screenshot-2026-05-20-at-22-34-38.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/chXVPgMq/Screenshot-2026-05-20-at-22-34-44.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/6hNM1D1/Screenshot-2026-05-20-at-22-34-56.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/XfGL5Zx1/Screenshot-2026-05-20-at-22-35-19.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/spxxT21t/Screenshot-2026-05-20-at-22-35-35.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/Kzrr2nBJ/Screenshot-2026-05-20-at-22-35-50.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/pj8cbvjL/Screenshot-2026-05-20-at-22-36-12.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/RGDd6m1C/Screenshot-2026-05-20-at-22-36-22.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/Y4TNdrpY/Screenshot-2026-05-20-at-22-36-37.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/bjXHBt4m/Screenshot-2026-05-20-at-22-36-45.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/wFmB8cx9/Screenshot-2026-05-20-at-22-36-50.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/R46Sh6MB/Screenshot-2026-05-20-at-22-36-57.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/BVNr5ZWP/Screenshot-2026-05-20-at-22-37-08.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/DPwhxzwm/Screenshot-2026-05-20-at-22-37-23.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/WpFT2xqZ/Screenshot-2026-05-20-at-22-37-36.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/Psgd5Gx0/Screenshot-2026-05-20-at-22-38-06.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/p6w4FmGD/Screenshot-2026-05-20-at-22-38-13.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/YFbxJ3KV/Screenshot-2026-05-20-at-22-38-40.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/KpjfcW3s/Screenshot-2026-05-20-at-22-38-50.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/Q7hxkPcD/Screenshot-2026-05-20-at-22-39-16.png" },
-{ cat: "Վզնոցներ", price: "7,500", img: "https://i.ibb.co/6RrtJNT4/vznoc.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/BKPNXKLs/Screenshot-2026-05-20-at-22-29-25.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/JTWJF5s/Screenshot-2026-05-20-at-22-30-20.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/Zzgkhh0t/Screenshot-2026-05-20-at-22-33-17.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/TM2r1r7v/Screenshot-2026-05-20-at-22-35-28.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/pBpT4dvY/Screenshot-2026-05-20-at-22-36-32.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/TqPHFT87/Screenshot-2026-05-20-at-22-37-02.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/whC08kbd/Screenshot-2026-05-20-at-22-37-45.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/gLmf50zm/Screenshot-2026-05-20-at-22-38-19.png" },
-{ cat: "Ականջօղեր", price: "3,500", img: "https://i.ibb.co/Kp9Sy0P8/Screenshot-2026-05-20-at-22-38-57.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/99fCqG8c/Screenshot-2026-05-20-at-22-29-09.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/spSrJnrp/Screenshot-2026-05-20-at-22-32-52.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/pvw2fSr9/Screenshot-2026-05-20-at-22-33-09.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/VWgCXQMc/Screenshot-2026-05-20-at-22-36-05.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/Y4dW1xV0/Screenshot-2026-05-20-at-22-38-28.png" },
-{ cat: "Թևնոցներ", price: "4,000", img: "https://i.ibb.co/BHh3fQR0/Screenshot-2026-05-20-at-22-39-02.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/0jr17NBC/Screenshot-2026-05-20-at-22-30-33.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/FqnBN02T/Screenshot-2026-05-20-at-22-33-24.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/hJ2rQNtJ/Screenshot-2026-05-20-at-22-34-13.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/bjZwH5G9/Screenshot-2026-05-20-at-22-35-42.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/hJv4hMDK/Screenshot-2026-05-20-at-22-35-57.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/BVWmgzpz/Screenshot-2026-05-20-at-22-37-53.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/1JXJ5W22/Screenshot-2026-05-20-at-22-37-58.png" },
-{ cat: "Ժամացույցներ", price: "8,500", img: "https://i.ibb.co/73nmLYC/Screenshot-2026-05-20-at-22-39-41.png" },
-{ cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/BHcyYY23/Screenshot-2026-05-20-at-22-31-07.png" },
-{ cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/35pCg5Qs/Screenshot-2026-05-20-at-22-31-38.png" },
-{ cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/8gkLs8GS/Screenshot-2026-05-20-at-22-32-21.png" },
-{ cat: "Տուփեր", price: "1,500", img: "https://i.ibb.co/23BFfTQ2/Screenshot-2026-05-20-at-22-32-31.png" }
-]; 
-const products = rawData.map((p, index) => ({
-...p,
-    img: p.img + '?fm=webp',
-    id: p.cat.substring(0, 2).toUpperCase() + "-" + (100 + index)
-})); */
-
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
@@ -783,6 +709,7 @@ async function loadProductsFromSheet() {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
 }
+    
 // Օգնող ֆունկցիա ծանուցման համար
 function showToast(message) {
     let toast = document.getElementById("toast");
@@ -798,6 +725,7 @@ function showToast(message) {
     // 3 վայրկյան հետո թաքցնում ենք
     setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
 }
+    
 function copyToClipboardAndOpenInstagram(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
@@ -823,6 +751,7 @@ function copyToClipboardAndOpenInstagram(id) {
         console.error('Պատճենելը չհաջողվեց', err);
     });
 }
+    
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -841,6 +770,7 @@ if (localStorage.getItem('theme') === 'dark') {
 document.documentElement.setAttribute('data-theme', 'dark');
 document.getElementById('themeBtn').innerText = '☀️';
 }
+    
 function toggleSortMenu(cat) {
     const menu = document.getElementById(`sortMenu-${cat}`);
     const btn = menu.previousElementSibling;
@@ -911,6 +841,7 @@ section.innerHTML = `
     }
     updateWishCount();
 }
+    
 function appendCards(items, container) {
     let html = '';
     items.forEach(p => {
@@ -935,6 +866,7 @@ function appendCards(items, container) {
 
     container.innerHTML += html;
 }
+    
 function addToRecentlyViewed(id) {
     let recent = JSON.parse(localStorage.getItem('titernik_recent')) || [];
     recent = recent.filter(item => item !== id);
@@ -975,6 +907,7 @@ function removeFromRecent(id) {
     localStorage.setItem('titernik_recent', JSON.stringify(recent));
     renderRecentViewed();
 }
+    
 function toggleWishlist(event,id) {
 if(wishlist.includes(id)) {
     wishlist = wishlist.filter(item => item !== id);
@@ -1031,6 +964,7 @@ document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
 
 updateWishCount();
 }
+    
 function animateToWishlist(event) {
     // 1. Ստանում ենք սկզբնակետը (սեղմված սրտիկը)
     const btn = event.target;
@@ -1062,6 +996,7 @@ function animateToWishlist(event) {
 
     setTimeout(() => flyer.remove(), 800);
 }
+    
 function updateWishCount() {
 document.getElementById('wishCount').innerText = wishlist.length;
 }
@@ -1134,6 +1069,7 @@ function showWishlist() {
 
     renderProducts(filtered, true);
 }
+    
 function filterCategory(event, category) {
     const searchInput = document.getElementById('searchInput');
     if(searchInput) searchInput.value = '';
@@ -1149,6 +1085,7 @@ function filterCategory(event, category) {
         renderProducts(products.filter(p => p.cat === category));
     }
 }
+    
 function resetFilters() {
     // Մաքրում է բոլոր ֆիլտրի կոճակները
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -1201,6 +1138,7 @@ function searchProducts() {
         renderProducts(filteredProducts);
     }
 }
+    
 function openImage(src) {
     // 1. Նկարի ցուցադրում
     document.getElementById('overlayImg').src = src;
@@ -1212,6 +1150,7 @@ function openImage(src) {
         addToRecentlyViewed(product.id);
     }
 }
+    
 async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
     const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
@@ -1239,6 +1178,7 @@ async function shareProduct(id, category, imgUrl) {
         copyFallback(text);
     }
 }
+    
 // Օգնող ֆունկցիա պատճենելու համար
 function copyFallback(text) {
     navigator.clipboard.writeText(text);
@@ -1256,9 +1196,6 @@ window.onscroll = function() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
-/*renderProducts(products);
-renderRecentViewed();
-document.querySelector('.all-btn').classList.add('active'); */
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
