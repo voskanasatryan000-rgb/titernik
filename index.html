@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Titernik Accessories - Premium Catalog</title>
+    
+<meta property="og:title" content="Titernik Accessories">
+<meta property="og:description" content="Բարձրորակ աքսեսուարներ։ Գտեք ձեր ոճին համապատասխան զարդերը։">
+<meta property="og:image" content="https://i.ibb.co/fGyzNKsF/Screenshot-2026-05-20-at-22-30-51.png">
+<meta property="og:url" content="https://voskanasatryan000-rgb.github.io/titernik/">
+<meta property="og:type" content="website">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -833,7 +840,7 @@ function appendCards(items, container) {
         container.innerHTML += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
-                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
@@ -1110,31 +1117,22 @@ function openImage(src) {
         addToRecentlyViewed(product.id);
     }
 }
-async function shareProduct(id, category, imgUrl) {
+async function shareProduct(id, category) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
     const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
-
-    try {
-        // 1. Բեռնում ենք նկարը սերվերից
-        const response = await fetch(imgUrl);
-        const blob = await response.blob();
-        // Ստեղծում ենք ֆայլային օբյեկտ
-        const file = new File([blob], 'product.jpg', { type: blob.type });
-
-        // 2. Ուղարկում ենք տեքստը և նկարը միասին
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-                files: [file],
-                title: 'Titernik Accessories',
-                text: text
-            });
-        } else {
-            // Եթե սարքը թույլ չի տալիս նկար կցել, միայն տեքստն ենք ուղարկում
+if (navigator.share) {
+        try {
             await navigator.share({ text: text });
+        } catch (err) {
+            // Եթե share-ը չեղարկվի, սխալը ցույց չենք տալիս
+            if (err.name !== 'AbortError') {
+                await navigator.clipboard.writeText(text);
+                alert("Հղումը պատճենվեց");
+            }
         }
-    } catch (err) {
-        // Եթե սխալ լինի կամ բրաուզերը չաջակցի, պատճենում ենք տեքստը
-        copyFallback(text);
+    } else {
+        await navigator.clipboard.writeText(text);
+        alert("Հղումը պատճենվեց");
     }
 }
 // Օգնող ֆունկցիա պատճենելու համար
