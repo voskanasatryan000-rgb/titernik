@@ -745,6 +745,16 @@ async function loadProductsFromSheet() {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
 }
+
+function updateOGTags(product) {
+    if (!product) return;
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    let ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogTitle) ogTitle.setAttribute('content', `${product.cat} - ${product.price} ֏`);
+    if (ogDesc) ogDesc.setAttribute('content', `Տեսեք այս հրաշալի ${product.cat}-ը: ID: ${product.id}`);
+    if (ogImage) ogImage.setAttribute('content', product.img);
+}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -1118,13 +1128,15 @@ function openImage(src) {
     }
 }
 async function shareProduct(id, category) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    updateOGTags(product);  // թարմացնում է meta-ները նախքան կիսվելը
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
-if (navigator.share) {
+    const text = `✨ ${product.cat} - ${product.price} ֏ ✨\nID: ${product.id}\n\n${shareUrl}`;
+    if (navigator.share) {
         try {
             await navigator.share({ text: text });
         } catch (err) {
-            // Եթե share-ը չեղարկվի, սխալը ցույց չենք տալիս
             if (err.name !== 'AbortError') {
                 await navigator.clipboard.writeText(text);
                 alert("Հղումը պատճենվեց");
