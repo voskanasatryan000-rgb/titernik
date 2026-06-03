@@ -1135,6 +1135,7 @@ function showWishlist() {
 }
     
 function filterCategory(event, category) {
+    window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
     const searchInput = document.getElementById('searchInput');
     if(searchInput) searchInput.value = '';
     // հեռացնում ենք URL-ի ?id=
