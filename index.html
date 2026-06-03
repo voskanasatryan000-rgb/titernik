@@ -660,7 +660,12 @@ border-radius: 6px;
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
-
+    
+document.getElementById('overlay').addEventListener('click', function(e) {
+    if (e.target === this || e.target.classList.contains('close-overlay')) {
+        this.style.display = 'none';
+    }
+});
 async function loadProductsFromSheet() {
     try {
         const response = await fetch(SHEET_URL);
