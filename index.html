@@ -802,15 +802,15 @@ function copyToClipboardAndOpenInstagram(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
 
-    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը.
---------------------------
+    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը:
+
 📦 ID: ${product.id}
 🦋 Անվանում: ${product.cat}
 🏷️ Գին: ${product.price} ֏
 
 🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}
-📸 Նկար: ${product.img}
---------------------------`;
+
+`;
 
     navigator.clipboard.writeText(text).then(() => {
         // Ցույց ենք տալիս toast-ը
