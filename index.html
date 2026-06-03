@@ -4,13 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Titernik Accessories - Premium Catalog</title>
-    
-<meta property="og:title" content="Titernik Accessories">
-<meta property="og:description" content="Բարձրորակ աքսեսուարներ։ Գտեք ձեր ոճին համապատասխան զարդերը։">
-<meta property="og:image" content="https://i.ibb.co/fGyzNKsF/Screenshot-2026-05-20-at-22-30-51.png">
-<meta property="og:url" content="https://voskanasatryan000-rgb.github.io/titernik/">
-<meta property="og:type" content="website">
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -745,16 +738,6 @@ async function loadProductsFromSheet() {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
 }
-
-function updateOGTags(product) {
-    if (!product) return;
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    let ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogTitle) ogTitle.setAttribute('content', `${product.cat} - ${product.price} ֏`);
-    if (ogDesc) ogDesc.setAttribute('content', `Տեսեք այս հրաշալի ${product.cat}-ը: ID: ${product.id}`);
-    if (ogImage) ogImage.setAttribute('content', product.img);
-}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -850,7 +833,7 @@ function appendCards(items, container) {
         container.innerHTML += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
-                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}')">🔗</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                     <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')">
                 </div>
@@ -1127,24 +1110,31 @@ function openImage(src) {
         addToRecentlyViewed(product.id);
     }
 }
-async function shareProduct(id, category) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-    updateOGTags(product);  // թարմացնում է meta-ները նախքան կիսվելը
+async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const text = `✨ ${product.cat} - ${product.price} ֏ ✨\nID: ${product.id}\n\n${shareUrl}`;
-    if (navigator.share) {
-        try {
+    const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
+
+    try {
+        // 1. Բեռնում ենք նկարը սերվերից
+        const response = await fetch(imgUrl);
+        const blob = await response.blob();
+        // Ստեղծում ենք ֆայլային օբյեկտ
+        const file = new File([blob], 'product.jpg', { type: blob.type });
+
+        // 2. Ուղարկում ենք տեքստը և նկարը միասին
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'Titernik Accessories',
+                text: text
+            });
+        } else {
+            // Եթե սարքը թույլ չի տալիս նկար կցել, միայն տեքստն ենք ուղարկում
             await navigator.share({ text: text });
-        } catch (err) {
-            if (err.name !== 'AbortError') {
-                await navigator.clipboard.writeText(text);
-                alert("Հղումը պատճենվեց");
-            }
         }
-    } else {
-        await navigator.clipboard.writeText(text);
-        alert("Հղումը պատճենվեց");
+    } catch (err) {
+        // Եթե սխալ լինի կամ բրաուզերը չաջակցի, պատճենում ենք տեքստը
+        copyFallback(text);
     }
 }
 // Օգնող ֆունկցիա պատճենելու համար
