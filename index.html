@@ -119,6 +119,7 @@ transform: scale(1.1) rotate(5deg) !important;
         display: flex !important;
         flex-wrap: nowrap !important; /* Արգելում ենք իրար տակ ընկնելը */
         overflow-x: auto !important;  /* Միացնում ենք կողք սահելը */
+        overflow-y:hidden;
         justify-content: flex-start !important;
         gap: 8px !important;
         padding: 5px 10px !important;
@@ -887,10 +888,10 @@ section.innerHTML = `
     updateWishCount();
 }
 function appendCards(items, container) {
+    let html = '';
     items.forEach(p => {
         const isWished = wishlist.includes(p.id) ? 'active' : '';
-        // Ավելացնում ենք event-ը toggleWishlist-ի մեջ
-        container.innerHTML += `
+        html += `
             <div class="card" id="card-${p.id}">
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
                 <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
@@ -899,10 +900,12 @@ function appendCards(items, container) {
                 </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
-                <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">Պատվիրել</button> 
-                </div>
+                <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">Պատվիրել</button>
+            </div>
         `;
     });
+
+    container.innerHTML += html;
 }
 function addToRecentlyViewed(id) {
     let recent = JSON.parse(localStorage.getItem('titernik_recent')) || [];
