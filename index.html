@@ -710,12 +710,6 @@ border-radius: 6px;
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
-    
-document.getElementById('overlay').addEventListener('click', function(e) {
-    if (e.target === this || e.target.classList.contains('close-overlay')) {
-        this.style.display = 'none';
-    }
-});
 async function loadProductsFromSheet() {
     // Skeleton ցուցադրել
     const catalog = document.getElementById('catalog');
@@ -1262,12 +1256,7 @@ let touchStartX = 0;
 document.getElementById('overlay').addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
 });
-document.getElementById('overlay').addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) < 50) return;
-    diff > 0 ? overlayNext() : overlayPrev();
-});
-    
+
 async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
     const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
@@ -1324,6 +1313,12 @@ function scrollToTop() {
         themeBtn.addEventListener('click', removeFocus);
         themeBtn.addEventListener('touchend', removeFocus);
     }
+     document.getElementById('overlay').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) < 50) return;
+diff > 0 ? overlayPrev() : overlayNext();
+});
+
     loadProductsFromSheet();
 </script>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
