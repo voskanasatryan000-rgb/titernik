@@ -691,9 +691,6 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujr
 let products = [];
 
 async function loadProductsFromSheet() {
-    const catalog = document.getElementById('catalog');
-    // Ցույց ենք տալիս լոադեր, որպեսզի դատարկ էջը չերևա
-catalog.innerHTML = `<div style="text-align:center; padding:100px; font-size: 18px; color: var(--brand-color);">⏳ Բեռնվում են ապրանքները...</div>`;   
     try {
         const response = await fetch(SHEET_URL);
         const csvText = await response.text();
@@ -715,19 +712,28 @@ catalog.innerHTML = `<div style="text-align:center; padding:100px; font-size: 18
         }));
         wishlist = wishlist.filter(id => products.some(p => p.id === id));
         localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
-        renderProducts(products);
-        renderRecentViewed();
-        document.querySelector('.all-btn').classList.add('active');
-        updateWishCount();
+        // 1. Ստուգում ենք URL-ը ՆԱԽՔԱՆ որևէ բան նկարելը
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
+        // 2. Եթե ունենք ID, ապա միայն այդ ապրանքը նկարում ենք
         if (productId) {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.value = productId;
-                searchProducts(); // Սա կֆիլտրի հենց այդ ապրանքը
+            const found = products.find(p => p.id === productId);
+            if (found) {
+                renderProducts([found]); // Նկարում ենք ՄԻԱՅՆ այս մեկը
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) searchInput.value = productId;
+            } else {
+                renderProducts(products); // Եթե ID-ն սխալ է, նկարում ենք բոլորը
             }
+        } else {
+            // 3. Եթե ID չկա, նկարում ենք բոլորը
+            renderProducts(products);
+            // Ավելացնում ենք ստուգում, որպեսզի սխալ չտա, եթե էլեմենտը չկա
+            const allBtn = document.querySelector('.all-btn');
+            if (allBtn) allBtn.classList.add('active');
         }
+        renderRecentViewed();
+        updateWishCount();
     } catch (error) {
         document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
     }
