@@ -582,6 +582,19 @@ border-radius: 6px;
 #toast.show { visibility: visible;
              animation: fadein 0.5s;
              opacity: 1;}
+.new-badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:#ff4757;
+    color:#fff;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1px;
+    z-index:20;
+}
 </style>
 </head>
 <body>
@@ -891,8 +904,12 @@ function appendCards(items, container) {
     let html = '';
     items.forEach(p => {
         const isWished = wishlist.includes(p.id) ? 'active' : '';
+        const newBadge = p.new === 'yes'
+    ? '<div class="new-badge">NEW</div>'
+    : '';
         html += `
             <div class="card" id="card-${p.id}">
+            ${newBadge}
                 <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
                 <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
