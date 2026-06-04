@@ -1054,7 +1054,6 @@ function t(key) {
 function switchLanguage() {
     currentLang = currentLang === 'hy' ? 'ru' : (currentLang === 'ru' ? 'en' : 'hy');
     localStorage.setItem('siteLang', currentLang);
-    // Update button text
     const langBtn = document.getElementById('langBtn');
     if (langBtn) {
         if (currentLang === 'hy') langBtn.innerHTML = '🌐 Հայ';
@@ -1063,22 +1062,11 @@ function switchLanguage() {
     }
     updatePageLanguage();
     if (isWishlistMode) {
-    const filtered = products.filter(p => wishlist.includes(p.id));
-    renderProducts(filtered, true);
+        const filtered = products.filter(p => wishlist.includes(p.id));
+        renderProducts(filtered, true);
     } else {
-    const activeFilter = document.querySelector('.filter-btn.active');
-    const filterText = activeFilter ? activeFilter.innerText.trim() : '';
-    const filterMap = {
-        [t('filterRings')]: 'Մատանիներ',
-        [t('filterNecklaces')]: 'Վզնոցներ',
-        [t('filterEarrings')]: 'Ականջօղեր',
-        [t('filterBracelets')]: 'Թևնոցներ',
-        [t('filterWatches')]: 'Ժամացույցներ',
-        [t('filterBoxes')]: 'Տուփեր',
-    };
-    const cat = filterMap[filterText];
-    renderProducts(cat ? products.filter(p => p.cat === cat) : products);
-}
+        renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
+    }
     updateCategoryTitles();
 }
 
@@ -1181,6 +1169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
+let activeCategory = 'all';
 async function loadProductsFromSheet() {
     // Skeleton ցուցադրել
     const catalog = document.getElementById('catalog');
@@ -1612,6 +1601,7 @@ function showWishlist() {
 }
     
 function filterCategory(event, category) {
+    activeCategory = category;
     window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
     const searchInput = document.getElementById('searchInput');
     if(searchInput) searchInput.value = '';
