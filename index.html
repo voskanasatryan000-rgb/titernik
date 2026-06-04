@@ -935,6 +935,12 @@ const translations = {
         footerContact: "📞 Կապ մեզ հետ",
         footerCopyright: "© 2026 Titernik Accessories — Բոլոր իրավունքները պաշտպանված են։",
         backToTop: "↑ Վերադառնալ վերև",
+        sortAsc: "Էժանից թանկ",
+        sortDesc: "Թանկից էժան",
+        sortDefault: "Սկզբնական",
+        noWishlistTitle: "Նախընտրածներ չկան",
+        noWishlistDesc2: "Ձեր սիրելի աքսեսուարները կհայտնվեն այստեղ ✨",
+        backToCatalog2: "← Վերադառնալ կատալոգ",
         // categories for translation
         catRings: "Մատանիներ",
         catNecklaces: "Վզնոցներ",
@@ -970,6 +976,12 @@ const translations = {
         footerContact: "📞 Свяжитесь с нами",
         footerCopyright: "© 2026 Titernik Accessories — Все права защищены.",
         backToTop: "↑ Наверх",
+        sortAsc: "По возрастанию цены",
+        sortDesc: "По убыванию цены",
+        sortDefault: "По умолчанию",
+        noWishlistTitle: "Нет избранного",
+        noWishlistDesc2: "Ваши любимые аксессуары появятся здесь ✨",
+        backToCatalog2: "← Назад в каталог",
         catRings: "Кольца",
         catNecklaces: "Ожерелья",
         catEarrings: "Серьги",
@@ -1004,6 +1016,12 @@ const translations = {
         footerContact: "📞 Contact us",
         footerCopyright: "© 2026 Titernik Accessories — All rights reserved.",
         backToTop: "↑ Back to top",
+        sortAsc: "Price: Low to High",
+        sortDesc: "Price: High to Low",
+        sortDefault: "Default",
+        noWishlistTitle: "No favorites yet",
+        noWishlistDesc2: "Your favorite accessories will appear here ✨",
+        backToCatalog2: "← Back to catalog",
         catRings: "Rings",
         catNecklaces: "Necklaces",
         catEarrings: "Earrings",
@@ -1391,10 +1409,9 @@ section.innerHTML = `
         <div class="sort-dropdown">
             <button class="filter-btn sort-btn" onclick="toggleSortMenu('${cat}')">⇅ ▾</button>
             <div class="sort-menu" id="sortMenu-${cat}">
-                <div onclick="sortCategory('${cat}', 'asc')">↑ Էժանից թանկ</div>
-                <div onclick="sortCategory('${cat}', 'desc')">↓ Թանկից էժան</div>
-                <div onclick="sortCategory('${cat}', 'default')">↺ Սկզբնական</div>
-            </div>
+             <div onclick="sortCategory('${cat}', 'asc')">↑ ${t('sortAsc')}</div>
+             <div onclick="sortCategory('${cat}', 'desc')">↓ ${t('sortDesc')}</div>
+             <div onclick="sortCategory('${cat}', 'default')">↺ ${t('sortDefault')}</div> </div>
         </div>
     </div>
     <div class="grid" id="grid-${cat}"></div>`;                catalog.appendChild(section);
@@ -1501,12 +1518,12 @@ if(wishlist.includes(id)) {
                         color: var(--brand-color);
                         margin-bottom:10px;
                         font-family:'Playfair Display', serif;  ">
-                        Նախընտրածներ չունեք
+                        ${t('noWishlist')}
                     </h2>
                     <p style="
                         opacity:0.7;
                         margin-bottom:30px;  ">
-                        Ավելացրեք սիրելի ապրանքները այստեղ ✨
+                        ${t('noWishlistDesc')}
                     </p>
                     <button
                         onclick="
@@ -1516,7 +1533,7 @@ if(wishlist.includes(id)) {
                         "
                         class="back-btn"
                     >
-                        ← Վերադառնալ կատալոգ
+                         ${t('backToCatalog2')}
                     </button>
                 </div>
             `;
@@ -1609,8 +1626,8 @@ function showWishlist() {
                     font-family:'Playfair Display', serif;
                     letter-spacing:1px;
                 ">
-                    Նախընտրածներ չկան
-                </h2>
+               ${t('noWishlistTitle')}       
+               </h2>
 
                 <p style="
                     color: var(--text-color);
@@ -1620,7 +1637,7 @@ function showWishlist() {
                     max-width:320px;
                     line-height:1.7;
                 ">
-                    Ձեր սիրելի աքսեսուարները կհայտնվեն այստեղ ✨
+                    ${t('noWishlistDesc2')}
                 </p>
 
                 <button
@@ -1631,7 +1648,7 @@ function showWishlist() {
                     "
                     class="back-btn"
                 >
-                    ← Վերադառնալ կատալոգ
+                    ${t('backToCatalog2')}
                 </button>
             </div>
         `;
