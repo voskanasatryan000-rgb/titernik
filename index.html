@@ -1736,7 +1736,7 @@ document.getElementById('overlay').addEventListener('touchstart', e => {
 
 async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const text = `${t('shareText')} ${category}-ը: ${t('code')}: ${id}\n\n${shareUrl}`;
+    const text = `${t('shareText')} ${translateCategory(category)}-ը: ${t('code')}: ${id}\n\n${shareUrl}`;
 
     try {
         // 1. Բեռնում ենք նկարը սերվերից
