@@ -1265,7 +1265,7 @@ function copyToClipboardAndOpenInstagram(id) {
 
 const text = `${t('orderMsg')}
 ${t('orderID')}: ${product.id}
-${t('orderName')}: ${product.cat}
+${t('orderName')}: ${translateCategory(product.cat)}
 ${t('orderPrice')}: ${product.price} ֏
 
 ${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
