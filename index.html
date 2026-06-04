@@ -768,6 +768,29 @@ border-radius: 6px;
         justify-content: center;
     }
 }
+/* Language Switcher Button */
+.lang-toggle {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.lang-toggle:hover {
+    background: var(--brand-color);
+    color: white;
+    border-color: var(--brand-color);
+}
+@media (max-width: 600px) {
+    .lang-toggle { padding: 6px 10px; font-size: 11px; }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -791,6 +814,310 @@ border-radius: 6px;
    "https://www.tiktok.com/@titernik_accessories"
  ]
 }
+// ========== LANGUAGE TRANSLATION ==========
+let currentLang = localStorage.getItem('siteLang') || 'hy';
+const translations = {
+    hy: {
+        searchPlaceholder: "Որոնել...",
+        filterAll: "Բոլորը",
+        filterRings: "Մատանիներ",
+        filterNecklaces: "Վզնոցներ",
+        filterEarrings: "Ականջօղեր",
+        filterBracelets: "Թևնոցներ",
+        filterWatches: "Ժամացույցներ",
+        filterBoxes: "Տուփեր",
+        wishlistBtn: "❤️",
+        wishlistTitle: "Իմ նախընտրածները",
+        backToCatalog: "← Հետ դեպի կատալոգ",
+        noWishlist: "Նախընտրածներ չունեք",
+        noWishlistDesc: "Ավելացրեք սիրելի ապրանքները այստեղ ✨",
+        orderBtn: "Պատվիրել",
+        recentTitle: "Վերջերս դիտված",
+        searchNoResults: "Արդյունք չի գտնվել",
+        searchButton: "Տեսնել ամբողջը",
+        copyToast: "Պատճենվեց։ Instagram-ում սեղմիր 'Paste'!",
+        shareText: "Նայիր այս սիրուն",
+        code: "Կոդ",
+        footerAbout: "🦋 Titernik Accessories",
+        footerDesc: "✨ Զարդերի մասնագիտացված խանութների ցանց ✨\nJewellery and watches company\nԲարձրորակ աքսեսուարներ, մատանիներ, վզնոցներ, ականջօղեր, թևնոցներ, ժամացույցներ և տուփեր:",
+        footerShops: "📍 Մեր խանութները",
+        footerContact: "📞 Կապ մեզ հետ",
+        footerCopyright: "© 2026 Titernik Accessories — Բոլոր իրավունքները պաշտպանված են։",
+        backToTop: "↑ Վերադառնալ վերև",
+        // categories for translation
+        catRings: "Մատանիներ",
+        catNecklaces: "Վզնոցներ",
+        catEarrings: "Ականջօղեր",
+        catBracelets: "Թևնոցներ",
+        catWatches: "Ժամացույցներ",
+        catBoxes: "Տուփեր"
+    },
+    ru: {
+        searchPlaceholder: "Поиск...",
+        filterAll: "Все",
+        filterRings: "Кольца",
+        filterNecklaces: "Ожерелья",
+        filterEarrings: "Серьги",
+        filterBracelets: "Браслеты",
+        filterWatches: "Часы",
+        filterBoxes: "Коробки",
+        wishlistBtn: "❤️",
+        wishlistTitle: "Избранное",
+        backToCatalog: "← Назад в каталог",
+        noWishlist: "Нет избранного",
+        noWishlistDesc: "Добавьте сюда любимые товары ✨",
+        orderBtn: "Заказать",
+        recentTitle: "Недавно просмотренные",
+        searchNoResults: "Ничего не найдено",
+        searchButton: "Показать все",
+        copyToast: "Скопировано! В Instagram нажмите 'Вставить'!",
+        shareText: "Посмотри на это красивое",
+        code: "Код",
+        footerAbout: "🦋 Titernik Accessories",
+        footerDesc: "✨ Сеть специализированных магазинов украшений ✨\nJewellery and watches company\nВысококачественные аксессуары, кольца, ожерелья, серьги, браслеты, часы и коробки.",
+        footerShops: "📍 Наши магазины",
+        footerContact: "📞 Свяжитесь с нами",
+        footerCopyright: "© 2026 Titernik Accessories — Все права защищены.",
+        backToTop: "↑ Наверх",
+        catRings: "Кольца",
+        catNecklaces: "Ожерелья",
+        catEarrings: "Серьги",
+        catBracelets: "Браслеты",
+        catWatches: "Часы",
+        catBoxes: "Коробки"
+    },
+    en: {
+        searchPlaceholder: "Search...",
+        filterAll: "All",
+        filterRings: "Rings",
+        filterNecklaces: "Necklaces",
+        filterEarrings: "Earrings",
+        filterBracelets: "Bracelets",
+        filterWatches: "Watches",
+        filterBoxes: "Boxes",
+        wishlistBtn: "❤️",
+        wishlistTitle: "My Wishlist",
+        backToCatalog: "← Back to catalog",
+        noWishlist: "No favorites yet",
+        noWishlistDesc: "Add your favorite items here ✨",
+        orderBtn: "Order",
+        recentTitle: "Recently viewed",
+        searchNoResults: "No results found",
+        searchButton: "Show all",
+        copyToast: "Copied! In Instagram press 'Paste'!",
+        shareText: "Look at this beautiful",
+        code: "Code",
+        footerAbout: "🦋 Titernik Accessories",
+        footerDesc: "✨ Specialized jewelry store chain ✨\nJewellery and watches company\nHigh-quality accessories, rings, necklaces, earrings, bracelets, watches and boxes.",
+        footerShops: "📍 Our shops",
+        footerContact: "📞 Contact us",
+        footerCopyright: "© 2026 Titernik Accessories — All rights reserved.",
+        backToTop: "↑ Back to top",
+        catRings: "Rings",
+        catNecklaces: "Necklaces",
+        catEarrings: "Earrings",
+        catBracelets: "Bracelets",
+        catWatches: "Watches",
+        catBoxes: "Boxes"
+    }
+};
+
+function t(key) {
+    return translations[currentLang][key] || key;
+}
+
+function switchLanguage() {
+    currentLang = currentLang === 'hy' ? 'ru' : (currentLang === 'ru' ? 'en' : 'hy');
+    localStorage.setItem('siteLang', currentLang);
+    // Update button text
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+        if (currentLang === 'hy') langBtn.innerHTML = '🌐 Հայ';
+        else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
+        else langBtn.innerHTML = '🌐 Eng';
+    }
+    // Update all static texts on page
+    updatePageLanguage();
+    // Re-render current catalog/wishlist view
+    if (typeof currentRenderData !== 'undefined' && currentRenderData) {
+        renderProducts(currentRenderData, isWishlistMode);
+    } else {
+        renderProducts(products);
+    }
+    updateCategoryTitles();
+}
+
+function updatePageLanguage() {
+    // Search bar placeholder
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.placeholder = t('searchPlaceholder');
+    
+    // Filter buttons texts
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    if (filterBtns.length >= 7) {
+        filterBtns[0].innerText = t('filterAll');
+        filterBtns[1].innerText = t('filterRings');
+        filterBtns[2].innerText = t('filterNecklaces');
+        filterBtns[3].innerText = t('filterEarrings');
+        filterBtns[4].innerText = t('filterBracelets');
+        filterBtns[5].innerText = t('filterWatches');
+        filterBtns[6].innerText = t('filterBoxes');
+    }
+    // Wishlist count button heart text
+    const wishlistCountSpan = document.querySelector('.wishlist-count-btn span.heart');
+    if (wishlistCountSpan) wishlistCountSpan.innerText = t('wishlistBtn');
+    // Recent viewed section title
+    const recentTitle = document.querySelector('#recent-viewed-section .category-title');
+    if (recentTitle) recentTitle.innerText = t('recentTitle');
+    // Footer texts
+    const footerCols = document.querySelectorAll('.footer-col');
+    if (footerCols.length >= 3) {
+        const footerTitle1 = footerCols[0].querySelector('h4');
+        if (footerTitle1) footerTitle1.innerHTML = t('footerAbout');
+        const footerDescP = footerCols[0].querySelector('p');
+        if (footerDescP) footerDescP.innerHTML = t('footerDesc').replace(/\n/g, '<br>');
+        const footerTitle2 = footerCols[1].querySelector('h4');
+        if (footerTitle2) footerTitle2.innerText = t('footerShops');
+        const footerTitle3 = footerCols[2].querySelector('h4');
+        if (footerTitle3) footerTitle3.innerText = t('footerContact');
+        const copyrightP = document.querySelector('.footer-bottom p:first-child');
+        if (copyrightP) copyrightP.innerText = t('footerCopyright');
+        const backLink = document.querySelector('.footer-bottom a');
+        if (backLink) backLink.innerText = t('backToTop');
+    }
+}
+
+function updateCategoryTitles() {
+    // Update all category titles (h2.category-title) that are not the recent title
+    document.querySelectorAll('.category-title').forEach(title => {
+        const parentDiv = title.closest('section');
+        if (parentDiv && parentDiv.id !== 'recent-viewed-section') {
+            const catName = title.innerText.trim();
+            const translated = translateCategory(catName);
+            if (translated !== catName) title.innerText = translated;
+        }
+    });
+}
+
+function translateCategory(catName) {
+    const map = {
+        'Մատանիներ': t('catRings'),
+        'Վզնոցներ': t('catNecklaces'),
+        'Ականջօղեր': t('catEarrings'),
+        'Թևնոցներ': t('catBracelets'),
+        'Ժամացույցներ': t('catWatches'),
+        'Տուփեր': t('catBoxes'),
+        'Кольца': t('catRings'),
+        'Ожерелья': t('catNecklaces'),
+        'Серьги': t('catEarrings'),
+        'Браслеты': t('catBracelets'),
+        'Часы': t('catWatches'),
+        'Коробки': t('catBoxes'),
+        'Rings': t('catRings'),
+        'Necklaces': t('catNecklaces'),
+        'Earrings': t('catEarrings'),
+        'Bracelets': t('catBracelets'),
+        'Watches': t('catWatches'),
+        'Boxes': t('catBoxes')
+    };
+    return map[catName] || catName;
+}
+
+// Override showWishlist and back buttons texts dynamically when needed
+// Also need to override order button texts after rendering
+// We'll modify appendCards to use translated order button
+// And also update back button in wishlist view
+
+// Store current render state for language change
+let currentRenderData = [];
+let isWishlistMode = false;
+
+// Save original renderProducts to wrap
+const originalRenderProducts = renderProducts;
+window.renderProducts = function(data, isWishlist = false) {
+    currentRenderData = data;
+    isWishlistMode = isWishlist;
+    originalRenderProducts(data, isWishlist);
+    // After rendering, update order buttons texts
+    document.querySelectorAll('.order-btn').forEach(btn => {
+        if (btn.innerText !== t('orderBtn')) btn.innerText = t('orderBtn');
+    });
+    // Update back button in wishlist mode
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn && isWishlist) backBtn.innerText = t('backToCatalog');
+    // Update wishlist title
+    const wishlistTitle = document.querySelector('#catalog h2.category-title');
+    if (wishlistTitle && isWishlist) wishlistTitle.innerText = t('wishlistTitle');
+    updateCategoryTitles();
+};
+
+// Also override showWishlist to set flag
+const originalShowWishlist = window.showWishlist;
+window.showWishlist = function() {
+    isWishlistMode = true;
+    originalShowWishlist();
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn) backBtn.innerText = t('backToCatalog');
+    const wishlistTitle = document.querySelector('#catalog h2.category-title');
+    if (wishlistTitle) wishlistTitle.innerText = t('wishlistTitle');
+};
+
+// Override filterCategory to reset flag
+const originalFilterCategory = window.filterCategory;
+window.filterCategory = function(event, category) {
+    isWishlistMode = false;
+    originalFilterCategory(event, category);
+};
+
+// Override searchProducts to reset flag and update button texts
+const originalSearchProducts = window.searchProducts;
+window.searchProducts = function() {
+    isWishlistMode = false;
+    originalSearchProducts();
+};
+
+// Override copyToClipboardAndOpenInstagram to use translated toast
+const originalCopy = window.copyToClipboardAndOpenInstagram;
+window.copyToClipboardAndOpenInstagram = function(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը:\n\n📦 ID: ${product.id}\n🦋 Անվանում: ${product.cat}\n🏷️ Գին: ${product.price} ֏\n\n🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}\n\n`;
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(t('copyToast'));
+        setTimeout(() => { window.open("https://ig.me/m/titernik_accessories", "_blank"); }, 500);
+    }).catch(err => console.error('Պատճենելը չհաջողվեց', err));
+};
+
+// Override shareProduct to use translated share text
+const originalShare = window.shareProduct;
+window.shareProduct = async function(id, category, imgUrl) {
+    const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
+    const text = `${t('shareText')} ${category}: ${t('code')}: ${id}\n\n${shareUrl}`;
+    try {
+        const response = await fetch(imgUrl);
+        const blob = await response.blob();
+        const file = new File([blob], 'product.jpg', { type: blob.type });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: 'Titernik Accessories', text: text });
+        } else {
+            await navigator.share({ text: text });
+        }
+    } catch (err) { copyFallback(text); }
+};
+
+// Initial language setup
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('siteLang')) {
+        currentLang = localStorage.getItem('siteLang');
+    }
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+        if (currentLang === 'hy') langBtn.innerHTML = '🌐 Հայ';
+        else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
+        else langBtn.innerHTML = '🌐 Eng';
+    }
+    updatePageLanguage();
+});
 </script>
 </head>
 <body>
@@ -825,6 +1152,7 @@ border-radius: 6px;
     <span id="wishCount">0</span>
 </button>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+<button class="lang-toggle" id="langBtn" onclick="switchLanguage()">🌐 Հայ</button>
 </div>
 </header>
 
