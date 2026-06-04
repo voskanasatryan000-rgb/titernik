@@ -1061,6 +1061,7 @@ function switchLanguage() {
         else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
         else langBtn.innerHTML = '🌐 Eng';
     }
+    updatePageLanguage();
     if (isWishlistMode) {
     const filtered = products.filter(p => wishlist.includes(p.id));
     renderProducts(filtered, true);
