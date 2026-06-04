@@ -887,7 +887,7 @@ border-radius: 6px;
         <div class="footer-col">
             <h4>📞 Կապ մեզ հետ</h4>
             <ul>
-                <li>📱 <a href="tel:+37499123456">+374 99 12 34 56</a> (Վաճառքի բաժին)</li>
+                <li>📱 <a href="tel:+37499123456">+374 99 12 34 56</a></li>
                 <li>📧 <a href="mailto:info@titernik.am" style="color: var(--footer-text); text-decoration: none;">info@titernik.am</a></li>
                 <li>📢 Telegram ալիք՝ <a href="https://t.me/titernikaccessorize" target="_blank">@titernikaccessorize</a></li>
             </ul>
@@ -1079,17 +1079,21 @@ function updatePageLanguage() {
 }
 
 function updateCategoryTitles() {
-    // Update all category titles (h2.category-title) that are not the recent title
+    // Գտնում ենք բոլոր հեդերները, որոնք ունեն .category-title դասը
     document.querySelectorAll('.category-title').forEach(title => {
         const parentDiv = title.closest('section');
+        // Միայն եթե այս սեքցիան 'recent-viewed-section' չէ
         if (parentDiv && parentDiv.id !== 'recent-viewed-section') {
-            const catName = title.innerText.trim();
-            const translated = translateCategory(catName);
-            if (translated !== catName) title.innerText = translated;
+            const currentText = title.innerText.trim(); 
+            // Օգտագործում ենք քո ունեցած translateCategory ֆունկցիան
+            const translated = translateCategory(currentText);    
+            // Եթե թարգմանություն գտնվել է, փոխում ենք
+            if (translated !== currentText) {
+                title.innerText = translated;
+            }
         }
     });
 }
-
 function translateCategory(catName) {
     const map = {
         'Մատանիներ': t('catRings'),
