@@ -1807,23 +1807,7 @@ window.onscroll = function() {
         btn.style.display = "none";
     }
 };
-// Ստեղծում ենք «դիտորդ», որը կհետևի հենց այն պահին, երբ ապրանքները հայտնվեն էջում
-const observer = new MutationObserver((mutations) => {
-    // Երբ որևէ բան փոխվի, մենք անմիջապես կանչում ենք թարգմանությունը
-    // Սա կաշխատի նույնիսկ այն բանից հետո, երբ Sheets-ը տվյալները կբերի ու կնկարի
-    updateCategoryTitles();
-});
 
-// Կցում ենք «դիտորդին» այն մասին, որտեղ հայտնվում են հեդերները (կատալոգի կոնտեյներին)
-const catalogContainer = document.getElementById('catalog');
-if (catalogContainer) {
-    observer.observe(catalogContainer, { 
-        childList: true, // Հետևիր, երբ նոր տարրեր հայտնվեն
-        subtree: true,   // Հետևիր նաև ներսի բոլոր հեդերներին
-        characterData: true, 
-        attributes: true 
-    });
-}
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -1852,6 +1836,26 @@ diff > 0 ? overlayNext() : overlayPrev();
 });
 
     loadProductsFromSheet();
+    // Ստեղծում ենք «դիտորդ», որը կհետևի հենց h2-ների տեքստի փոփոխությանը
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+            const title = mutation.target.parentElement || mutation.target;
+            if (title.classList.contains('category-title')) {
+                const text = title.innerText.trim();
+                const translated = translateCategory(text);
+                if (translated && translated !== text) {
+                    title.innerText = translated;
+                }
+            }
+        }
+    });
+});
+
+// Ակտիվացնում ենք դիտորդը բոլոր h2-ների վրա
+document.querySelectorAll('h2.category-title').forEach(el => {
+    observer.observe(el, { childList: true, characterData: true, subtree: true });
+});
 </script>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
