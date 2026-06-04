@@ -1653,11 +1653,12 @@ function searchProducts() {
     }
 
     // 2. Զտում ենք ապրանքները
-    const filteredProducts = products.filter(p => {
-        const idStr = p.id ? String(p.id).toLowerCase() : "";
-        const catStr = p.cat ? String(p.cat).toLowerCase() : "";
-        return idStr.includes(term) || catStr.includes(term);
-    });
+   const filteredProducts = products.filter(p => {
+    const idStr = p.id ? String(p.id).toLowerCase() : "";
+    const catStr = p.cat ? String(p.cat).toLowerCase() : "";
+    const catTranslated = translateCategory(p.cat).toLowerCase();
+    return idStr.includes(term) || catStr.includes(term) || catTranslated.includes(term);
+});
 
     // 3. Ստուգում ենք արդյունքը
     if (filteredProducts.length === 0) {
