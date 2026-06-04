@@ -1079,17 +1079,25 @@ function updatePageLanguage() {
 }
 
 function updateCategoryTitles() {
-    // Գտնում ենք բոլոր հեդերները, որոնք ունեն .category-title դասը
-    document.querySelectorAll('.category-title').forEach(title => {
-        const parentDiv = title.closest('section');
-        // Միայն եթե այս սեքցիան 'recent-viewed-section' չէ
-        if (parentDiv && parentDiv.id !== 'recent-viewed-section') {
-            const currentText = title.innerText.trim(); 
-            // Օգտագործում ենք քո ունեցած translateCategory ֆունկցիան
-            const translated = translateCategory(currentText);    
-            // Եթե թարգմանություն գտնվել է, փոխում ենք
-            if (translated !== currentText) {
-                title.innerText = translated;
+    // Գտնում ենք բոլոր վերնագրերը, որոնք ունեն .category-title դասը
+    document.querySelectorAll('h2.category-title').forEach(title => {
+        const currentText = title.innerText.trim();
+        
+        const map = {
+            'Մատանիներ': 'catRings', 'Кольца': 'catRings', 'Rings': 'catRings',
+            'Վզնոցներ': 'catNecklaces', 'Ожерелья': 'catNecklaces', 'Necklaces': 'catNecklaces',
+            'Ականջօղեր': 'catEarrings', 'Серьги': 'catEarrings', 'Earrings': 'catEarrings',
+            'Ապարանջաններ': 'catBracelets', 'Браслеты': 'catBracelets', 'Bracelets': 'catBracelets',
+            'Ժամացույցներ': 'catWatches', 'Часы': 'catWatches', 'Watches': 'catWatches',
+            'Տուփեր': 'catBoxes', 'Коробки': 'catBoxes', 'Boxes': 'catBoxes'
+        };
+
+        const key = map[currentText];
+        
+        if (key) {
+            const translatedText = t(key);
+            if (title.innerText !== translatedText) {
+                title.innerText = translatedText;
             }
         }
     });
