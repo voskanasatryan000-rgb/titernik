@@ -1836,26 +1836,6 @@ diff > 0 ? overlayNext() : overlayPrev();
 });
 
     loadProductsFromSheet();
-    // Ստեղծում ենք «դիտորդ», որը կհետևի հենց h2-ների տեքստի փոփոխությանը
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-            const title = mutation.target.parentElement || mutation.target;
-            if (title.classList.contains('category-title')) {
-                const text = title.innerText.trim();
-                const translated = translateCategory(text);
-                if (translated && translated !== text) {
-                    title.innerText = translated;
-                }
-            }
-        }
-    });
-});
-
-// Ակտիվացնում ենք դիտորդը բոլոր h2-ների վրա
-document.querySelectorAll('h2.category-title').forEach(el => {
-    observer.observe(el, { childList: true, characterData: true, subtree: true });
-});
 </script>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
