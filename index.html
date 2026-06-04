@@ -1068,15 +1068,17 @@ function switchLanguage() {
         else langBtn.innerHTML = '🌐 Eng';
     }
     updatePageLanguage();
-    if (isWishlistMode) {
-        const filtered = products.filter(p => wishlist.includes(p.id));
-        renderProducts(filtered, true);
-    } else {
-        renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
-    }
-    updateCategoryTitles();
-    document.getElementById('langBtn').blur();
+   if (isWishlistMode) {
+    const filtered = products.filter(p => wishlist.includes(p.id));
+    resetFilters();
+    const wishlistBtn = document.querySelector('.wishlist-count-btn');
+    if (wishlistBtn) wishlistBtn.classList.add('active');
+    renderProducts(filtered, true);
+} else {
+    renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
 }
+updateCategoryTitles();
+document.getElementById('langBtn').blur();
 
 function updatePageLanguage() {
     // Search bar placeholder
