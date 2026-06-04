@@ -1345,8 +1345,11 @@ if(isWishlist) {
             <button class="back-btn" onclick="renderProducts(products); resetFilters(); document.querySelector('.all-btn').classList.add('active');" style="display: block;">${t('backToCatalog')}</button>
             <h2 class="category-title" style="display: block; border-bottom: none;">${t('wishlistTitle')}</h2>
             <div class="grid" id="wishGrid" style="margin-top:30px;"></div>`;
-        appendCards(data, document.getElementById('wishGrid'));
-    } else {
+setTimeout(() => {
+            const wishGrid = document.getElementById('wishGrid');
+            if (wishGrid) appendCards(data, wishGrid);
+        }, 0);
+} else {
         const categories = [...new Set(products.map(p => p.cat))];
         categories.forEach(cat => {
             const items = data.filter(p => p.cat === cat);
