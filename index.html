@@ -948,6 +948,11 @@ const translations = {
         catBracelets: "Թևնոցներ",
         catWatches: "Ժամացույցներ",
         catBoxes: "Տուփեր"
+        orderMsg: "Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը:",
+        orderID: "📦 ID",
+        orderName: "🦋 Անվանում",
+        orderPrice: "🏷️ Գին",
+        orderLink: "🔗 Հղում"
     },
     ru: {
         searchPlaceholder: "Поиск...",
@@ -988,7 +993,12 @@ const translations = {
         catEarrings: "Серьги",
         catBracelets: "Браслеты",
         catWatches: "Часы",
-        catBoxes: "Коробки"
+        catBoxes: "Коробки",
+        orderMsg: "Здравствуйте, хочу заказать следующий товар:",
+        orderID: "📦 ID",
+        orderName: "🦋 Название",
+        orderPrice: "🏷️ Цена",
+        orderLink: "🔗 Ссылка"
     },
     en: {
         searchPlaceholder: "Search...",
@@ -1029,7 +1039,12 @@ const translations = {
         catEarrings: "Earrings",
         catBracelets: "Bracelets",
         catWatches: "Watches",
-        catBoxes: "Boxes"
+        catBoxes: "Boxes",
+        orderMsg: "Hello, I would like to order the following item:",
+        orderID: "📦 ID",
+        orderName: "🦋 Name",
+        orderPrice: "🏷️ Price",
+        orderLink: "🔗 Link"
     }
 };
 function t(key) {
@@ -1046,14 +1061,23 @@ function switchLanguage() {
         else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
         else langBtn.innerHTML = '🌐 Eng';
     }
-    // Update all static texts on page
-    updatePageLanguage();
-    // Re-render current catalog/wishlist view
-    if (typeof currentRenderData !== 'undefined' && currentRenderData) {
-        renderProducts(currentRenderData, isWishlistMode);
+    if (isWishlistMode) {
+    const filtered = products.filter(p => wishlist.includes(p.id));
+    renderProducts(filtered, true);
     } else {
-        renderProducts(products);
-    }
+    const activeFilter = document.querySelector('.filter-btn.active');
+    const filterText = activeFilter ? activeFilter.innerText.trim() : '';
+    const filterMap = {
+        [t('filterRings')]: 'Մատանիներ',
+        [t('filterNecklaces')]: 'Վզնոցներ',
+        [t('filterEarrings')]: 'Ականջօղեր',
+        [t('filterBracelets')]: 'Թևնոցներ',
+        [t('filterWatches')]: 'Ժամացույցներ',
+        [t('filterBoxes')]: 'Տուփեր',
+    };
+    const cat = filterMap[filterText];
+    renderProducts(cat ? products.filter(p => p.cat === cat) : products);
+}
     updateCategoryTitles();
 }
 
@@ -1139,80 +1163,7 @@ function translateCategory(catName) {
 // Store current render state for language change
 let currentRenderData = [];
 let isWishlistMode = false;
-
-// Save original renderProducts to wrap
-const originalRenderProducts = renderProducts;
-window.renderProducts = function(data, isWishlist = false) {
-    currentRenderData = data;
-    isWishlistMode = isWishlist;
-    originalRenderProducts(data, isWishlist);
-    // After rendering, update order buttons texts
-    document.querySelectorAll('.order-btn').forEach(btn => {
-        if (btn.innerText !== t('orderBtn')) btn.innerText = t('orderBtn');
-    });
-    // Update back button in wishlist mode
-    const backBtn = document.querySelector('.back-btn');
-    if (backBtn && isWishlist) backBtn.innerText = t('backToCatalog');
-    // Update wishlist title
-    const wishlistTitle = document.querySelector('#catalog h2.category-title');
-    if (wishlistTitle && isWishlist) wishlistTitle.innerText = t('wishlistTitle');
-  setTimeout(updateCategoryTitles, 0);
-};
-
-// Also override showWishlist to set flag
-const originalShowWishlist = window.showWishlist;
-window.showWishlist = function() {
-    isWishlistMode = true;
-    originalShowWishlist();
-    const backBtn = document.querySelector('.back-btn');
-    if (backBtn) backBtn.innerText = t('backToCatalog');
-    const wishlistTitle = document.querySelector('#catalog h2.category-title');
-    if (wishlistTitle) wishlistTitle.innerText = t('wishlistTitle');
-};
-
-// Override filterCategory to reset flag
-const originalFilterCategory = window.filterCategory;
-window.filterCategory = function(event, category) {
-    isWishlistMode = false;
-    originalFilterCategory(event, category);
-};
-
-// Override searchProducts to reset flag and update button texts
-const originalSearchProducts = window.searchProducts;
-window.searchProducts = function() {
-    isWishlistMode = false;
-    originalSearchProducts();
-};
-
-// Override copyToClipboardAndOpenInstagram to use translated toast
-const originalCopy = window.copyToClipboardAndOpenInstagram;
-window.copyToClipboardAndOpenInstagram = function(id) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը:\n\n📦 ID: ${product.id}\n🦋 Անվանում: ${product.cat}\n🏷️ Գին: ${product.price} ֏\n\n🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}\n\n`;
-    navigator.clipboard.writeText(text).then(() => {
-        showToast(t('copyToast'));
-        setTimeout(() => { window.open("https://ig.me/m/titernik_accessories", "_blank"); }, 500);
-    }).catch(err => console.error('Պատճենելը չհաջողվեց', err));
-};
-
-// Override shareProduct to use translated share text
-const originalShare = window.shareProduct;
-window.shareProduct = async function(id, category, imgUrl) {
-    const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const text = `${t('shareText')} ${category}: ${t('code')}: ${id}\n\n${shareUrl}`;
-    try {
-        const response = await fetch(imgUrl);
-        const blob = await response.blob();
-        const file = new File([blob], 'product.jpg', { type: blob.type });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file], title: 'Titernik Accessories', text: text });
-        } else {
-            await navigator.share({ text: text });
-        }
-    } catch (err) { copyFallback(text); }
-};
-
+    
 // Initial language setup
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('siteLang')) {
@@ -1312,19 +1263,18 @@ function copyToClipboardAndOpenInstagram(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
 
-    const text = `Բարև ձեզ, ուզում եմ պատվիրել հետևյալ ապրանքը:
+const text = `${t('orderMsg')}
+${t('orderID')}: ${product.id}
+${t('orderName')}: ${product.cat}
+${t('orderPrice')}: ${product.price} ֏
 
-📦 ID: ${product.id}
-🦋 Անվանում: ${product.cat}
-🏷️ Գին: ${product.price} ֏
-
-🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}
+${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
 
 `;
 
     navigator.clipboard.writeText(text).then(() => {
         // Ցույց ենք տալիս toast-ը
-        showToast("Պատճենվեց։ Instagram-ում սեղմիր 'Paste'!");
+        showToast(t('copyToast'));
         // Բացում ենք Instagram-ը
         setTimeout(() => {
             window.open("https://ig.me/m/titernik_accessories", "_blank");
@@ -1786,7 +1736,7 @@ document.getElementById('overlay').addEventListener('touchstart', e => {
 
 async function shareProduct(id, category, imgUrl) {
     const shareUrl = window.location.origin + window.location.pathname + `?id=${id}`;
-    const text = `Նայիր այս սիրուն ${category}-ը: Կոդ: ${id}\n\n${shareUrl}`;
+    const text = `${t('shareText')} ${category}-ը: ${t('code')}: ${id}\n\n${shareUrl}`;
 
     try {
         // 1. Բեռնում ենք նկարը սերվերից
