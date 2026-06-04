@@ -788,6 +788,13 @@ border-radius: 6px;
     color: white;
     border-color: var(--brand-color);
 }
+.lang-toggle:focus,
+.lang-toggle:active {
+    outline: none;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
 @media (max-width: 600px) {
     .lang-toggle { padding: 6px 10px; font-size: 11px; }
 }
@@ -848,7 +855,7 @@ border-radius: 6px;
     <span id="wishCount">0</span>
 </button>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
-<button class="lang-toggle" id="langBtn" onclick="switchLanguage()">🌐 Հայ</button>
+<button class="lang-toggle" id="langBtn" onclick="switchLanguage()" style="-webkit-tap-highlight-color: transparent;">🌐 Հայ</button>
 </div>
 </header>
 
