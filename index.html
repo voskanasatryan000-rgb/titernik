@@ -1336,6 +1336,7 @@ function sortCategory(cat, order) {
 }
 
 function renderProducts(data, isWishlist = false) {
+isWishlistMode = isWishlist
 const catalog = document.getElementById('catalog');
 catalog.innerHTML = '';
 if(isWishlist) {
@@ -1540,6 +1541,7 @@ document.getElementById('wishCount').innerText = wishlist.length;
 }
 
 function showWishlist() {
+    isWishlistMode = true;
     document.getElementById('searchInput').value = '';
     window.history.replaceState({}, '', window.location.pathname);
     resetFilters();
