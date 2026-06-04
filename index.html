@@ -1356,7 +1356,7 @@ if(isWishlist) {
                 // Հեռացված է border-bottom գիծը վերնագրից
 section.innerHTML = `
     <div style="display:flex; align-items:center; gap:15px; margin: 40px 0 20px;">
-        <h2 class="category-title" style="margin:0;">${cat}</h2>
+        <h2 class="category-title" style="margin:0;">${translateCategory(cat)}</h2>
         <div class="sort-dropdown">
             <button class="filter-btn sort-btn" onclick="toggleSortMenu('${cat}')">⇅ ▾</button>
             <div class="sort-menu" id="sortMenu-${cat}">
