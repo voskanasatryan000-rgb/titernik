@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Titernik Accessories - Premium Catalog</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preload" as="image" href="instagramtiternik.png">
+<link rel="preload" as="image" href="titernik.png">
 <meta name="description" content="Titernik Accessories - Պրեմիում աքսեսուարների կատալոգ։ Մատանիներ, վզնոցներ, ականջօղեր, թևնոցներ, ժամացույցներ։">
 <meta name="keywords" content="titernik, աքսեսուարներ, մատանիներ, վզնոցներ, ականջօղեր, թևնոցներ, ժամացույցներ, զարդեր, Հայաստան">
 <meta name="author" content="Titernik">
 <!-- Open Graph - Telegram/WhatsApp preview -->
 <meta property="og:title" content="Titernik Accessories">
 <meta property="og:description" content="Պրեմիում աքսեսուարների կատալոգ։ Մատանիներ, վզնոցներ, ականջօղեր և ավելին։">
-<meta property="og:image" content="instagram.jpg">
+<meta property="og:image" content="https://voskanasatryan000-rgb.github.io/titernik/instagram.jpg">
 <meta property="og:url" content="https://voskanasatryan000-rgb.github.io/titernik/">
 <meta property="og:type" content="website">
     
@@ -767,6 +769,29 @@ border-radius: 6px;
     }
 }
 </style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Store",
+ "name":"Titernik Accessories",
+ "url":"https://voskanasatryan000-rgb.github.io/titernik/",
+ "logo":"https://voskanasatryan000-rgb.github.io/titernik/instagram.jpg",
+ "image":"https://voskanasatryan000-rgb.github.io/titernik/instagram.jpg",
+ "description":"Պրեմիում աքսեսուարների կատալոգ։ Մատանիներ, վզնոցներ, ականջօղեր, թևնոցներ և ժամացույցներ։",
+ "telephone":"+37499123456",
+ "address":{
+   "@type":"PostalAddress",
+   "addressLocality":"Yerevan",
+   "addressCountry":"AM"
+ },
+ "sameAs":[
+   "https://www.instagram.com/titernik_accessories",
+   "https://www.facebook.com/1573018012843551",
+   "https://t.me/titernikaccessorize",
+   "https://www.tiktok.com/@titernik_accessories"
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -1068,7 +1093,13 @@ function appendCards(items, container) {
                 <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
                 <div class="img-container" onclick="openImage('${p.img}')">
                  ${newBadge}
-                 <img src="${p.img}" alt="${p.cat}" onload="this.classList.add('loaded')" onerror="this.src='https://via.placeholder.com/300x300?text=📷'; this.classList.add('loaded')">                </div>
+                <img src="${p.img}"
+                alt="${p.cat}"
+                loading="lazy"
+                decoding="async"
+                onload="this.classList.add('loaded')"
+                onerror="this.src='https://via.placeholder.com/300x300?text=📷'; this.classList.add('loaded')">    
+                </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
                 <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">Պատվիրել</button>
@@ -1101,7 +1132,11 @@ function renderRecentViewed() {
                 <div class="card" style="position: relative;">
                     <div class="remove-btn" onclick="removeFromRecent('${p.id}')">×</div>
                     <div class="img-container" onclick="openImage('${p.img}')">
-                        <img src="${p.img}" class="loaded" alt="${p.cat}">
+                       <img src="${p.img}" 
+                       class="loaded" 
+                       alt="${p.cat}"
+                       loading="lazy"
+                       decoding="async">
                     </div>
                     <div class="price">${p.price} ֏</div>
                     <span class="id-tag">ID: ${p.id}</span>
