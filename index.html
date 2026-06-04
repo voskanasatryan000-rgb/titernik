@@ -1143,7 +1143,7 @@ window.renderProducts = function(data, isWishlist = false) {
     // Update wishlist title
     const wishlistTitle = document.querySelector('#catalog h2.category-title');
     if (wishlistTitle && isWishlist) wishlistTitle.innerText = t('wishlistTitle');
-    updateCategoryTitles();
+  setTimeout(updateCategoryTitles, 0);
 };
 
 // Also override showWishlist to set flag
