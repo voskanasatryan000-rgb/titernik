@@ -1320,10 +1320,11 @@ function openOrderModal() {
 }
 function closeOrderModal() {
     document.getElementById('orderModalBackdrop').classList.remove('open');
+    
 }
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('orderModalBackdrop').addEventListener('click', function(e) {
-        if (e.target === this) closeOrderModal();
+
     });
 });
     
