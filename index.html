@@ -1262,7 +1262,7 @@ async function loadProductsFromSheet() {
 }
     
 
- function copyAndOrder(id) {
+/* function copyAndOrder(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
 
@@ -1290,7 +1290,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
-    
+    */
+    async function copyAndOrder(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    const text = `${t('orderMsg')}
+${t('orderID')}: ${product.id}
+${t('orderName')}: ${translateCategory(product.cat)}
+${t('orderPrice')}: ${product.price} ֏
+
+${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
+`;
+    navigator.clipboard.writeText(text).catch(err => {
+        console.error('Պատճենելը չհաջողվեց', err);
+    });
+
+    // Telegram Bot notification
+    const botToken = '8958957274:AAHV2ZqhzOeRCeW_NRZnDOvZlrhhXeAbyFo';
+    const chatId = '1197019272';
+    const message = `🛍 Նոր պատվեր։
+📦 ID: ${product.id}
+🦋 Անվանում: ${translateCategory(product.cat)}
+🏷️ Գին: ${product.price} ֏
+🔗 Հղում: ${window.location.origin + window.location.pathname}?id=${product.id}`;
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: message })
+    });
+
+    openOrderModal();
+}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
