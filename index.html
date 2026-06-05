@@ -1405,11 +1405,8 @@ section.innerHTML = `
              <div onclick="sortCategory('${cat}', 'default')">↺ ${t('sortDefault')}</div> </div>
         </div>
     </div>
-    <div class="grid" id="grid-${cat}"></div>`;   
-                <div class="pagination-controls" id="pagination-${cat}" style="display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap;">
-                    </div>
-`;
-                catalog.appendChild(section);
+    <div class="grid" id="grid-${cat}"></div>
+    <div class="pagination-controls" id="pagination-${cat}" style="display:flex; justify-content:center; gap:8px; margin-top:20px; flex-wrap:wrap;"></div>`;          catalog.appendChild(section);
           renderCategoryPage(cat);            }
         });
     }
