@@ -796,7 +796,29 @@ border: none;
 .om-ig:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(253,29,29,.3);cursor:pointer}
 .om-close{width:100%;padding:11px;background:none;border:1.5px solid var(--border-color);border-radius:12px;font-size:13px;color:#aaa;cursor:pointer;transition:all .2s}
 .om-close:hover{border-color:var(--brand-color);color:var(--brand-color);cursor:pointer}
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.pagi-btn {
+    min-width: 40px;
+    padding: 6px 12px;
+}
+.pagi-btn.active {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+    font-weight: bold;
+}
+.pagi-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
 </style>
+    
 <script type="application/ld+json">
 {
  "@context":"https://schema.org",
@@ -1180,7 +1202,7 @@ function translateCategory(catName) {
 // Store current render state for language change
 let currentRenderData = [];
 let isWishlistMode = false;
-    
+let categoryPagination = {};
 // Initial language setup
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('siteLang')) {
@@ -1329,18 +1351,19 @@ function toggleSortMenu(cat) {
 }
 
 function sortCategory(cat, order) {
-    const grid = document.getElementById(`grid-${cat}`);
-    if (!grid) return;
-    let items = products.filter(p => p.cat === cat);
+    const state = categoryPagination[cat];
+    if (!state) return;
+    let items = [...state.items];
     if (order !== 'default') {
-        items = [...items].sort((a, b) => {
+        items = items.sort((a, b) => {
             const priceA = parseInt(a.price.replace(/,/g, ''));
             const priceB = parseInt(b.price.replace(/,/g, ''));
             return order === 'asc' ? priceA - priceB : priceB - priceA;
         });
     }
-    grid.innerHTML = '';
-    appendCards(items, grid);
+    state.items = items;
+    state.currentPage = 1;
+    renderCategoryPage(cat);
     document.querySelectorAll('.sort-menu').forEach(m => m.classList.remove('open'));
 }
 
@@ -1360,6 +1383,15 @@ if(isWishlist) {
         categories.forEach(cat => {
             const items = data.filter(p => p.cat === cat);
             if(items.length > 0) {
+                const perPage = 8;
+                const totalPages = Math.ceil(items.length / perPage);
+                // Պահպանել տվյալները state-ում
+                categoryPagination[cat] = {
+                    currentPage: 1,
+                    totalPages: totalPages,
+                    perPage: perPage,
+                    items: items
+                };
                 const section = document.createElement('section');
                 // Հեռացված է border-bottom գիծը վերնագրից
 section.innerHTML = `
@@ -1373,12 +1405,91 @@ section.innerHTML = `
              <div onclick="sortCategory('${cat}', 'default')">↺ ${t('sortDefault')}</div> </div>
         </div>
     </div>
-    <div class="grid" id="grid-${cat}"></div>`;                catalog.appendChild(section);
-                appendCards(items, section.querySelector('.grid'));
-            }
+    <div class="grid" id="grid-${cat}"></div>`;   
+                <div class="pagination-controls" id="pagination-${cat}" style="display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap;">
+                    </div>
+`;
+                catalog.appendChild(section);
+          renderCategoryPage(cat);            }
         });
     }
     updateWishCount();
+}
+function renderCategoryPage(cat) {
+    const state = categoryPagination[cat];
+    if (!state) return;
+    const start = (state.currentPage - 1) * state.perPage;
+    const end = start + state.perPage;
+    const pageItems = state.items.slice(start, end);
+    const gridContainer = document.getElementById(`grid-${cat}`);
+    if (!gridContainer) return;
+    // Մաքրել grid-ը
+    gridContainer.innerHTML = '';
+    // Նկարել ապրանքները
+    pageItems.forEach(p => {
+        const isWished = wishlist.includes(p.id) ? 'active' : '';
+        const newBadge = p.new === 'yes' ? '<div class="new-badge">NEW</div>' : '';
+        const cardHtml = `
+            <div class="card" id="card-${p.id}">
+                <button class="wish-icon ${isWished}" onclick="toggleWishlist(event, '${p.id}')">❤</button>
+                <button class="share-icon" onclick="shareProduct('${p.id}', '${p.cat}', '${p.img}')">🔗</button>
+                <div class="img-container" onclick="openImage('${p.img}')">
+                    ${newBadge}
+                    <img src="${p.img}" alt="${p.cat}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.src='https://via.placeholder.com/300x300?text=📷'; this.classList.add('loaded')">    
+                </div>
+                <div class="price">${p.price} ֏</div>
+                <span class="id-tag">ID: ${p.id}</span>
+                <button class="order-btn" onclick="copyAndOrder('${p.id}')">${t('orderBtn')}</button>
+            </div>
+        `;
+        gridContainer.insertAdjacentHTML('beforeend', cardHtml);
+    });
+    // Թարմացնել pagination կոճակները
+    updatePaginationControls(cat);
+}
+
+function updatePaginationControls(cat) {
+    const state = categoryPagination[cat];
+    if (!state) return;
+    const container = document.getElementById(`pagination-${cat}`);
+    if (!container) return;
+    if (state.totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+    let html = '';
+    // Previous կոճակ
+    html += `<button class="filter-btn pagi-btn" data-cat="${cat}" data-page="prev" ${state.currentPage === 1 ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>‹</button>`;
+    // Էջերի համարներ
+    let startPage = Math.max(1, state.currentPage - 2);
+    let endPage = Math.min(state.totalPages, startPage + 4);
+    if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+    for (let i = startPage; i <= endPage; i++) {
+        html += `<button class="filter-btn pagi-btn ${i === state.currentPage ? 'active' : ''}" data-cat="${cat}" data-page="${i}">${i}</button>`;
+    }
+    // Next կոճակ
+    html += `<button class="filter-btn pagi-btn" data-cat="${cat}" data-page="next" ${state.currentPage === state.totalPages ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>›</button>`;
+    container.innerHTML = html;
+    // Կցել իրադարձությունները
+    container.querySelectorAll('.pagi-btn').forEach(btn => {
+        btn.removeEventListener('click', paginationClickHandler);
+        btn.addEventListener('click', paginationClickHandler);
+    });
+}
+
+function paginationClickHandler(e) {
+    const btn = e.currentTarget;
+    const cat = btn.getAttribute('data-cat');
+    const page = btn.getAttribute('data-page');
+    const state = categoryPagination[cat];
+    if (!state) return;
+    let newPage = state.currentPage;
+    if (page === 'prev') newPage = state.currentPage - 1;
+    else if (page === 'next') newPage = state.currentPage + 1;
+    else newPage = parseInt(page);
+    if (newPage < 1 || newPage > state.totalPages) return;
+    state.currentPage = newPage;
+    renderCategoryPage(cat);
 }
     
 function appendCards(items, container) {
