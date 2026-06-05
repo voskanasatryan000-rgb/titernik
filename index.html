@@ -1364,15 +1364,21 @@ function sortCategory(cat, order) {
     state.items = items;
     state.currentPage = 1;
     renderCategoryPage(cat);
+       requestAnimationFrame(() => {
+        setTimeout(() => {
+            const categorySection = document.getElementById(`grid-${cat}`)?.closest('section');
+            if (categorySection) {
+                const categoryHeader = categorySection.querySelector('.category-title');
+                if (categoryHeader) {
+                    categoryHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }, 50);
+    });
+    
     document.querySelectorAll('.sort-menu').forEach(m => m.classList.remove('open'));
-// Էջը փոխելուց հետո ոլորել դեպի այս կատեգորիայի վերնագիրը
-const categorySection = document.getElementById(`grid-${cat}`)?.closest('section');
-if (categorySection) {
-    const categoryHeader = categorySection.querySelector('.category-title');
-    if (categoryHeader) {
-        categoryHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
 }
 
 function renderProducts(data, isWishlist = false) {
@@ -1495,12 +1501,21 @@ function paginationClickHandler(e) {
     if (newPage < 1 || newPage > state.totalPages) return;
     state.currentPage = newPage;
     renderCategoryPage(cat);
-     const categoryHeader = document.querySelector(`#grid-${cat}`).closest('section').querySelector('.category-title');
-    if (categoryHeader) {
-    categoryHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-}
-    
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            const categorySection = document.getElementById(`grid-${cat}`)?.closest('section');
+            if (categorySection) {
+                const categoryHeader = categorySection.querySelector('.category-title');
+                if (categoryHeader) {
+                    categoryHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    // Եթե վերնագիրը չգտնվի, փորձել ոլորել մինչև ամբողջ section-ի սկիզբը
+                    categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }, 50); // 50ms-ը բավական է, որ browser-ը ավարտի layout-ը
+    });
+} 
 function appendCards(items, container) {
     let html = '';
     items.forEach(p => {
