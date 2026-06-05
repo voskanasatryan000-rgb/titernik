@@ -1272,6 +1272,10 @@ ${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${pro
     console.error('Պատճենելը չհաջողվեց', err);
 });   
      showToast(t('copyToast'));
+     
+     setTimeout(() => {
+        window.open("https://ig.me/m/titernik_accessories", "_blank");
+    }, 2500);
 }
 function toggleTheme() {
 const body = document.documentElement;
@@ -1385,8 +1389,8 @@ function appendCards(items, container) {
                 </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
-                <a class="order-btn" href="https://ig.me/m/titernik_accessories" target="_blank" onclick="copyAndToast('${p.id}')">${t('orderBtn')}</a> 
-                </div>
+                <button class="order-btn" onclick="copyAndToast('${p.id}')">${t('orderBtn')}</button>
+</div>
         `;
     });
 
