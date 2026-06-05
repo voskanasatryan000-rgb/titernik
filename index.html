@@ -1257,30 +1257,22 @@ function showToast(message) {
     setTimeout(() => { toast.className = "toast"; }, 3000);
 }
     
-function copyToClipboardAndOpenInstagram(id) {
+ function copyAndToast(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
 
-const text = `${t('orderMsg')}
+    const text = `${t('orderMsg')}
 ${t('orderID')}: ${product.id}
 ${t('orderName')}: ${translateCategory(product.cat)}
 ${t('orderPrice')}: ${product.price} ֏
 
 ${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
-
 `;
-    navigator.clipboard.writeText(text).then(() => {
-        // Ցույց ենք տալիս toast-ը
-        showToast(t('copyToast'));
-        // Բացում ենք Instagram-ը
-        setTimeout(() => {
-            window.open("https://ig.me/m/titernik_accessories", "_blank");
-        }, 2000); // Մի փոքր դադար, որպեսզի օգտատերը հասցնի կարդալ ծանուցումը
-    }).catch(err => {
-        console.error('Պատճենելը չհաջողվեց', err);
-    });
-}  
-    
+    navigator.clipboard.writeText(text).catch(err => {
+    console.error('Պատճենելը չհաջողվեց', err);
+});   
+     showToast(t('copyToast'));
+}
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -1393,7 +1385,7 @@ function appendCards(items, container) {
                 </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
-                <button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">${t('orderBtn')}</button> 
+                <a class="order-btn" href="https://ig.me/m/titernik_accessories" target="_blank" onclick="copyAndToast('${p.id}')">${t('orderBtn')}</a><button class="order-btn" onclick="copyToClipboardAndOpenInstagram('${p.id}')">${t('orderBtn')}</button> 
                 </div>
         `;
     });
