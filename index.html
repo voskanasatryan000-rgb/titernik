@@ -1487,6 +1487,7 @@ function paginationClickHandler(e) {
     if (newPage < 1 || newPage > state.totalPages) return;
     state.currentPage = newPage;
     renderCategoryPage(cat);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
     
 function appendCards(items, container) {
