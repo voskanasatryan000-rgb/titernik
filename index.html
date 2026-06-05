@@ -1295,9 +1295,10 @@ function openOrderModal() {
 function closeOrderModal() {
     document.getElementById('orderModalBackdrop').classList.remove('open');
 }
-// Backdrop սեղմելիս փակել
-document.getElementById('orderModalBackdrop').addEventListener('click', function(e) {
-    if (e.target === this) closeOrderModal();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('orderModalBackdrop').addEventListener('click', function(e) {
+        if (e.target === this) closeOrderModal();
+    });
 });
     
 function toggleTheme() {
