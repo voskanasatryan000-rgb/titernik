@@ -968,6 +968,11 @@ const translations = {
         footerContact: "📞 Կապ մեզ հետ",
         footerCopyright: "© 2026 Titernik Accessories — Բոլոր իրավունքները պաշտպանված են։",
         backToTop: "↑ Վերադառնալ վերև",
+        omBadge: "✓ Պատճենվեց",
+        omTitle: "Տեղեկությունը պատճենվեց",
+        omDesc: "Ապրանքի կոդը և հղումը պատճենված են։<br>Instagram-ում սեղմիր <strong>Paste</strong> և ուղարկիր։",
+        omIg: "📩 Բացել Instagram",
+        omClose: "Փակել",
         catRings: "Մատանիներ",
         catNecklaces: "Վզնոցներ",
         catEarrings: "Ականջօղեր",
@@ -1014,6 +1019,11 @@ const translations = {
         footerContact: "📞 Свяжитесь с нами",
         footerCopyright: "© 2026 Titernik Accessories — Все права защищены.",
         backToTop: "↑ Наверх",
+        omBadge: "✓ Скопировано",
+        omTitle: "Информация скопирована",
+        omDesc: "Код товара и ссылка скопированы.<br>В Instagram нажми <strong>Вставить</strong> и отправь.",
+        omIg: "📩 Открыть Instagram",
+        omClose: "Закрыть",
         catRings: "Кольца",
         catNecklaces: "Ожерелья",
         catEarrings: "Серьги",
@@ -1060,6 +1070,11 @@ const translations = {
         footerContact: "📞 Contact us",
         footerCopyright: "© 2026 Titernik Accessories — All rights reserved.",
         backToTop: "↑ Back to top",
+        omBadge: "✓ Copied",
+        omTitle: "Information copied",
+        omDesc: "Product code and link are copied.<br>In Instagram press <strong>Paste</strong> and send.",
+        omIg: "📩 Open Instagram",
+        omClose: "Close",
         catRings: "Rings",
         catNecklaces: "Necklaces",
         catEarrings: "Earrings",
@@ -1134,7 +1149,18 @@ function updatePageLanguage() {
         const backLink = document.querySelector('.footer-bottom a');
         if (backLink) backLink.innerText = t('backToTop');
     }
-}
+    const omBadge = document.getElementById('omBadge');
+    if (omBadge) omBadge.innerHTML = t('omBadge');
+    const omTitle = document.getElementById('omTitle');
+    if (omTitle) omTitle.innerHTML = t('omTitle');
+    const omDesc = document.getElementById('omDesc');
+    if (omDesc) omDesc.innerHTML = t('omDesc');
+    const omIg = document.getElementById('omIg');
+    if (omIg) omIg.innerHTML = t('omIg');
+    const omClose = document.getElementById('omClose');
+    if (omClose) omClose.innerHTML = t('omClose');
+
+    }
 
 function updateCategoryTitles() {
     document.querySelectorAll('h2.category-title').forEach(title => {
@@ -1830,13 +1856,12 @@ diff > 0 ? overlayNext() : overlayPrev();
   <div class="order-modal">
     <button class="om-x" onclick="closeOrderModal()">×</button>
     <span class="om-icon">📋</span>
-    <div class="om-badge">✓ Պատճենվեց</div>
-    <div class="om-title">Տեղեկությունը պատճենվեց</div>
-    <div class="om-desc">Ապրանքի կոդը և հղումը պատճենված են։<br>Instagram-ում սեղմիր <strong>Paste</strong> և ուղարկիր։</div>
-    <a class="om-ig" href="https://ig.me/m/titernik_accessories" target="_blank" onclick="closeOrderModal()">
-      📩 Բացել Instagram
-    </a>
-    <button class="om-close" onclick="closeOrderModal()">Փակել</button>
+    <div class="om-badge" id="omBadge">✓ Պատճենվեց</div>
+    <div class="om-title" id="omTitle">Տեղեկությունը պատճենվեց</div>
+      <div class="om-desc" id="omDesc">Ապրանքի կոդը և հղումը պատճենված են։<br>Instagram-ում սեղմիր <strong>Paste</strong> և ուղարկիր։
+      </div>
+<a class="om-ig" id="omIg" href="https://ig.me/m/titernik_accessories" target="_blank" onclick="closeOrderModal()">📩 Բացել Instagram</a>
+      <button class="om-close" id="omClose" onclick="closeOrderModal()">Փակել</button>
   </div>
 </div>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
