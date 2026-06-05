@@ -1269,17 +1269,14 @@ ${t('orderPrice')}: ${product.price} ֏
 ${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
 
 `;
-
-    navigator.clipboard.writeText(text).then(() => {
-        // Ցույց ենք տալիս toast-ը
         showToast(t('copyToast'));
-        // Բացում ենք Instagram-ը
-        setTimeout(() => {
-            window.open("https://ig.me/m/titernik_accessories", "_blank");
-        }, 1000); // Մի փոքր դադար, որպեսզի օգտատերը հասցնի կարդալ ծանուցումը
-    }).catch(err => {
-        console.error('Պատճենելը չհաջողվեց', err);
-    });
+
+navigator.clipboard.writeText(text).catch(err => {
+    console.error('Պատճենելը չհաջողվեց', err);
+});
+
+// Անմիջապես բացել, առանց setTimeout
+window.open("https://ig.me/m/titernik_accessories", "_blank");
 }
     
 function toggleTheme() {
