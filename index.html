@@ -580,27 +580,6 @@ border: none;
 .sort-menu.open {
     display: block;
 }
-.toast {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 25px;
-    padding: 16px;
-    top: 90px;
-    z-index: 99999;
-    position: fixed;
-    bottom: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-    transition: visibility 0.3s, opacity 0.3s;
-    opacity: 0;
-}
-.toast.show { visibility: visible;
-             animation: fadein 0.5s;
-             opacity: 1;}
 .new-badge{
   position: absolute;
   bottom: 10px;
@@ -956,7 +935,6 @@ const translations = {
         searchNoResults: "Արդյունք չի գտնվել",
         searchNoMatch: "ին համապատասխան ոչինչ չկա",
         searchButton: "Տեսնել ամբողջը",
-        copyToast: "Պատճենվեց։ Instagram-ում սեղմիր 'Paste'!",
         shareText: "Նայիր այս սիրուն",
         code: "Կոդ",
         sortAsc: "Էժանից թանկ",
@@ -1007,7 +985,6 @@ const translations = {
         searchNoResults: "Ничего не найдено",
         searchNoMatch: "— ничего не найдено",
         searchButton: "Показать все",
-        copyToast: "Скопировано! В Instagram нажмите 'Вставить'!",
         shareText: "Посмотри на это красивое",
         code: "Код",
         sortAsc: "По возрастанию цены",
@@ -1058,7 +1035,6 @@ const translations = {
         searchNoResults: "No results found",
         searchNoMatch: "— nothing found",
         searchButton: "Show all",
-        copyToast: "Copied! In Instagram press 'Paste'!",
         shareText: "Look at this beautiful",
         code: "Code",
         sortAsc: "Price: Low to High",
@@ -1285,20 +1261,7 @@ async function loadProductsFromSheet() {
     }
 }
     
-// Օգնող ֆունկցիա ծանուցման համար
-function showToast(message) {
-    let toast = document.getElementById("toast");
-    if (!toast) {
-        toast = document.createElement("div");
-        toast.id = "toast";
-        toast.className = "toast";
-        document.body.appendChild(toast);
-    }
-    toast.innerText = message;
-    toast.className = "toast show";
-    setTimeout(() => { toast.className = "toast"; }, 3000);
-}
-    
+
  function copyAndOrder(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
