@@ -801,6 +801,22 @@ border: none;
 @media (max-width: 600px) {
     .lang-toggle { padding: 6px 10px; font-size: 11px; }
 }
+.order-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.order-modal-backdrop.open{display:flex;animation:omfi .25s ease}
+@keyframes omfi{from{opacity:0}to{opacity:1}}
+.order-modal{background:var(--card-bg);border-radius:20px;padding:32px 28px 24px;max-width:340px;width:100%;text-align:center;position:relative;animation:ompop .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(0,0,0,.2)}
+@keyframes ompop{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.om-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:#ccc;cursor:pointer;line-height:1;transition:color .2s,transform .2s}
+.om-x:hover{color:#888;transform:scale(1.2)}
+.om-icon{font-size:48px;margin-bottom:12px;display:block}
+.om-badge{display:inline-flex;align-items:center;gap:5px;background:#f0fdf4;color:#16a34a;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:16px;border:1px solid #bbf7d0}
+.om-title{font-size:18px;font-weight:700;color:var(--text-color);margin-bottom:8px}
+.om-desc{font-size:13px;color:#888;line-height:1.6;margin-bottom:24px}
+.om-desc strong{color:var(--brand-color)}
+.om-ig{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;margin-bottom:10px}
+.om-ig:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(253,29,29,.3)}
+.om-close{width:100%;padding:11px;background:none;border:1.5px solid var(--border-color);border-radius:12px;font-size:13px;color:#aaa;cursor:pointer;transition:all .2s}
+.om-close:hover{border-color:var(--brand-color);color:var(--brand-color)}
 </style>
 <script type="application/ld+json">
 {
@@ -1257,7 +1273,7 @@ function showToast(message) {
     setTimeout(() => { toast.className = "toast"; }, 3000);
 }
     
- function copyAndToast(id) {
+ function copyAndOrder(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
 
@@ -1269,14 +1285,21 @@ ${t('orderPrice')}: ${product.price} ֏
 ${t('orderLink')}: ${window.location.origin + window.location.pathname}?id=${product.id}
 `;
     navigator.clipboard.writeText(text).catch(err => {
-    console.error('Պատճենելը չհաջողվեց', err);
-});   
-     showToast(t('copyToast'));
-     
-     setTimeout(() => {
-        window.open("https://ig.me/m/titernik_accessories", "_blank");
-    }, 1000);
+        console.error('Պատճենելը չհաջողվեց', err);
+    });
+    openOrderModal();
 }
+function openOrderModal() {
+    document.getElementById('orderModalBackdrop').classList.add('open');
+}
+function closeOrderModal() {
+    document.getElementById('orderModalBackdrop').classList.remove('open');
+}
+// Backdrop սեղմելիս փակել
+document.getElementById('orderModalBackdrop').addEventListener('click', function(e) {
+    if (e.target === this) closeOrderModal();
+});
+    
 function toggleTheme() {
 const body = document.documentElement;
 const btn = document.getElementById('themeBtn');
@@ -1389,7 +1412,7 @@ function appendCards(items, container) {
                 </div>
                 <div class="price">${p.price} ֏</div>
                 <span class="id-tag">ID: ${p.id}</span>
-                <button class="order-btn" onclick="copyAndToast('${p.id}')">${t('orderBtn')}</button>
+                <button class="order-btn" onclick="copyAndOrder('${p.id}')">${t('orderBtn')}</button>
 </div>
         `;
     });
@@ -1802,6 +1825,16 @@ diff > 0 ? overlayNext() : overlayPrev();
 
     loadProductsFromSheet();
 </script>
+<div class="order-modal-backdrop" id="orderModalBackdrop">
+  <div class="order-modal">
+    <button class="om-x" onclick="closeOrderModal()">×</button>
+    <span class="om-icon">📋</span>
+    <div class="om-badge">✓ Պատճենվեց</div>
+    <div class="om-title">Տեղեկությունը պատճենվեց</div>
+    <div class="om-desc">Ապրանքի կոդը և հղումը պատճենված են։<br>Instagram-ում սեղմիր <strong>Paste</strong> և ուղարկիր։</div>
+    <a class="om-ig" href="https://ig.me/m/titernik_accessories" target="_blank" onclick="closeOrderModal()">
+      📩 Բացել Instagram
+    </a>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 </body>
 </html>    
