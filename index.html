@@ -1246,7 +1246,6 @@ async function loadProductsFromSheet() {
 // Օգնող ֆունկցիա ծանուցման համար
 function showToast(message) {
     let toast = document.getElementById("toast");
-    // Եթե toast դեռ չկա էջում, ստեղծում ենք այն
     if (!toast) {
         toast = document.createElement("div");
         toast.id = "toast";
@@ -1254,8 +1253,8 @@ function showToast(message) {
         document.body.appendChild(toast);
     }
     toast.innerText = message;
-    toast.className = "show";
-    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    toast.className = "toast show";
+    setTimeout(() => { toast.className = "toast"; }, 3000);
 }
     
 function copyToClipboardAndOpenInstagram(id) {
