@@ -1224,69 +1224,88 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujr
 let products = [];
 let activeCategory = 'all';
 async function loadProductsFromSheet() {
-    // Skeleton ցուցադրել
     const catalog = document.getElementById('catalog');
-    let skeletonHTML = '<div class="grid">';
-    for (let i = 0; i < 8; i++) {
-        skeletonHTML += `
-            <div class="skeleton-card">
-                <div class="skeleton-img"></div>
-                <div class="skeleton-line"></div>
-                <div class="skeleton-line short"></div>
-                <div class="skeleton-line btn"></div>
-            </div>`;
-    }
-    skeletonHTML += '</div>';
-    catalog.innerHTML = skeletonHTML;
-    try {
-        const response = await fetch(SHEET_URL);
-        const csvText = await response.text();
-        const rows = csvText.split('\n');
-        const headers = rows[0].split(',').map(h => h.trim());
-        const rawData = [];
-        for (let i = 1; i < rows.length; i++) {
-            if (!rows[i].trim()) continue;
-            const values = rows[i].split(',');
-            let obj = {};
-            headers.forEach((h, idx) => { obj[h] = values[idx] ? values[idx].trim() : ''; });
-            if (obj.cat && obj.price && obj.img) rawData.push(obj);
-        }
-        products = rawData.map((p, index) => ({
-            ...p,
-            price: p.price, // արդեն թիվ է, առանց ստորակետի
-            img: p.img,
-            id: p.cat.substring(0,2).toUpperCase() + "-" + (100 + index)
-        }));
+    const cached = localStorage.getItem('titernik_products');
+    const cachedTime = localStorage.getItem('titernik_cache_time');
+    const cacheAge = Date.now() - parseInt(cachedTime || 0);
+    const CACHE_DURATION = 5 * 60 * 1000;
+
+    // 1. Cache կա — անմիջապես ցուցադրել
+    if (cached) {
+        products = JSON.parse(cached);
         wishlist = wishlist.filter(id => products.some(p => p.id === id));
-        localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
-        // 1. Ստուգում ենք URL-ը ՆԱԽՔԱՆ որևէ բան նկարելը
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
-        // 2. Եթե ունենք ID, ապա միայն այդ ապրանքը նկարում ենք
         if (productId) {
             const found = products.find(p => p.id === productId);
-            if (found) {
-                renderProducts([found]); // Նկարում ենք ՄԻԱՅՆ այս մեկը
-                const searchInput = document.getElementById('searchInput');
-                if (searchInput) searchInput.value = productId;
-            } else {
-                renderProducts(products); // Եթե ID-ն սխալ է, նկարում ենք բոլորը
-            }
+            renderProducts(found ? [found] : products);
+            if (found) document.getElementById('searchInput').value = productId;
         } else {
-            // 3. Եթե ID չկա, նկարում ենք բոլորը
             renderProducts(products);
-            // Ավելացնում ենք ստուգում, որպեսզի սխալ չտա, եթե էլեմենտը չկա
-            const allBtn = document.querySelector('.all-btn');
-            if (allBtn) allBtn.classList.add('active');
+            document.querySelector('.all-btn')?.classList.add('active');
         }
         renderRecentViewed();
         updateWishCount();
-    } catch (error) {
-        document.getElementById('catalog').innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
+    } else {
+        // Skeleton միայն եթե cache չկա
+        let skeletonHTML = '<div class="grid">';
+        for (let i = 0; i < 8; i++) {
+            skeletonHTML += `<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line btn"></div></div>`;
+        }
+        skeletonHTML += '</div>';
+        catalog.innerHTML = skeletonHTML;
+    }
+    // 2. Cache հին է կամ չկա — հետին պլանում թարմացնել
+    if (!cached || cacheAge > CACHE_DURATION) {
+        try {
+            const response = await fetch(SHEET_URL + '&t=' + Date.now());
+            const csvText = await response.text();
+            const rows = csvText.split('\n');
+            const headers = rows[0].split(',').map(h => h.trim());
+            const rawData = [];
+            for (let i = 1; i < rows.length; i++) {
+                if (!rows[i].trim()) continue;
+                const values = rows[i].split(',');
+                let obj = {};
+                headers.forEach((h, idx) => { obj[h] = values[idx] ? values[idx].trim() : ''; });
+                if (obj.cat && obj.price && obj.img) rawData.push(obj);
+            }
+            const newProducts = rawData.map((p, index) => ({
+                ...p,
+                id: p.cat.substring(0,2).toUpperCase() + "-" + (100 + index)
+            }));
+            const newJSON = JSON.stringify(newProducts);
+            const oldJSON = localStorage.getItem('titernik_products');
+            // Միայն եթե տվյալները փոխվել են — նոր render
+            if (newJSON !== oldJSON) {
+                products = newProducts;
+                localStorage.setItem('titernik_products', newJSON);
+                localStorage.setItem('titernik_cache_time', Date.now().toString());
+                wishlist = wishlist.filter(id => products.some(p => p.id === id));
+                localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id');
+                if (productId) {
+                    const found = products.find(p => p.id === productId);
+                    renderProducts(found ? [found] : products);
+                    if (found) document.getElementById('searchInput').value = productId;
+                } else {
+                    renderProducts(products);
+                    document.querySelector('.all-btn')?.classList.add('active');
+                }
+                renderRecentViewed();
+                updateWishCount();
+            } else {
+                // Տվյալները նույնն են — թարմացնել միայն cache time
+                localStorage.setItem('titernik_cache_time', Date.now().toString());
+            }
+        } catch (error) {
+            if (!cached) {
+                catalog.innerHTML = `<div style="text-align:center; padding:100px;">⚠️ Չհաջողվեց բեռնել ապրանքները։ Ստուգեք ինտերնետ կապը։</div>`;
+            }
+        }
     }
 }
-    
-
  function copyAndOrder(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
