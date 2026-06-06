@@ -1228,7 +1228,7 @@ async function loadProductsFromSheet() {
     const cached = localStorage.getItem('titernik_products');
     const cachedTime = localStorage.getItem('titernik_cache_time');
     const cacheAge = Date.now() - parseInt(cachedTime || 0);
-    const CACHE_DURATION = 5 * 60 * 1000;
+    const CACHE_DURATION = 1 * 60 * 1000;
 
     // 1. Cache կա — անմիջապես ցուցադրել
     if (cached) {
