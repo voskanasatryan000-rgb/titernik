@@ -1507,7 +1507,6 @@ function paginationClickHandler(e) {
 }
     
 function scrollToCategory(cat) {
-    // Սպասում ենք DOM-ի թարմացմանը
     requestAnimationFrame(() => {
         setTimeout(() => {
             const grid = document.getElementById(`grid-${cat}`);
@@ -1517,10 +1516,8 @@ function scrollToCategory(cat) {
             const header = section.querySelector('.category-title');
             if (header) {
                 header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }, 80);
+        }, 100);
     });
 }
 function appendCards(items, container) {
