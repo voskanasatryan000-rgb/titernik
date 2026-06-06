@@ -481,7 +481,7 @@ transform: scale(1.1) rotate(5deg) !important;
     
 .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
 /* Հեռացրել ենք border-bottom-ը կատեգորիաների վերնագրերից */
-.category-title { margin: 40px 0 20px; border-bottom: none; display: inline-block; padding-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; font-size: 20px; color: var(--brand-color); }
+.category-title { margin: 40px 0 20px; border-bottom: none; display: inline-block; padding-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; font-size: 20px; scroll-margin-top: 85px; color: var(--brand-color); }
 
 .grid { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; gap: 25px; margin-bottom: 50px; }
 .card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 12px; transition: 0.4s ease; border-radius: 12px; position: relative; overflow: hidden; }
@@ -547,6 +547,9 @@ border: none;
         height: 35px; 
         margin-left: 5px !important; 
         transform: translateY(4px) !important;
+    }
+    .category-title {
+        scroll-margin-top: 65px;
     }
 }
     
