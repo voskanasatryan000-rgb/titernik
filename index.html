@@ -849,6 +849,113 @@ border: none;
 .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--brand-color); }
 @media (max-width: 768px) { .mobile-bottom-nav { display: block; } body { padding-bottom: 60px; } }
 @media (max-width: 480px) { .features { grid-template-columns: 1fr 1fr; } }
+
+/* Wishlist Panel */
+.wishlist-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100%;
+    background: var(--card-bg);
+    box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+    z-index: 3000;
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 20px;
+    overflow-y: auto;
+}
+.wishlist-panel.open {
+    right: 0;
+}
+.panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2999;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+.panel-overlay.open {
+    display: block;
+}
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+.panel-header h2 {
+    font-size: 20px;
+    color: var(--text-color);
+}
+.close-panel {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+.close-panel:hover {
+    transform: rotate(90deg);
+    color: var(--brand-color);
+}
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.wishlist-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.wishlist-item .item-info {
+    flex: 1;
+}
+.wishlist-item .item-info .title {
+    font-size: 14px;
+    font-weight: 500;
+}
+.wishlist-item .item-info .price {
+    font-size: 16px;
+    color: var(--brand-color);
+    font-weight: bold;
+}
+.wishlist-item .remove-item {
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+    transition: 0.3s;
+}
+.wishlist-item .remove-item:hover {
+    color: #d94b4b;
+    transform: scale(1.2);
+}
+.wishlist-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: #999;
+}
+.wishlist-empty i {
+    font-size: 60px;
+    margin-bottom: 15px;
+    display: block;
+}
+@media (max-width: 480px) {
+    .wishlist-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
 </style>
     
 <script type="application/ld+json">
@@ -2030,7 +2137,53 @@ window.onscroll = function() {
         btn.style.display = "none";
     }
 };
+// Բացել Wishlist Panel-ը
+function openWishlistPanel() {
+    const panel = document.getElementById('wishlistPanel');
+    const overlay = document.getElementById('wishlistOverlay');
+    const content = document.getElementById('wishlistPanelContent');
+    
+    // Լրացնել բովանդակությունը
+    const wishlistProducts = products.filter(p => wishlist.includes(p.id));
+    if (wishlistProducts.length === 0) {
+        content.innerHTML = `
+            <div class="wishlist-empty">
+                <i class="far fa-heart"></i>
+                <p>Նախընտրածներ չկան</p>
+                <p style="font-size: 13px; color: #aaa;">Ավելացրեք սիրելի ապրանքները սրտիկով</p>
+            </div>
+        `;
+    } else {
+        content.innerHTML = wishlistProducts.map(p => `
+            <div class="wishlist-item">
+                <img src="${p.img}" alt="${p.cat}">
+                <div class="item-info">
+                    <div class="title">${p.cat}</div>
+                    <div class="price">${p.price} ֏</div>
+                </div>
+                <button class="remove-item" onclick="toggleWishlist(event, '${p.id}'); openWishlistPanel();">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    panel.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
 
+// Փակել Wishlist Panel-ը
+function closeWishlistPanel() {
+    document.getElementById('wishlistPanel').classList.remove('open');
+    document.getElementById('wishlistOverlay').classList.remove('open');
+    document.body.style.overflow = 'auto';
+}
+
+// Փոխել showWishlist() ֆունկցիան
+function showWishlist() {
+    openWishlistPanel();
+}
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -2073,6 +2226,17 @@ diff > 0 ? overlayNext() : overlayPrev();
   </div>
 </div>
 <button id="backToTop" onclick="scrollToTop()">↑</button>
+    
+<div id="wishlistPanel" class="wishlist-panel">
+    <div class="panel-header">
+        <h2>❤️ Իմ նախընտրածները</h2>
+        <button class="close-panel" onclick="closeWishlistPanel()">×</button>
+    </div>
+    <div class="panel-content" id="wishlistPanelContent">
+    </div>
+</div>
+<div id="wishlistOverlay" class="panel-overlay" onclick="closeWishlistPanel()"></div>
+
 </body>
 </html>    
 
