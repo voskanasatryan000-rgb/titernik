@@ -834,35 +834,7 @@ border: none;
 .feature-card i { font-size: 32px; color: var(--brand-color); margin-bottom: 12px; }
 .feature-card h4 { font-size: 14px; margin-bottom: 6px; }
 .feature-card p { font-size: 12px; color: #888; }
-.category-tabs {
-    max-width: 1400px;
-    margin: 20px auto;
-    padding: 0 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-.category-tabs .cat-btn {
-    border-radius: 50px;
-    padding: 10px 25px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-.category-tabs .cat-btn:hover { border-color: var(--brand-color); color: var(--brand-color); }
-.category-tabs .cat-btn.active {
-    background: var(--brand-color);
-    color: #fff;
-    border-color: var(--brand-color);
-}
-@media (max-width: 768px) {
-    .category-tabs .cat-btn { font-size: 11px; padding: 6px 14px; }
-}
+
 .mobile-bottom-nav {
     display: none; position: fixed; bottom: 0; left: 0; width: 100%;
     background: var(--card-bg); border-top: 1px solid var(--border-color);
@@ -877,134 +849,6 @@ border: none;
 .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--brand-color); }
 @media (max-width: 768px) { .mobile-bottom-nav { display: block; } body { padding-bottom: 60px; } }
 @media (max-width: 480px) { .features { grid-template-columns: 1fr 1fr; } }
-/* HEADER */
-header {
-    background: var(--white);
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-/* Լոգոյի հատված */
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.title-logo-img {
-    height: 35px;
-    width: auto;
-}
-.brand-butterfly-img {
-    height: 30px;
-    width: auto;
-}
-.instagram-brand-img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--brand-color);
-    padding: 2px;
-}
-
-/* Որոնման դաշտ */
-.search-area {
-    flex: 1;
-    max-width: 400px;
-    position: relative;
-}
-.search-area input {
-    width: 100%;
-    padding: 10px 20px 10px 40px;
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    background: #f9f9f9;
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
-}
-.search-area input:focus {
-    border-color: var(--brand-color);
-    background: #fff;
-}
-.search-area i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #aaa;
-}
-
-/* Կոճակներ */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.header-icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
-    position: relative;
-}
-.header-icon-btn:hover {
-    border-color: var(--brand-color);
-    transform: scale(1.05);
-}
-.lang-btn {
-    width: auto;
-    padding: 0 15px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    gap: 4px;
-}
-.header-icon-btn .badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: var(--brand-color);
-    color: #fff;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Մոբայլ հարմարեցում */
-@media (max-width: 992px) {
-    .logo-area .instagram-brand-img { display: none; }
-    .header-inner { gap: 10px; }
-}
-@media (max-width: 768px) {
-    .header-inner { flex-wrap: wrap; }
-    .logo-area { width: 100%; justify-content: center; }
-    .search-area { order: 3; flex: 1 1 100%; max-width: 100%; margin-top: 5px; }
-    .header-actions { width: 100%; justify-content: center; gap: 8px; }
-    .header-icon-btn { width: 36px; height: 36px; font-size: 14px; }
-}
 </style>
     
 <script type="application/ld+json">
@@ -1034,34 +878,37 @@ header {
 <body>
 
 <header>
-    <div class="header-inner">
-        <div class="logo-area">
-            <div class="main-brand-group" onclick="location.reload()">
-                <img src="instagramtiternik.png" alt="Titernik Logo" class="title-logo-img">
-                <img src="titernik.png" alt="Butterfly" class="brand-butterfly-img">
-            </div>
-            <a href="https://instagram.com/titernik_accessories" target="_blank" class="instagram-brand-link">
-                <img src="instagram.jpg" alt="Instagram" class="instagram-brand-img">
-            </a>
-        </div>
-        <div class="header-actions">
-            <div class="search-area">
-                <input type="text" id="searchInput" placeholder="Որոնել ապրանք..." oninput="searchProducts()">
-                <i class="fas fa-search"></i>
-            </div>
-            <button class="header-icon-btn" onclick="showWishlist()">
-                <span class="badge" id="wishCount">0</span>
-                <i class="far fa-heart" style="color: var(--brand-color);"></i>
-            </button>
-            <button class="header-icon-btn" id="themeBtn" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="header-icon-btn lang-btn" id="langBtn" onclick="switchLanguage()">
-                <span class="lang-text">ՀՅ</span>
-                <i class="fas fa-chevron-down" style="font-size: 8px; margin-left: 4px;"></i>
-            </button>
-        </div>
+<div class="logo-container">
+    <div class="main-brand-group" onclick="location.reload()">
+       <img src="instagramtiternik.png" 
+             alt="Titernik Logo"
+             class="title-logo-img">
+        <img src="titernik.png" 
+            alt="Butterfly" 
+            class="brand-butterfly-img">
     </div>
+    <a href="https://instagram.com/titernik_accessories" target="_blank" class="instagram-brand-link">
+        <img src="instagram.jpg" 
+            alt="Instagram" 
+            class="instagram-brand-img">          
+    </a>
+</div>
+<div class="nav-controls">
+<input type="text" id="searchInput" class="search-bar" placeholder="Որոնել..." oninput="searchProducts()">
+<button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
+<button class="filter-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ականջօղեր')">Ականջօղեր</button>
+<button class="filter-btn" onclick="filterCategory(event,'Թևնոցներ')">Թևնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button>
+<button class="wishlist-count-btn" onclick="showWishlist()">
+    <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
+    <span id="wishCount">0</span>
+</button>
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+<button class="lang-toggle" id="langBtn" onclick="switchLanguage()" style="-webkit-tap-highlight-color: transparent;">🌐 Հայ</button>
+</div>
 </header>
 <div class="hero-wrapper">
     <img src="hero.png"  style="width:100%; display:block;">
@@ -1088,17 +935,6 @@ header {
         <p>10,000+ գոհ հաճախորդներ</p>
     </div>
 </section>
-
-    <!-- CATEGORY TABS -->
-<div class="category-tabs">
-    <button class="cat-btn all-btn active" onclick="filterCategory(event,'all')">Բոլոր ապրանքները</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Ականջօղեր')">Ականջօղեր</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Թևնոցներ')">Թևնոցներ</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
-    <button class="cat-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button>
-</div>
 <div class="container" id="catalog"></div>
 
 <section id="recent-viewed-section" style="display: none;">
@@ -2244,5 +2080,4 @@ diff > 0 ? overlayNext() : overlayPrev();
 
 
     
-
 
