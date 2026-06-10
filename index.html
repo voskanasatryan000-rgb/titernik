@@ -2085,7 +2085,6 @@ let currentImageIndex = 0;
 let currentImageList = [];
 let wasPanelOpen = false;
 function openImage(src) {
-    closeWishlistPanel();
     currentImageList = products.map(p => p.img);
     currentImageIndex = currentImageList.indexOf(src);
     if (wasPanelOpen) {
