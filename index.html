@@ -1046,205 +1046,56 @@ border: none;
     align-items: center;
     justify-content: center;
 }
-.mobile-header {
-    display: none;
-}
-/* Հեռախոսի համար */
+/* Mobile/Desktop header toggle */
+#mobileTop, #mobileBottom { display: none; }
+
 @media (max-width: 768px) {
-    .desktop-header {
-        display: none;
-    }
+    .logo-container, #desktopSearch, #desktopActions { display: none !important; }
     
-    .mobile-header {
-        display: block;
-        padding: 10px 15px;
+    header {
+        flex-wrap: wrap !important;
+        padding: 0 !important;
+        gap: 0 !important;
     }
-    
-    .mobile-top {
-        display: flex;
+
+    #mobileTop {
+        display: flex !important;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    
-    .menu-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: var(--text-color);
-        cursor: pointer;
-    }
-    
-    .mobile-logo img {
-        height: 30px;
-    }
-    
-    .mobile-icons {
-        display: flex;
-        gap: 8px;
-    }
-    
-    .mobile-bottom {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .mobile-bottom .header-search {
-        flex: 1;
-    }
-    
-    .mobile-bottom .header-search input {
         width: 100%;
-        padding: 8px 35px 8px 12px;
+        padding: 10px 15px;
+        position: relative;
+    }
+
+    #mobileBottom {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 6px 12px 10px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    #mobileBottom .header-search input {
+        width: 100%;
+        padding: 8px 32px 8px 14px;
         border: 1px solid var(--border-color);
         border-radius: 20px;
-        background: #f9f9f9;
+        background: var(--card-bg);
+        color: var(--text-color);
         outline: none;
         font-size: 13px;
     }
-    
-    .mobile-bottom .header-search i {
+
+    #mobileBottom .header-search i {
         position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
         color: #aaa;
-    }
-    
-    .lang-dropdown {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 6px 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 15px;
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: bold;
-        color: var(--text-color);
-    }
-    
-    .lang-dropdown:hover {
-        border-color: var(--brand-color);
-        color: var(--brand-color);
+        font-size: 13px;
     }
 }
-
-    .action-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-color);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-
-.action-btn:hover {
-    background: var(--border-color);
-}
-
-.action-badge {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: var(--brand-color);
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.lang-selector {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 7px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--text-color);
-    transition: 0.3s;
-}
-
-.lang-selector:hover {
-    border-color: var(--brand-color);
-    color: var(--brand-color);
-}
-.lang-selector-container {
-    position: relative;
-    display: inline-block;
-}
-
-.lang-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    background: transparent;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    min-width: 60px;
-    justify-content: center;
-}
-
-.lang-btn:hover {
-    border-color: var(--brand-color);
-    color: var(--brand-color);
-}
-
-.lang-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    overflow: hidden;
-    z-index: 1000;
-    min-width: 120px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.lang-dropdown.open {
-    display: block;
-}
-
-.lang-dropdown div {
-    padding: 10px 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    color: var(--text-color);
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.lang-dropdown div:hover {
-    background: var(--brand-color);
-    color: white;
-}
-
 </style>
 
 <script type="application/ld+json">
@@ -2256,9 +2107,10 @@ function animateToWishlist(event) {
 }
     
 function updateWishCount() {
-document.getElementById('wishCount').innerText = wishlist.length;
-const mob = document.getElementById('wishCountMobile');
-    }
+    document.getElementById('wishCount').innerText = wishlist.length;
+    const mob = document.getElementById('wishCountMobile');
+    if (mob) mob.innerText = wishlist.length;
+}
 function filterCategory(event, category) {
     activeCategory = category;
 //window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
