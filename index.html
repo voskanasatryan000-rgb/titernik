@@ -1858,7 +1858,7 @@ function showWishlist() {
     
 function filterCategory(event, category) {
     activeCategory = category;
-    window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
+//window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
     const searchInput = document.getElementById('searchInput');
     if(searchInput) searchInput.value = '';
     // հեռացնում ենք URL-ի ?id=
@@ -1872,6 +1872,13 @@ function filterCategory(event, category) {
     } else {
         renderProducts(products.filter(p => p.cat === category));
     }
+     // ԸՆՏՐՈՎԻ: Սա կտանի կատեգորիայի առաջին ապրանքին
+    setTimeout(() => {
+        const firstCard = document.querySelector('.grid .card');
+        if (firstCard) {
+            firstCard.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+    }, 300);
 }
     
 function resetFilters() {
