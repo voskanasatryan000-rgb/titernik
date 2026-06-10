@@ -2074,7 +2074,7 @@ function removeFromRecent(id) {
 function toggleWishlist(event, id) {
     if (wishlist.includes(id)) {
         wishlist = wishlist.filter(item => item !== id);
-        // Թարմացնել սրտիկի կարգավիճակը կատալոգում (ջնջելու դեպքում)
+        // Թարմացնել սրտիկի կարգավիճակը
         document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
             icon.classList.remove('active');
             icon.style.color = '#ccc';
@@ -2087,6 +2087,7 @@ function toggleWishlist(event, id) {
     } else {
         wishlist.push(id);
         animateToWishlist(event);
+        // Թարմացնել սրտիկի կարգավիճակը
         document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
             icon.classList.add('active');
             icon.style.color = '#ff4757';
@@ -2094,14 +2095,13 @@ function toggleWishlist(event, id) {
         });
     }
     localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
-    updateWishCount();
+    updateWishCount();  // ← ՍԱ ԱՆՀՐԱԺԵՇՏ Է, ՈՐ ԹԻՎԸ ԹԱՐՄԱՑՎԻ
+    // Թարմացնել Wishlist Panel-ը, եթե բաց է
     const panel = document.getElementById('wishlistPanel');
     if (panel && panel.classList.contains('open')) {
         openWishlistPanel();
     }
-}
-
-    
+}   
 function animateToWishlist(event) {
     // 1. Ստանում ենք սկզբնակետը (սեղմված սրտիկը)
     const btn = event.target;
