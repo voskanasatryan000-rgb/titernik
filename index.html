@@ -877,6 +877,56 @@ border: none;
 .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--brand-color); }
 @media (max-width: 768px) { .mobile-bottom-nav { display: block; } body { padding-bottom: 60px; } }
 @media (max-width: 480px) { .features { grid-template-columns: 1fr 1fr; } }
+
+    /* Սրտիկի, լեզվի և մուգ ռեժիմի կոճակների ոճավորում */
+.header-icon-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+}
+.header-icon-btn:hover {
+    border-color: var(--brand-color);
+    transform: scale(1.05);
+}
+
+/* Հատուկ լեզվի կոճակի համար */
+.lang-btn {
+    padding: 0 15px;
+    width: auto;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 45px;
+    height: 45px;
+}
+
+/* Սրտիկի վրա բեջի համար */
+.header-icon-btn .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--brand-color);
+    color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-icon-btn {
+    position: relative;
+}
 </style>
     
 <script type="application/ld+json">
