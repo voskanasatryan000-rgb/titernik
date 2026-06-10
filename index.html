@@ -1589,9 +1589,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const langBtn = document.getElementById('langBtn');
     if (langBtn) {
-        if (currentLang === 'hy') langBtn.innerHTML = '🌐 Հայ';
-        else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
-        else langBtn.innerHTML = '🌐 Eng';
+        const langText = langBtn.querySelector('#langText');
+        if (currentLang === 'hy') {
+            langText.innerText = 'ՀՅ';
+        } else if (currentLang === 'ru') {
+            langText.innerText = 'RU';
+        } else {
+            langText.innerText = 'EN';
+        }
     }
     updatePageLanguage();
 });
