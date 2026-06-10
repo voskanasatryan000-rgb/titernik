@@ -895,13 +895,7 @@ border: none;
 </div>
 <div class="nav-controls">
 <input type="text" id="searchInput" class="search-bar" placeholder="Որոնել..." oninput="searchProducts()">
-<button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
-<button class="filter-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
-<button class="filter-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
-<button class="filter-btn" onclick="filterCategory(event,'Ականջօղեր')">Ականջօղեր</button>
-<button class="filter-btn" onclick="filterCategory(event,'Թևնոցներ')">Թևնոցներ</button>
-<button class="filter-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
-<button class="filter-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button>
+
 <button class="wishlist-count-btn" onclick="showWishlist()">
     <span class="heart" style="color: #ff4757 !important; -webkit-text-fill-color: #ff4757 !important; display: inline-block !important;">❤️</span> 
     <span id="wishCount">0</span>
@@ -935,6 +929,14 @@ border: none;
         <p>10,000+ գոհ հաճախորդներ</p>
     </div>
 </section>
+    <div class="nav-controls">
+    <button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
+<button class="filter-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ականջօղեր')">Ականջօղեր</button>
+<button class="filter-btn" onclick="filterCategory(event,'Թևնոցներ')">Թևնոցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
+<button class="filter-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button> </div>
 <div class="container" id="catalog"></div>
 
 <section id="recent-viewed-section" style="display: none;">
