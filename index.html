@@ -2094,23 +2094,23 @@ function openWishlistPanel() {
                 <p style="font-size: 13px; color: #aaa;">${t('noWishlistDesc')}</p>
             </div>
         `;
-    } else {
-        content.innerHTML = wishlistProducts.map(p => `
-            <div class="wishlist-item">
-                <div class="item-img-wrap" onclick="openImage('${p.img}')">
-                    <img src="${p.img}" alt="${p.cat}">
-                </div>
-                <div class="item-info">
-                    <div class="title">${p.cat}</div>
-                    <div class="id-tag" style="font-size: 11px; color: #888; margin: 2px 0;">ID: ${p.id}</div>
-                    <div class="price">${p.price} ֏</div>
-                </div>
-                <button class="remove-item" onclick="toggleWishlist(event, '${p.id}'); openWishlistPanel();">
-                    <i class="fas fa-times"></i>
-                </button>
+    }  else {
+    content.innerHTML = wishlistProducts.map(p => `
+        <div class="wishlist-item">
+            <div class="item-img-wrap" onclick="openImage('${p.img}')">
+                <img src="${p.img}" alt="${p.cat}">
             </div>
-        `).join('');
-    }
+            <div class="item-info">
+                <div class="title">${translateCategory(p.cat)}</div>  <!-- ← ՍԱ ՓՈԽՎԵՑ -->
+                <div class="id-tag" style="font-size: 11px; color: #888; margin: 2px 0;">ID: ${p.id}</div>
+                <div class="price">${p.price} ֏</div>
+            </div>
+            <button class="remove-item" onclick="toggleWishlist(event, '${p.id}'); openWishlistPanel();">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `).join('');
+}
     
     panel.classList.add('open');
     overlay.classList.add('open');
