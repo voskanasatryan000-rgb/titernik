@@ -1174,12 +1174,8 @@ const translations = {
         filterBoxes: "Տուփեր",
         wishlistBtn: "❤️",
         wishlistTitle: "Իմ նախընտրածները",
-        backToCatalog: "← Հետ դեպի կատալոգ",
-        backToCatalog2: "← Վերադառնալ կատալոգ",
         noWishlist: "Նախընտրածներ չունեք",
         noWishlistDesc: "Ավելացրեք սիրելի ապրանքները այստեղ ✨",
-        noWishlistTitle: "Նախընտրածներ չկան",
-        noWishlistDesc2: "Ձեր սիրելի աքսեսուարները կհայտնվեն այստեղ ✨",
         orderBtn: "Պատվիրել",
         recentTitle: "Վերջերս դիտված",
         searchNoResults: "Արդյունք չի գտնվել",
@@ -1224,12 +1220,8 @@ const translations = {
         filterBoxes: "Коробки",
         wishlistBtn: "❤️",
         wishlistTitle: "Избранное",
-        backToCatalog: "← Назад в каталог",
-        backToCatalog2: "← Назад в каталог",
         noWishlist: "Нет избранного",
         noWishlistDesc: "Добавьте сюда любимые товары ✨",
-        noWishlistTitle: "Нет избранного",
-        noWishlistDesc2: "Ваши любимые аксессуары появятся здесь ✨",
         orderBtn: "Заказать",
         recentTitle: "Недавно просмотренные",
         searchNoResults: "Ничего не найдено",
@@ -1274,12 +1266,8 @@ const translations = {
         filterBoxes: "Boxes",
         wishlistBtn: "❤️",
         wishlistTitle: "My Wishlist",
-        backToCatalog: "← Back to catalog",
-        backToCatalog2: "← Back to catalog",
         noWishlist: "No favorites yet",
         noWishlistDesc: "Add your favorite items here ✨",
-        noWishlistTitle: "No favorites yet",
-        noWishlistDesc2: "Your favorite accessories will appear here ✨",
         orderBtn: "Order",
         recentTitle: "Recently viewed",
         searchNoResults: "No results found",
@@ -2103,7 +2091,7 @@ function openWishlistPanel() {
         content.innerHTML = `
             <div class="wishlist-empty">
                 <i class="far fa-heart"></i>
-                <p>${t('  noWishlist')}</p>
+                <p>${t('noWishlist')}</p>
                 <p style="font-size: 13px; color: #aaa;">${t('noWishlistDesc')}</p>
             </div>
         `;
@@ -2179,7 +2167,7 @@ diff > 0 ? overlayNext() : overlayPrev();
     
 <div id="wishlistPanel" class="wishlist-panel">
     <div class="panel-header">
-        <h2>❤️${t('wishlistTitle')}</h2>
+        <h2>❤️ ${t('wishlistTitle')}</h2>
         <button class="close-panel" onclick="closeWishlistPanel()">×</button>
     </div>
     <div class="panel-content" id="wishlistPanelContent">
