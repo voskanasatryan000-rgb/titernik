@@ -1176,6 +1176,92 @@ border: none;
     background: var(--brand-color);
     color: white;
 }
+/* Սկզբում թաքցնել հեռախոսի տարբերակը */
+.mobile-header {
+    display: none;
+}
+
+/* Հեռախոսի համար */
+@media (max-width: 768px) {
+    .desktop-header {
+        display: none;
+    }
+    
+    .mobile-header {
+        display: block;
+        padding: 10px 15px;
+    }
+    
+    .mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    .menu-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+    
+    .mobile-logo img {
+        height: 30px;
+    }
+    
+    .mobile-icons {
+        display: flex;
+        gap: 8px;
+    }
+    
+    .mobile-bottom {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .mobile-bottom .header-search {
+        flex: 1;
+    }
+    
+    .mobile-bottom .header-search input {
+        width: 100%;
+        padding: 8px 35px 8px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        background: #f9f9f9;
+        outline: none;
+        font-size: 13px;
+    }
+    
+    .mobile-bottom .header-search i {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+    
+    .lang-dropdown {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--text-color);
+    }
+    
+    .lang-dropdown:hover {
+        border-color: var(--brand-color);
+        color: var(--brand-color);
+    }
+}
 </style>
     
 <script type="application/ld+json">
@@ -1239,7 +1325,40 @@ border: none;
         <div onclick="changeLanguage('en')">🇬🇧 English</div>
     </div>
 </div>
+        <div class="mobile-header">
+        <div class="mobile-top">
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="mobile-logo">
+                <img src="instagramtiternik.png" alt="Titernik Logo">
+            </div>
+            <div class="mobile-icons">
+                <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
+                    <i class="far fa-heart" style="font-size:20px;"></i>
+                    <span class="action-badge" id="wishCount">0</span>
+                </button>
+                <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()">
+                    <i class="far fa-moon" style="font-size:20px;"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-bottom">
+            <div class="header-search">
+                <input type="text" id="searchInput" placeholder="Որոնել..." oninput="searchProducts()">
+                <i class="fas fa-search"></i>
+            </div>
+            <<button class="lang-btn" onclick="toggleLangDropdown()">
+        <span id="langText">ՀՅ</span>
+        <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+        <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
+        <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
+        <div onclick="changeLanguage('en')">🇬🇧 English</div>
+    </div>
+        </div>
+    </div>
 </header>
+    
  
 <div class="hero-wrapper">
     <img src="hero.png"  style="width:100%; display:block;">
