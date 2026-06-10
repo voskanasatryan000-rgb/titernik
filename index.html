@@ -2085,11 +2085,16 @@ let currentImageIndex = 0;
 let currentImageList = [];
 let wasPanelOpen = false;
 function openImage(src) {
-    currentImageList = products.map(p => p.img);
-    currentImageIndex = currentImageList.indexOf(src);
+    const panel = document.getElementById('wishlistPanel');
+    wasPanelOpen = panel.classList.contains('open'); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
+    // 2. Եթե բաց է, փակիր
     if (wasPanelOpen) {
         closeWishlistPanel();
     }
+    
+    currentImageList = products.map(p => p.img);
+    currentImageIndex = currentImageList.indexOf(src);
+    
     document.getElementById('overlayImg').src = src;
     document.getElementById('overlay').style.display = 'flex';
 
