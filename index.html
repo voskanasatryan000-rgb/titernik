@@ -880,18 +880,19 @@ border: none;
 .wishlist-panel {
     position: fixed;
     top: 0;
-    right: -400px;
+    right: 0;
     width: 380px;
     height: 100%;
     background: var(--card-bg);
     box-shadow: -5px 0 20px rgba(0,0,0,0.15);
     z-index: 3000;
-    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateX(100%); /* Սկզբում դուրս է */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     padding: 20px;
     overflow-y: auto;
 }
 .wishlist-panel.open {
-    right: 0;
+    transform: translateX(0); /* Բացվում է */
 }
 .panel-overlay {
     position: fixed;
@@ -928,7 +929,7 @@ border: none;
     transition: 0.3s;
 }
 .close-panel:hover {
-    transform: rotate(90deg);
+    transform: rotate(45deg);
     color: var(--brand-color);
 }
 .wishlist-item {
