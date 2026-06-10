@@ -1854,14 +1854,6 @@ function toggleWishlist(event, id) {
     }
 }
 
-localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
-
-document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
-    icon.classList.toggle('active');
-});
-
-updateWishCount();
-
     
 function animateToWishlist(event) {
     // 1. Ստանում ենք սկզբնակետը (սեղմված սրտիկը)
