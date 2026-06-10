@@ -131,7 +131,7 @@ transform: scale(1.1) rotate(5deg) !important;
     }
 
     /* 2. ՍԱՐՔՈՒՄ ԵՆՔ ՍԱՀՈՂ ԳԻԾԸ */
-    .nav-controls .category-controls{
+    .nav-controls {
         display: flex !important;
         flex-wrap: nowrap !important; /* Արգելում ենք իրար տակ ընկնելը */
         overflow-x: auto !important;  /* Միացնում ենք կողք սահելը */
@@ -145,16 +145,42 @@ transform: scale(1.1) rotate(5deg) !important;
         -ms-overflow-style: auto;
         -webkit-overflow-scrolling: touch;
     }
-    .nav-controls .category-controls::-webkit-scrollbar {
+    .category-controls{
+        display: flex !important;
+        flex-wrap: nowrap !important; /* Արգելում ենք իրար տակ ընկնելը */
+        overflow-x: auto !important;  /* Միացնում ենք կողք սահելը */
+        overflow-y:hidden;
+        justify-content: flex-start !important;
+        gap: 8px !important;
+        padding: 5px 10px !important;
+        width: 100% !important;
+        /* Թաքցնում ենք scroll-ի գիծը բրաուզերների համար */
+        scrollbar-width: auto; 
+        -ms-overflow-style: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .nav-controls::-webkit-scrollbar {
     height: 2px;                   /* Բարձրությունը */
     background: var(--border-color);
     border-radius: 10px;
 }
-.nav-controls .category-controls::-webkit-scrollbar-thumb {
+    .category-controls::-webkit-scrollbar {
+    height: 2px;                   /* Բարձրությունը */
+    background: var(--border-color);
+    border-radius: 10px;
+}
+.nav-controls ::-webkit-scrollbar-thumb {
     background: var(--brand-color);
     border-radius: 10px;
 }
-.nav-controls .category-controls::-webkit-scrollbar-thumb:hover {
+    .category-controls::-webkit-scrollbar-thumb {
+    background: var(--brand-color);
+    border-radius: 10px;
+}
+.nav-controls ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+    .category-controls::-webkit-scrollbar-thumb:hover {
     background: var(--gold);
 }
     /* 3. Կոճակների տեսքը */
@@ -175,8 +201,8 @@ transform: scale(1.1) rotate(5deg) !important;
     }
     
 }
-   
-.nav-controls .category-controls{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
+ .nav-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
+.category-controls{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
 .search-bar { padding: 10px 15px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 25px; width: 180px; outline: none; }
 .filter-btn { 
     padding: 10px 20px; 
