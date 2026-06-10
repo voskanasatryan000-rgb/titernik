@@ -950,6 +950,19 @@ border: none;
     margin-bottom: 15px;
     display: block;
 }
+.item-img-wrap { 
+    cursor: pointer;
+    transition: 0.3s;
+}
+.item-img-wrap:hover {
+    transform: scale(1.05);
+}
+.item-img-wrap img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
 @media (max-width: 480px) {
     .wishlist-panel {
         width: 100%;
@@ -2137,7 +2150,6 @@ window.onscroll = function() {
         btn.style.display = "none";
     }
 };
-// Բացել Wishlist Panel-ը
 function openWishlistPanel() {
     const panel = document.getElementById('wishlistPanel');
     const overlay = document.getElementById('wishlistOverlay');
@@ -2156,9 +2168,12 @@ function openWishlistPanel() {
     } else {
         content.innerHTML = wishlistProducts.map(p => `
             <div class="wishlist-item">
-                <img src="${p.img}" alt="${p.cat}">
+                <div class="item-img-wrap" onclick="openImage('${p.img}')">
+                    <img src="${p.img}" alt="${p.cat}">
+                </div>
                 <div class="item-info">
                     <div class="title">${p.cat}</div>
+                    <div class="id-tag" style="font-size: 11px; color: #888; margin: 2px 0;">ID: ${p.id}</div>
                     <div class="price">${p.price} ֏</div>
                 </div>
                 <button class="remove-item" onclick="toggleWishlist(event, '${p.id}'); openWishlistPanel();">
@@ -2171,18 +2186,6 @@ function openWishlistPanel() {
     panel.classList.add('open');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-}
-
-// Փակել Wishlist Panel-ը
-function closeWishlistPanel() {
-    document.getElementById('wishlistPanel').classList.remove('open');
-    document.getElementById('wishlistOverlay').classList.remove('open');
-    document.body.style.overflow = 'auto';
-}
-
-// Փոխել showWishlist() ֆունկցիան
-function showWishlist() {
-    openWishlistPanel();
 }
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
