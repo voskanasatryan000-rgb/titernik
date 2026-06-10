@@ -1055,25 +1055,25 @@ border: none;
 </div>
 <section class="features">
     <div class="feature-card">
-        <i class="fas fa-truck"></i>
-        <h4>Որակի երաշխիք</h4>
-        <p>Բարձր որակի երաշխիքով ապրանքներ</p>
-    </div>
-    <div class="feature-card">
-        <i class="fas fa-gem"></i>
-        <h4>Պրեմիում տեսականի</h4>
-        <p>Նորաձև և թրենդային ապրանքներ</p>
-    </div>
-    <div class="feature-card">
-        <i class="fas fa-gift"></i>
-        <h4>Նվերների փաթեթավորում</h4>
-        <p>Գեղեցիկ և անձնական փաթեթավորում</p>
-    </div>
-    <div class="feature-card">
-        <i class="fas fa-heart"></i>
-        <h4>Սիրված բրենդ</h4>
-        <p>10,000+ գոհ հաճախորդներ</p>
-    </div>
+    <i class="fas fa-truck"></i>
+    <h4 id="feat1Title"></h4>
+    <p id="feat1Desc"></p>
+</div>
+<div class="feature-card">
+    <i class="fas fa-gem"></i>
+    <h4 id="feat2Title"></h4>
+    <p id="feat2Desc"></p>
+</div>
+<div class="feature-card">
+    <i class="fas fa-gift"></i>
+    <h4 id="feat3Title"></h4>
+    <p id="feat3Desc"></p>
+</div>
+<div class="feature-card">
+    <i class="fas fa-heart"></i>
+    <h4 id="feat4Title"></h4>
+    <p id="feat4Desc"></p>
+</div>
 </section>
     <div class="category-controls">
     <button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
@@ -1207,7 +1207,15 @@ const translations = {
         orderID: "📦 ID",
         orderName: "🦋 Անվանում",
         orderPrice: "🏷️ Գին",
-        orderLink: "🔗 Հղում"
+        orderLink: "🔗 Հղում",
+        feat1Title: "Որակի երաշխիք",
+        feat1Desc: "Բարձր որակի երաշխիքով ապրանքներ",
+        feat2Title: "Պրեմիում տեսականի",
+        feat2Desc: "Նորաձև և թրենդային ապրանքներ",
+        feat3Title: "Նվերների փաթեթավորում",
+        feat3Desc: "Գեղեցիկ և անձնական փաթեթավորում",
+        feat4Title: "Սիրված բրենդ",
+        feat4Desc: "10,000+ գոհ հաճախորդներ"
     },
     ru: {
         searchPlaceholder: "Поиск...",
@@ -1253,7 +1261,15 @@ const translations = {
         orderID: "📦 ID",
         orderName: "🦋 Название",
         orderPrice: "🏷️ Цена",
-        orderLink: "🔗 Ссылка"
+        orderLink: "🔗 Ссылка", 
+        feat1Title: "Гарантия качества",
+        feat1Desc: "Товары с высокой гарантией качества",
+        feat2Title: "Премиум ассортимент",
+        feat2Desc: "Модные и трендовые товары",
+        feat3Title: "Подарочная упаковка",
+        feat3Desc: "Красивая и персональная упаковка",
+        feat4Title: "Любимый бренд",
+        feat4Desc: "10,000+ довольных клиентов"
     },
     en: {
         searchPlaceholder: "Search...",
@@ -1299,7 +1315,15 @@ const translations = {
         orderID: "📦 ID",
         orderName: "🦋 Name",
         orderPrice: "🏷️ Price",
-        orderLink: "🔗 Link"
+        orderLink: "🔗 Link", 
+        feat1Title: "Quality Guarantee",
+        feat1Desc: "Products with high quality guarantee",
+        feat2Title: "Premium Collection",
+        feat2Desc: "Fashionable and trendy products",
+        feat3Title: "Gift Packaging",
+        feat3Desc: "Beautiful and personal packaging",
+        feat4Title: "Beloved Brand",
+        feat4Desc: "10,000+ happy customers"
     }
 };
 function t(key) {
@@ -1375,6 +1399,13 @@ function updatePageLanguage() {
     if (omIg) omIg.innerHTML = t('omIg');
     const omClose = document.getElementById('omClose');
     if (omClose) omClose.innerHTML = t('omClose');
+
+    for (let i = 1; i <= 4; i++) {
+    const title = document.getElementById(`feat${i}Title`);
+    const desc = document.getElementById(`feat${i}Desc`);
+    if (title) title.innerText = t(`feat${i}Title`);
+    if (desc) desc.innerText = t(`feat${i}Desc`);
+}
 
     }
 
