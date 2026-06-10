@@ -1459,12 +1459,17 @@ function switchLanguage() {
     localStorage.setItem('siteLang', currentLang);
     const langBtn = document.getElementById('langBtn');
     if (langBtn) {
-        if (currentLang === 'hy') langBtn.innerHTML = '🌐 Հայ';
-        else if (currentLang === 'ru') langBtn.innerHTML = '🌐 Рус';
-        else langBtn.innerHTML = '🌐 Eng';
+        const langText = langBtn.querySelector('#langText');
+        if (currentLang === 'hy') {
+            langText.innerText = 'ՀՅ';
+        } else if (currentLang === 'ru') {
+            langText.innerText = 'RU';
+        } else {
+            langText.innerText = 'EN';
+        }
     }
     updatePageLanguage();
- if (isWishlistMode) {
+    if (isWishlistMode) {
         const filtered = products.filter(p => wishlist.includes(p.id));
         renderProducts(filtered, true);
     } else {
@@ -1472,7 +1477,7 @@ function switchLanguage() {
     }
     updateCategoryTitles();
     document.getElementById('langBtn').blur();
-} 
+}
 function updatePageLanguage() {
     // Search bar placeholder
     const searchInput = document.getElementById('searchInput');
@@ -1529,13 +1534,7 @@ function updatePageLanguage() {
     const desc = document.getElementById(`feat${i}Desc`);
     if (title) title.innerText = t(`feat${i}Title`);
     if (desc) desc.innerText = t(`feat${i}Desc`);
-
-     const langText = document.getElementById('langText');
-    if (langText) {
-    if (currentLang === 'hy') langText.innerText = 'ՀՅ';
-    else if (currentLang === 'ru') langText.innerText = 'РУ';
-    else langText.innerText = 'EN';
-}
+     }
 }
 
     }
