@@ -199,7 +199,7 @@ transform: scale(1.1) rotate(5deg) !important;
         width: 120px !important;
     }
 
-    .wishlist-count-btn, .theme-toggle {
+   .theme-toggle {
         flex: 0 0 auto !important;
     }
     
@@ -330,37 +330,6 @@ transform: scale(1.1) rotate(5deg) !important;
     background-color: #fff;
     color: #000;
 }
-    
-/* --- Wishlist Count Button --- */
-.wishlist-count-btn { 
-    background: var(--card-bg) !important; 
-    color: var(--text-color) !important; 
-    border: 1px solid var(--border-color)!important; 
-    border-radius: 25px !important; 
-    padding: 6px 8px !important; 
-    cursor: pointer !important; 
-    font-weight: bold !important;
-    display: inline-flex !important; 
-    align-items: center !important;
-    gap: 0px !important;
-    transition: all 0.3s ease !important;
-    text-decoration: none !important;
-    width: fit-content !important;
-    min-width: unset !important;
-    justify-content: center !important;
-}
-
-/* Սրտիկի էմոջիի պաշտպանություն */
-.wishlist-count-btn span.heart { 
-    font-size: 18px !important;
-    color: initial !important; 
-    display: inline-block !important;
-    vertical-align: middle !important;
-    margin: 0 !important;
-    -webkit-text-fill-color: initial !important; /* iPhone-ի համար */
-    transition: transform 0.3s ease !important;
-    vertical-align: middle !important;
-}
 
 .remove-btn {
     position: absolute;
@@ -466,12 +435,6 @@ transform: scale(1.1) rotate(5deg) !important;
 
 /* --- Համակարգիչների համար (Hover) --- */
 @media (hover: hover) {
-    .wishlist-count-btn:hover {
-        border-color: var(--brand-color) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-    }
-
     .back-btn:hover { 
         transform: scale(1.05) !important; 
         background: #7a626b !important; 
@@ -484,29 +447,7 @@ transform: scale(1.1) rotate(5deg) !important;
     transform: scale(0.95) !important;
     opacity: 0.8 !important;
 }
-    .wishlist-count-btn.active {
-    background: var(--card-bg) !important;
-    color: var(--text-color) !important;
-    border-color: var(--brand-color) !important;
-}
 
-/* iPhone-ի էմոջիի գույնի վերջնական ֆիքս */
-@media (max-width: 768px) {
-    .wishlist-count-btn span.heart {
-        color: initial !important;
-        -webkit-text-fill-color: initial !important;
-    }
-    .wishlist-count-btn {
-        /* ՍԱ ԿՎԵՐԱՑՆԻ ՁԱԽ ԿՈՂՄԻ ՕԴԸ */
-        padding: 5px 8px !important; 
-        width: fit-content !important;
-        min-width: unset !important;
-        gap: 4px !important;
-    }
-    .wishlist-count-btn .count {
-        font-size: 14px !important;
-    }
-}
     
 .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
 /* Հեռացրել ենք border-bottom-ը կատեգորիաների վերնագրերից */
@@ -782,36 +723,7 @@ border: none;
         justify-content: center;
     }
 }
-/* Language Switcher Button */
-.lang-toggle {
-    background: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 10px 12px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.lang-toggle:hover {
-    background: var(--brand-color);
-    color: white;
-    border-color: var(--brand-color);
-}
-.lang-toggle:focus,
-.lang-toggle:active {
-    outline: none;
-    background: var(--card-bg);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-@media (max-width: 600px) {
-    .lang-toggle { padding: 6px 10px; font-size: 11px; }
-}
+
 .order-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .order-modal-backdrop.open{display:flex;animation:omfi .25s ease}
 @keyframes omfi{from{opacity:0}to{opacity:1}}
@@ -1056,6 +968,7 @@ border: none;
         flex-wrap: wrap !important;
         padding: 0 !important;
         gap: 0 !important;
+        justify-content: flex-start !important;
     }
 
     #mobileTop {
@@ -1065,6 +978,21 @@ border: none;
         width: 100%;
         padding: 10px 15px;
         position: relative;
+        min-height: 55px;
+    }
+
+    #mobileTop > div:last-child {
+        display: flex;
+        gap: 4px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    #mobileTop .theme-toggle {
+        border: none !important;
+        background: none !important;
+        width: 40px !important;
+        height: 40px !important;
     }
 
     #mobileBottom {
@@ -1074,6 +1002,11 @@ border: none;
         width: 100%;
         padding: 6px 12px 10px;
         border-top: 1px solid var(--border-color);
+    }
+
+    #mobileBottom .header-search {
+        flex: 1;
+        position: relative;
     }
 
     #mobileBottom .header-search input {
@@ -1094,6 +1027,11 @@ border: none;
         transform: translateY(-50%);
         color: #aaa;
         font-size: 13px;
+    }
+
+    .lang-dropdown {
+        right: 0;
+        left: auto;
     }
 }
 </style>
