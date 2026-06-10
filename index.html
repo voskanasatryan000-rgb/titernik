@@ -2083,18 +2083,28 @@ function searchProducts() {
     
 let currentImageIndex = 0;
 let currentImageList = [];
-
+let wasPanelOpen = false;
 function openImage(src) {
+    closeWishlistPanel();
     currentImageList = products.map(p => p.img);
     currentImageIndex = currentImageList.indexOf(src);
-    
+    if (wasPanelOpen) {
+        closeWishlistPanel();
+    }
     document.getElementById('overlayImg').src = src;
     document.getElementById('overlay').style.display = 'flex';
 
     const product = products.find(p => p.img === src);
     if (product) addToRecentlyViewed(product.id);
 }
-
+function closeOverlay() {
+    document.getElementById('overlay').style.display = 'none';
+    
+    // Եթե պանելը բաց էր մինչ նկարը բացելը, վերադարձրու այն
+    if (wasPanelOpen) {
+        openWishlistPanel();
+    }
+}
 function showOverlayImage(index, direction) {
     const img = document.getElementById('overlayImg');
     const outX = direction === 'next' ? '-100px' : '100px';
