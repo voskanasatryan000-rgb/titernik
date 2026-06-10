@@ -1644,10 +1644,11 @@ function syncSearch(from) {
 function changeLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('siteLang', lang);
-    const langText = document.getElementById('langText');
-    if (lang === 'hy') langText.innerText = 'ՀՅ';
-    else if (lang === 'ru') langText.innerText = 'RU';
-    else langText.innerText = 'EN';
+    const label = lang === 'hy' ? 'ՀՅ' : lang === 'ru' ? 'RU' : 'EN';
+document.getElementById('langText').innerText = label;
+const mob = document.getElementById('langTextMobile');
+if (mob) mob.innerText = label;
+document.getElementById('langDropdownMobile')?.classList.remove('open')
     
     updatePageLanguage();
     if (isWishlistMode) {
