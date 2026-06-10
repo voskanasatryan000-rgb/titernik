@@ -1116,6 +1116,66 @@ border: none;
     border-color: var(--brand-color);
     color: var(--brand-color);
 }
+.lang-selector-container {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    justify-content: center;
+}
+
+.lang-btn:hover {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+}
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lang-dropdown.open {
+    display: block;
+}
+
+.lang-dropdown div {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--text-color);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-dropdown div:hover {
+    background: var(--brand-color);
+    color: white;
+}
 </style>
     
 <script type="application/ld+json">
@@ -1167,9 +1227,16 @@ border: none;
     <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()">
         <i class="far fa-moon" style="font-size:20px;"></i>
     </button>
-    <div class="lang-selector" onclick="switchLanguage()" id="langBtn">
+    <div class="lang-selector-container">
+    <div class="lang-selector-container">
+    <button class="lang-btn" onclick="toggleLangDropdown()">
         <span id="langText">ՀՅ</span>
-        <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+        <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
+        <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
+        <div onclick="changeLanguage('en')">🇬🇧 English</div>
     </div>
 </div>
 </header>
@@ -1453,21 +1520,19 @@ const translations = {
 function t(key) {
     return translations[currentLang][key] || key;
 }
+function toggleLangDropdown() {
+    const dropdown = document.getElementById('langDropdown');
+    dropdown.classList.toggle('open');
+}
 
-function switchLanguage() {
-    currentLang = currentLang === 'hy' ? 'ru' : (currentLang === 'ru' ? 'en' : 'hy');
-    localStorage.setItem('siteLang', currentLang);
-    const langBtn = document.getElementById('langBtn');
-    if (langBtn) {
-        const langText = langBtn.querySelector('#langText');
-        if (currentLang === 'hy') {
-            langText.innerText = 'ՀՅ';
-        } else if (currentLang === 'ru') {
-            langText.innerText = 'RU';
-        } else {
-            langText.innerText = 'EN';
-        }
-    }
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('siteLang', lang);
+    const langText = document.getElementById('langText');
+    if (lang === 'hy') langText.innerText = 'HY';
+    else if (lang === 'ru') langText.innerText = 'RU';
+    else langText.innerText = 'EN';
+    
     updatePageLanguage();
     if (isWishlistMode) {
         const filtered = products.filter(p => wishlist.includes(p.id));
@@ -1476,8 +1541,43 @@ function switchLanguage() {
         renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
     }
     updateCategoryTitles();
-    document.getElementById('langBtn').blur();
+    
+    // Փակել ընտրացանկը
+    document.getElementById('langDropdown').classList.remove('open');
 }
+function toggleLangDropdown() {
+    const dropdown = document.getElementById('langDropdown');
+    if (dropdown) dropdown.classList.toggle('open');
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('siteLang', lang);
+    const langText = document.getElementById('langText');
+    if (lang === 'hy') langText.innerText = 'ՀՅ';
+    else if (lang === 'ru') langText.innerText = 'RU';
+    else langText.innerText = 'EN';
+    
+    updatePageLanguage();
+    if (isWishlistMode) {
+        const filtered = products.filter(p => wishlist.includes(p.id));
+        renderProducts(filtered, true);
+    } else {
+        renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
+    }
+    updateCategoryTitles();
+    // Փակել ընտրացանկը
+    const dropdown = document.getElementById('langDropdown');
+    if (dropdown) dropdown.classList.remove('open');
+}
+// Փակել ընտրացանկը դրսի սեղմումից
+document.addEventListener('click', function(e) {
+    const container = document.querySelector('.lang-selector-container');
+    const dropdown = document.getElementById('langDropdown');
+    if (container && dropdown && !container.contains(e.target)) {
+        dropdown.classList.remove('open');
+    }
+});
 function updatePageLanguage() {
     // Search bar placeholder
     const searchInput = document.getElementById('searchInput');
@@ -1587,9 +1687,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('siteLang')) {
         currentLang = localStorage.getItem('siteLang');
     }
-    const langBtn = document.getElementById('langBtn');
-    if (langBtn) {
-        const langText = langBtn.querySelector('#langText');
+    // Լեզվի ընտրացանկի սկզբնական կարգավորում
+    const langText = document.getElementById('langText');
+    if (langText) {
         if (currentLang === 'hy') {
             langText.innerText = 'ՀՅ';
         } else if (currentLang === 'ru') {
