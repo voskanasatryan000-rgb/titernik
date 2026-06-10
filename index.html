@@ -131,7 +131,7 @@ transform: scale(1.1) rotate(5deg) !important;
     }
 
     /* 2. ՍԱՐՔՈՒՄ ԵՆՔ ՍԱՀՈՂ ԳԻԾԸ */
-    .nav-controls {
+    .nav-controls .category-controls{
         display: flex !important;
         flex-wrap: nowrap !important; /* Արգելում ենք իրար տակ ընկնելը */
         overflow-x: auto !important;  /* Միացնում ենք կողք սահելը */
@@ -145,16 +145,16 @@ transform: scale(1.1) rotate(5deg) !important;
         -ms-overflow-style: auto;
         -webkit-overflow-scrolling: touch;
     }
-    .nav-controls::-webkit-scrollbar {
+    .nav-controls .category-controls::-webkit-scrollbar {
     height: 2px;                   /* Բարձրությունը */
     background: var(--border-color);
     border-radius: 10px;
 }
-.nav-controls::-webkit-scrollbar-thumb {
+.nav-controls .category-controls::-webkit-scrollbar-thumb {
     background: var(--brand-color);
     border-radius: 10px;
 }
-.nav-controls::-webkit-scrollbar-thumb:hover {
+.nav-controls .category-controls::-webkit-scrollbar-thumb:hover {
     background: var(--gold);
 }
     /* 3. Կոճակների տեսքը */
@@ -176,7 +176,7 @@ transform: scale(1.1) rotate(5deg) !important;
     
 }
    
-.nav-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
+.nav-controls .category-controls{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1000px; margin: 0 auto; }
 .search-bar { padding: 10px 15px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 25px; width: 180px; outline: none; }
 .filter-btn { 
     padding: 10px 20px; 
@@ -1049,7 +1049,7 @@ border: none;
         <p>10,000+ գոհ հաճախորդներ</p>
     </div>
 </section>
-    <div class="nav-controls">
+    <div class="category-controls">
     <button class="filter-btn all-btn" onclick="filterCategory(event,'all')">Բոլորը</button>
 <button class="filter-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
 <button class="filter-btn" onclick="filterCategory(event,'Վզնոցներ')">Վզնոցներ</button>
@@ -2186,6 +2186,14 @@ function openWishlistPanel() {
     panel.classList.add('open');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+}
+function showWishlist() {
+    openWishlistPanel();
+}
+function closeWishlistPanel() {
+    document.getElementById('wishlistPanel').classList.remove('open');
+    document.getElementById('wishlistOverlay').classList.remove('open');
+    document.body.style.overflow = 'auto';
 }
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
