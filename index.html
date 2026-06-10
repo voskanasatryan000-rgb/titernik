@@ -1326,37 +1326,46 @@ border: none;
     </div>
 </div>
         <div class="mobile-header">
-        <div class="mobile-top">
-            <button class="menu-btn"><i class="fas fa-bars"></i></button>
-            <div class="mobile-logo">
-                <img src="instagramtiternik.png" alt="Titernik Logo">
-            </div>
-            <div class="mobile-icons">
-                <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
-                    <i class="far fa-heart" style="font-size:20px;"></i>
-                    <span class="action-badge" id="wishCount">0</span>
-                </button>
-                <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()">
-                    <i class="far fa-moon" style="font-size:20px;"></i>
-                </button>
-            </div>
+    <div class="mobile-top">
+        <!-- Ձախ — դատարկ տեղ հավասարակշռության համար -->
+        <div style="width:80px;"></div>
+
+        <!-- Կենտրոն — լոգո -->
+        <div class="mobile-logo" onclick="location.reload()" style="cursor:pointer;">
+            <img src="instagramtiternik.png" alt="Titernik Logo">
         </div>
-        <div class="mobile-bottom">
-            <div class="header-search">
-                <input type="text" id="searchInput" placeholder="Որոնել..." oninput="searchProducts()">
-                <i class="fas fa-search"></i>
-            </div>
-            <<button class="lang-btn" onclick="toggleLangDropdown()">
-        <span id="langText">ՀՅ</span>
-        <i class="fas fa-chevron-down" style="font-size:10px;"></i>
-    </button>
-    <div class="lang-dropdown" id="langDropdown">
-        <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
-        <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
-        <div onclick="changeLanguage('en')">🇬🇧 English</div>
-    </div>
+
+        <!-- Աջ — wishlist + dark mode -->
+        <div class="mobile-icons">
+            <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
+                <i class="far fa-heart" style="font-size:20px;"></i>
+                <span class="action-badge" id="wishCountMobile">0</span>
+            </button>
+            <button class="action-btn theme-toggle" onclick="toggleTheme()">
+                <i class="far fa-moon" style="font-size:20px;"></i>
+            </button>
         </div>
     </div>
+
+    <!-- Ներքևի շարք — search + HY -->
+    <div class="mobile-bottom">
+        <div class="header-search" style="position:relative; flex:1;">
+            <input type="text" id="searchInputMobile" placeholder="Որոնել..." oninput="document.getElementById('searchInput').value=this.value; searchProducts()">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="lang-selector-container">
+            <button class="lang-btn" onclick="toggleLangDropdown()">
+                <span id="langTextMobile">ՀՅ</span>
+                <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
+                <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
+                <div onclick="changeLanguage('en')">🇬🇧 English</div>
+            </div>
+        </div>
+    </div>
+</div>
 </header>
     
  
@@ -1913,23 +1922,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
 function toggleTheme() {
     const body = document.documentElement;
-    const btn = document.getElementById('themeBtn');
-    if (body.getAttribute('data-theme') === 'dark') {
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
         body.removeAttribute('data-theme');
-        btn.innerHTML = '<i class="far fa-moon" style="font-size:20px;"></i>';
         localStorage.setItem('theme', 'light');
+        document.querySelectorAll('.theme-toggle').forEach(b => {
+            b.innerHTML = '<i class="far fa-moon" style="font-size:20px;"></i>';
+        });
     } else {
         body.setAttribute('data-theme', 'dark');
-        btn.innerHTML = '<i class="fas fa-sun" style="font-size:20px;"></i>';
         localStorage.setItem('theme', 'dark');
+        document.querySelectorAll('.theme-toggle').forEach(b => {
+            b.innerHTML = '<i class="fas fa-sun" style="font-size:20px;"></i>';
+        });
     }
 }
-
 if (localStorage.getItem('theme') === 'dark') {
-document.documentElement.setAttribute('data-theme', 'dark');
-document.getElementById('themeBtn').innerText = '☀️';
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.querySelectorAll('.theme-toggle').forEach(b => {
+        b.innerHTML = '<i class="fas fa-sun" style="font-size:20px;"></i>';
+    });
 }
-    
 function toggleSortMenu(cat) {
     const menu = document.getElementById(`sortMenu-${cat}`);
     const btn = menu.previousElementSibling;
@@ -2255,8 +2268,8 @@ function animateToWishlist(event) {
     
 function updateWishCount() {
 document.getElementById('wishCount').innerText = wishlist.length;
-}
-
+const mob = document.getElementById('wishCountMobile');
+    }
 function filterCategory(event, category) {
     activeCategory = category;
 //window.scrollTo({top: 0, behavior: 'smooth'}); // ← ՍԱ ԱՎԵԼԱՑՐՈՒ
