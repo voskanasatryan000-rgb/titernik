@@ -1520,31 +1520,7 @@ const translations = {
 function t(key) {
     return translations[currentLang][key] || key;
 }
-function toggleLangDropdown() {
-    const dropdown = document.getElementById('langDropdown');
-    dropdown.classList.toggle('open');
-}
 
-function changeLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('siteLang', lang);
-    const langText = document.getElementById('langText');
-    if (lang === 'hy') langText.innerText = 'HY';
-    else if (lang === 'ru') langText.innerText = 'RU';
-    else langText.innerText = 'EN';
-    
-    updatePageLanguage();
-    if (isWishlistMode) {
-        const filtered = products.filter(p => wishlist.includes(p.id));
-        renderProducts(filtered, true);
-    } else {
-        renderProducts(activeCategory === 'all' ? products : products.filter(p => p.cat === activeCategory));
-    }
-    updateCategoryTitles();
-    
-    // Փակել ընտրացանկը
-    document.getElementById('langDropdown').classList.remove('open');
-}
 function toggleLangDropdown() {
     const dropdown = document.getElementById('langDropdown');
     if (dropdown) dropdown.classList.toggle('open');
