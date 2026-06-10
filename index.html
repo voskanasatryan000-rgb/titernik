@@ -974,6 +974,67 @@ border: none;
 .action-btn:hover {
     background: var(--border-color);
 }
+.lang-selector-container {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    justify-content: center;
+}
+
+.lang-btn:hover {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+}
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lang-dropdown.open {
+    display: block;
+}
+
+.lang-dropdown div {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--text-color);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-dropdown div:hover {
+    background: var(--brand-color);
+    color: white;
+}
 /* Mobile/Desktop header toggle */
 #mobileTop, #mobileBottom { display: none; }
 
