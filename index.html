@@ -2074,13 +2074,12 @@ function removeFromRecent(id) {
 function toggleWishlist(event, id) {
     if (wishlist.includes(id)) {
         wishlist = wishlist.filter(item => item !== id);
-        // Թարմացնել սրտիկի կարգավիճակը կատալոգում
+        // Թարմացնել սրտիկի կարգավիճակը կատալոգում (ջնջելու դեպքում)
         document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
             icon.classList.remove('active');
             icon.style.color = '#ccc';
             icon.style.filter = 'grayscale(1) opacity(0.65)';
         });
-        // Եթե գտնվում ենք Wishlist-ի էջում, հեռացնել ապրանքը
         if (document.getElementById('wishGrid')) {
             const card = document.getElementById(`card-${id}`);
             if (card) card.remove();
@@ -2088,10 +2087,14 @@ function toggleWishlist(event, id) {
     } else {
         wishlist.push(id);
         animateToWishlist(event);
+        document.querySelectorAll(`#card-${id} .wish-icon`).forEach(icon => {
+            icon.classList.add('active');
+            icon.style.color = '#ff4757';
+            icon.style.filter = 'none';
+        });
     }
     localStorage.setItem('titernik_wishlist', JSON.stringify(wishlist));
     updateWishCount();
-    // Թարմացնել Wishlist Panel-ը, եթե բաց է
     const panel = document.getElementById('wishlistPanel');
     if (panel && panel.classList.contains('open')) {
         openWishlistPanel();
