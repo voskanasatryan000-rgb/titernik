@@ -442,8 +442,7 @@ transform: scale(1.1) rotate(5deg) !important;
 }
 
 /* --- Հեռախոսների և սեղմման համար (Active) --- */
-.back-btn:active, 
-.wishlist-count-btn:active {
+.back-btn:active{
     transform: scale(0.95) !important;
     opacity: 0.8 !important;
 }
@@ -957,6 +956,23 @@ border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.action-btn:hover {
+    background: var(--border-color);
 }
 /* Mobile/Desktop header toggle */
 #mobileTop, #mobileBottom { display: none; }
@@ -1481,9 +1497,7 @@ function updatePageLanguage() {
     }
     const wishlistTitle = document.getElementById('wishlistPanelTitle');
     if (wishlistTitle) wishlistTitle.innerHTML = `❤️ ${t('myWishlist')}`;
-    // Wishlist count button heart text
-    const wishlistCountSpan = document.querySelector('.wishlist-count-btn span.heart');
-    if (wishlistCountSpan) wishlistCountSpan.innerText = t('wishlistBtn');
+   
     // Recent viewed section title
     const recentTitle = document.querySelector('#recent-viewed-section .category-title');
     if (recentTitle) recentTitle.innerText = t('recentTitle');
@@ -2081,9 +2095,6 @@ function resetFilters() {
     // Մաքրում է բոլոր ֆիլտրի կոճակները
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     
-    // Մաքրում է նաև սրտիկի կոճակը
-    const wishlistBtn = document.querySelector('.wishlist-count-btn');
-    if (wishlistBtn) wishlistBtn.classList.remove('active');
 }
 
 function searchProducts() {
