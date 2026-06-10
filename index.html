@@ -1046,23 +1046,91 @@ border: none;
     align-items: center;
     justify-content: center;
 }
-
-@media (max-width: 600px) {
-    header {
-        padding: 8px 12px !important;
+.mobile-header {
+    display: none;
+}
+/* Հեռախոսի համար */
+@media (max-width: 768px) {
+    .desktop-header {
+        display: none;
+    }
+    
+    .mobile-header {
+        display: block;
+        padding: 10px 15px;
+    }
+    
+    .mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    .menu-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+    
+    .mobile-logo img {
+        height: 30px;
+    }
+    
+    .mobile-icons {
+        display: flex;
         gap: 8px;
     }
-    .header-search {
-        max-width: 130px;
+    
+    .mobile-bottom {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
-    .header-search input {
-        font-size: 11px;
-        padding: 7px 28px 7px 10px;
+    
+    .mobile-bottom .header-search {
+        flex: 1;
     }
-    .title-logo-img { height: 30px !important; }
-    .brand-butterfly-img { height: 22px !important; }
-    .instagram-brand-img { width: 28px !important; height: 28px !important; }
+    
+    .mobile-bottom .header-search input {
+        width: 100%;
+        padding: 8px 35px 8px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        background: #f9f9f9;
+        outline: none;
+        font-size: 13px;
+    }
+    
+    .mobile-bottom .header-search i {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+    
+    .lang-dropdown {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--text-color);
+    }
+    
+    .lang-dropdown:hover {
+        border-color: var(--brand-color);
+        color: var(--brand-color);
+    }
 }
+
     .action-btn {
     background: none;
     border: none;
@@ -1176,93 +1244,7 @@ border: none;
     background: var(--brand-color);
     color: white;
 }
-/* Սկզբում թաքցնել հեռախոսի տարբերակը */
-.mobile-header {
-    display: none;
-}
 
-/* Հեռախոսի համար */
-@media (max-width: 768px) {
-    .desktop-header {
-        display: none;
-    }
-    
-    .mobile-header {
-        display: block;
-        padding: 10px 15px;
-    }
-    
-    .mobile-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    
-    .menu-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: var(--text-color);
-        cursor: pointer;
-    }
-    
-    .mobile-logo img {
-        height: 30px;
-    }
-    
-    .mobile-icons {
-        display: flex;
-        gap: 8px;
-    }
-    
-    .mobile-bottom {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .mobile-bottom .header-search {
-        flex: 1;
-    }
-    
-    .mobile-bottom .header-search input {
-        width: 100%;
-        padding: 8px 35px 8px 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        background: #f9f9f9;
-        outline: none;
-        font-size: 13px;
-    }
-    
-    .mobile-bottom .header-search i {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #aaa;
-    }
-    
-    .lang-dropdown {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 6px 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 15px;
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: bold;
-        color: var(--text-color);
-    }
-    
-    .lang-dropdown:hover {
-        border-color: var(--brand-color);
-        color: var(--brand-color);
-    }
-}
-</style>
     
 <script type="application/ld+json">
 {
@@ -1290,7 +1272,8 @@ border: none;
 </head>
 <body>
 <header>
-    <div class="logo-container">
+    <!-- DESKTOP -->
+    <div class="logo-container" style="display:flex; align-items:center; gap:10px;">
         <div class="main-brand-group" onclick="location.reload()">
             <img src="instagramtiternik.png" alt="Titernik Logo" class="title-logo-img">
             <img src="titernik.png" alt="Butterfly" class="brand-butterfly-img">
@@ -1300,43 +1283,39 @@ border: none;
         </a>
     </div>
 
-    <div class="header-search">
-        <input type="text" id="searchInput" placeholder="Որոնել..." oninput="searchProducts()">
+    <div class="header-search" id="desktopSearch">
+        <input type="text" id="searchInput" placeholder="Որոնել..." oninput="syncSearch('desktop')">
         <i class="fas fa-search"></i>
     </div>
 
-    <div class="header-actions">
-    <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
-        <i class="far fa-heart" style="font-size:20px;"></i>
-        <span class="action-badge" id="wishCount">0</span>
-    </button>
-    <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()">
-        <i class="far fa-moon" style="font-size:20px;"></i>
-    </button>
-    <div class="lang-selector-container">
-    <div class="lang-selector-container">
-    <button class="lang-btn" onclick="toggleLangDropdown()">
-        <span id="langText">ՀՅ</span>
-        <i class="fas fa-chevron-down"></i>
-    </button>
-    <div class="lang-dropdown" id="langDropdown">
-        <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
-        <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
-        <div onclick="changeLanguage('en')">🇬🇧 English</div>
-    </div>
-</div>
-        <div class="mobile-header">
-    <div class="mobile-top">
-        <!-- Ձախ — դատարկ տեղ հավասարակշռության համար -->
-        <div style="width:80px;"></div>
-
-        <!-- Կենտրոն — լոգո -->
-        <div class="mobile-logo" onclick="location.reload()" style="cursor:pointer;">
-            <img src="instagramtiternik.png" alt="Titernik Logo">
+    <div class="header-actions" id="desktopActions">
+        <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
+            <i class="far fa-heart" style="font-size:20px;"></i>
+            <span class="action-badge" id="wishCount">0</span>
+        </button>
+        <button class="action-btn theme-toggle" id="themeBtn" onclick="toggleTheme()">
+            <i class="far fa-moon" style="font-size:20px;"></i>
+        </button>
+        <div class="lang-selector-container">
+            <button class="lang-btn" onclick="toggleLangDropdown()">
+                <span id="langText">ՀՅ</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
+                <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
+                <div onclick="changeLanguage('en')">🇬🇧 English</div>
+            </div>
         </div>
+    </div>
 
-        <!-- Աջ — wishlist + dark mode -->
-        <div class="mobile-icons">
+    <!-- MOBILE -->
+    <div class="mobile-top" id="mobileTop">
+        <div style="width:72px;"></div>
+        <div onclick="location.reload()" style="cursor:pointer; position:absolute; left:50%; transform:translateX(-50%);">
+            <img src="instagramtiternik.png" alt="Titernik Logo" style="height:34px;">
+        </div>
+        <div style="display:flex; gap:4px; margin-left:auto;">
             <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
                 <i class="far fa-heart" style="font-size:20px;"></i>
                 <span class="action-badge" id="wishCountMobile">0</span>
@@ -1347,28 +1326,25 @@ border: none;
         </div>
     </div>
 
-    <!-- Ներքևի շարք — search + HY -->
-    <div class="mobile-bottom">
+    <div class="mobile-bottom" id="mobileBottom">
         <div class="header-search" style="position:relative; flex:1;">
-            <input type="text" id="searchInputMobile" placeholder="Որոնել..." oninput="document.getElementById('searchInput').value=this.value; searchProducts()">
+            <input type="text" id="searchInputMobile" placeholder="Որոնել..." oninput="syncSearch('mobile')">
             <i class="fas fa-search"></i>
         </div>
         <div class="lang-selector-container">
-            <button class="lang-btn" onclick="toggleLangDropdown()">
+            <button class="lang-btn" onclick="toggleLangDropdownMobile()">
                 <span id="langTextMobile">ՀՅ</span>
                 <i class="fas fa-chevron-down" style="font-size:10px;"></i>
             </button>
-            <div class="lang-dropdown" id="langDropdown">
+            <div class="lang-dropdown" id="langDropdownMobile">
                 <div onclick="changeLanguage('hy')">🇦🇲 Հայերեն</div>
                 <div onclick="changeLanguage('ru')">🇷🇺 Русский</div>
                 <div onclick="changeLanguage('en')">🇬🇧 English</div>
             </div>
         </div>
     </div>
-</div>
 </header>
     
- 
 <div class="hero-wrapper">
     <img src="hero.png"  style="width:100%; display:block;">
 </div>
@@ -1653,7 +1629,18 @@ function toggleLangDropdown() {
     const dropdown = document.getElementById('langDropdown');
     if (dropdown) dropdown.classList.toggle('open');
 }
+function toggleLangDropdownMobile() {
+    document.getElementById('langDropdownMobile').classList.toggle('open');
+}
 
+function syncSearch(from) {
+    const val = from === 'desktop' 
+        ? document.getElementById('searchInput').value 
+        : document.getElementById('searchInputMobile').value;
+    document.getElementById('searchInput').value = val;
+    document.getElementById('searchInputMobile').value = val;
+    searchProducts();
+}
 function changeLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('siteLang', lang);
