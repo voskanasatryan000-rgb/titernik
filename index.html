@@ -1088,13 +1088,8 @@ header {
         <p>10,000+ գոհ հաճախորդներ</p>
     </div>
 </section>
-<div class="container" id="catalog"></div>
 
-<section id="recent-viewed-section" style="display: none;">
-    <h2 class="category-title" style="padding-left: 5%;">Վերջերս դիտված</h2>
-    <div id="recentGrid" style="padding: 0 5% 20px 5%;"></div>
-</section>
-<!-- CATEGORY TABS -->
+    <!-- CATEGORY TABS -->
 <div class="category-tabs">
     <button class="cat-btn all-btn active" onclick="filterCategory(event,'all')">Բոլոր ապրանքները</button>
     <button class="cat-btn" onclick="filterCategory(event,'Մատանիներ')">Մատանիներ</button>
@@ -1104,6 +1099,13 @@ header {
     <button class="cat-btn" onclick="filterCategory(event,'Ժամացույցներ')">Ժամացույցներ</button>
     <button class="cat-btn" onclick="filterCategory(event,'Տուփեր')">Տուփեր</button>
 </div>
+<div class="container" id="catalog"></div>
+
+<section id="recent-viewed-section" style="display: none;">
+    <h2 class="category-title" style="padding-left: 5%;">Վերջերս դիտված</h2>
+    <div id="recentGrid" style="padding: 0 5% 20px 5%;"></div>
+</section>
+
 <div class="overlay" id="overlay">
     <span class="close-overlay" onclick="document.getElementById('overlay').style.display='none'">&times;</span>
     <span style="position:absolute;left:20px;font-size:70px;color:white;cursor:pointer;user-select:none;opacity:0.8;z-index:2;" onclick="overlayPrev()">&#8249;</span>
