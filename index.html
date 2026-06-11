@@ -1297,19 +1297,19 @@ border: none;
     <div class="mobile-nav-inner">
         <a href="#" class="mobile-nav-item active" onclick="if(!this.classList.contains('active')){ window.scrollTo({top: 0, behavior: 'smooth'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-home"></i>
-             <span id="mobileHome">Գլխավոր</span>
+            <span>Գլխավոր</span>
         </a>
         <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth', block: 'start'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-th-large"></i>
-            <span id="mobileCatalog">Տեսականի</span>
+            <span>Տեսականի</span>
         </a>
-        <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ openWishlistPanel(); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item" onclick="openWishlistPanel(); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-heart"></i>
-            <span id="mobileFavorites">Սիրելիներ</span>
+            <span>Սիրելիներ</span>
         </a>
         <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-user"></i>
-            <span id="mobileAbout">Մեր մասին</span>
+            <span>Մեր մասին</span>
         </a>
     </div>
 </div>
