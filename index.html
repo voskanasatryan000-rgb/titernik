@@ -1297,19 +1297,19 @@ border: none;
     <div class="mobile-nav-inner">
         <a href="#" class="mobile-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-home"></i>
-            <span>Գլխավոր</span>
+            <span>${t('home')}</span>
         </a>
         <a href="#" class="mobile-nav-item" onclick="document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth', block: 'start'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-th-large"></i>
-            <span>Տեսականի</span>
+            <span>${t('catalog')}</span>
         </a>
         <a href="#" class="mobile-nav-item" onclick="openWishlistPanel(); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-heart"></i>
-            <span>Սիրելիներ</span>
+            <span>${t('favorites')}</span>
         </a>
         <a href="#" class="mobile-nav-item" onclick="document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-user"></i>
-            <span>Մեր մասին</span>
+            <span>${t('about')}</span>
         </a>
     </div>
 </div>
@@ -1405,6 +1405,10 @@ const translations = {
         feat2Title: "Պրեմիում տեսականի",
         feat3Title: "Նվերների փաթեթավորում",
         feat4Title: "Սիրված բրենդ",
+        home: "Գլխավոր",
+        catalog: "Տեսականի",
+        favorites: "Սիրելիներ",
+        about: "Մեր մասին"
     },
     ru: {
         searchPlaceholder: "Поиск...",
@@ -1455,6 +1459,10 @@ const translations = {
         feat2Title: "Премиум ассортимент",
         feat3Title: "Подарочная упаковка",
         feat4Title: "Любимый бренд",
+        home: "Главная",
+        catalog: "Категория",
+        favorites: "Избранное",
+        about: "О нас"
     },
     en: {
         searchPlaceholder: "Search...",
@@ -1505,6 +1513,10 @@ const translations = {
         feat2Title: "Premium Collection",
         feat3Title: "Gift Packaging",
         feat4Title: "Beloved Brand",
+        home: "Home",
+        catalog: "Category",
+        favorites: "Favorites",
+        about: "About us"
     }
 };
 function t(key) {
