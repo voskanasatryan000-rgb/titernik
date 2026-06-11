@@ -1176,7 +1176,7 @@ border: none;
         </button>
         <div class="lang-selector-container">
             <button class="lang-btn" onclick="toggleLangDropdown()">
-                <span id="langText">ՀՅ</span>
+                <span id="mobileLangText">ՀՅ</span>
                 <i class="fas fa-chevron-down"></i>
             </button>
             <div class="lang-dropdown" id="langDropdown">
@@ -1670,6 +1670,16 @@ document.addEventListener('DOMContentLoaded', () => {
             langText.innerText = 'RU';
         } else {
             langText.innerText = 'EN';
+        }
+    }
+    const mobileLangText = document.getElementById('mobileLangText');
+    if (mobileLangText) {
+        if (currentLang === 'hy') {
+            mobileLangText.innerText = 'ՀՅ';
+        } else if (currentLang === 'ru') {
+            mobileLangText.innerText = 'RU';
+        } else {
+            mobileLangText.innerText = 'EN';
         }
     }
     updatePageLanguage();
