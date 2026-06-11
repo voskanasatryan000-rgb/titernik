@@ -1295,19 +1295,19 @@ border: none;
 </div>
 <div class="mobile-bottom-nav">
     <div class="mobile-nav-inner">
-        <a href="#" class="mobile-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item active" onclick="if(!this.classList.contains('active')){ window.scrollTo({top: 0, behavior: 'smooth'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-home"></i>
             <span>${t('home')}</span>
         </a>
-        <a href="#" class="mobile-nav-item" onclick="document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth', block: 'start'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth', block: 'start'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-th-large"></i>
             <span>${t('catalog')}</span>
         </a>
-        <a href="#" class="mobile-nav-item" onclick="openWishlistPanel(); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ openWishlistPanel(); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-heart"></i>
             <span>${t('favorites')}</span>
         </a>
-        <a href="#" class="mobile-nav-item" onclick="document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item" onclick="if(!this.classList.contains('active')){ document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); } this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-user"></i>
             <span>${t('about')}</span>
         </a>
