@@ -1295,11 +1295,11 @@ border: none;
 </div>
 <div class="mobile-bottom-nav">
     <div class="mobile-nav-inner">
-        <a href="#" class="mobile-nav-item active" onclick="scrollToTop(); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-home"></i>
             <span>Գլխավոր</span>
         </a>
-        <a href="#" class="mobile-nav-item" onclick="document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
+        <a href="#" class="mobile-nav-item" onclick="document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth', block: 'start'}); this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active');">
             <i class="fas fa-th-large"></i>
             <span>Տեսականի</span>
         </a>
