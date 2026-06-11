@@ -1556,6 +1556,8 @@ function updatePageLanguage() {
     // Search bar placeholder
     const searchInput = document.getElementById('searchInput');
     if (searchInput) searchInput.placeholder = t('searchPlaceholder');
+    const searchInputMobile = document.getElementById('searchInputMobile');
+    if (searchInputMobile) searchInputMobile.placeholder = t('searchPlaceholder');
     
     // Filter buttons texts
     const filterBtns = document.querySelectorAll('.filter-btn');
