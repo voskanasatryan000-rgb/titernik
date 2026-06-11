@@ -1167,7 +1167,7 @@ border: none;
     </div>
 
     <div class="header-actions" id="desktopActions">
-        <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
+        <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;id="wishlistBtn">
             <i class="far fa-heart" style="font-size:20px;"></i>
             <span class="action-badge" id="wishCount">0</span>
         </button>
@@ -1198,7 +1198,7 @@ border: none;
     </a>
 </div>
         <div style="display:flex; gap:4px; margin-left:auto;">
-            <button class="action-btn" onclick="openWishlistPanel()" style="position:relative;">
+            <button class="action-btn" onclick="openWishlistPanel()" style="position:relative; id="wishlistBtnMobile">
                 <i class="far fa-heart" style="font-size:20px;"></i>
                 <span class="action-badge" id="wishCountMobile">0</span>
             </button>
@@ -2132,7 +2132,8 @@ function animateToWishlist(event) {
     const startRect = btn.getBoundingClientRect();
     
     // 2. Ստանում ենք վերջնակետը (Wishlist-ի վերևի կոճակը)
-    const wishlistBtn = document.querySelector('.action-btn');
+    const isMobile = window.innerWidth <= 768;
+    const wishlistBtn = document.getElementById(isMobile ? 'wishlistBtnMobile' : 'wishlistBtn');   
     const endRect = wishlistBtn.getBoundingClientRect();
     
     // Ստեղծում ենք թռչող տարրը
