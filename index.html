@@ -2133,8 +2133,9 @@ function animateToWishlist(event) {
     
     // 2. Ստանում ենք վերջնակետը (Wishlist-ի վերևի կոճակը)
     const isMobile = window.innerWidth <= 768;
-    const wishlistBtn = document.getElementById(isMobile ? 'wishlistBtnMobile' : 'wishlistBtn');   
-    const endRect = wishlistBtn.getBoundingClientRect();
+const wishlistBtn = document.getElementById(isMobile ? 'wishlistBtnMobile' : 'wishlistBtn') || document.querySelector('.action-btn');
+if (!wishlistBtn) return;
+const endRect = wishlistBtn.getBoundingClientRect();
     
     // Ստեղծում ենք թռչող տարրը
     const flyer = document.createElement('div');
