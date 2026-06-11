@@ -2427,34 +2427,22 @@ function closeWishlistPanel() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
-
-const navItems = document.querySelectorAll('.mobile-nav-item');
-const hero = document.querySelector('.hero-wrapper');
-const catalog = document.querySelector('#catalog');
-const footer = document.querySelector('.footer');
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        navItems.forEach(btn => btn.classList.remove('active'));
-        if (entry.target === hero) {
-            navItems[0]?.classList.add('active');
-        } 
-        else if (entry.target === catalog) {
-            navItems[1]?.classList.add('active');
-        } 
-        else if (entry.target === footer) {
-            navItems[3]?.classList.add('active');
-        }
-
-    });
-}, {
-    threshold: 0.4
+window.addEventListener('scroll', () => {
+    const navItems = document.querySelectorAll('.mobile-nav-item');
+    const catalog = document.getElementById('catalog');
+    const footer = document.querySelector('.footer');
+    const scrollPos = window.scrollY + 150;
+    navItems.forEach(item => item.classList.remove('active'));
+    if (footer && scrollPos >= footer.offsetTop) {
+        navItems[3]?.classList.add('active'); // Մեր մասին
+    } 
+    else if (catalog && scrollPos >= catalog.offsetTop) {
+        navItems[1]?.classList.add('active'); // Տեսականի
+    } 
+    else {
+        navItems[0]?.classList.add('active'); // Գլխավոր
+    }
 });
-
-if (hero) observer.observe(hero);
-if (catalog) observer.observe(catalog);
-if (footer) observer.observe(footer);
-    
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
