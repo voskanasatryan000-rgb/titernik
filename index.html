@@ -1295,25 +1295,21 @@ border: none;
 </div>
 <div class="mobile-bottom-nav">
     <div class="mobile-nav-inner">
-        <a href="#" class="mobile-nav-item active">
+        <a href="#" class="mobile-nav-item active" onclick="scrollToTop()">
             <i class="fas fa-home"></i>
             <span>Գլխավոր</span>
         </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#" class="mobile-nav-item" onclick="document.querySelector('.category-controls').scrollIntoView({behavior: 'smooth'})">
             <i class="fas fa-th-large"></i>
-            <span>Կատալոգ</span>
+            <span>Տեսականի</span>
         </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#" class="mobile-nav-item" onclick="openWishlistPanel()">
             <i class="fas fa-heart"></i>
             <span>Սիրելիներ</span>
         </a>
-        <a href="#" class="mobile-nav-item">
-            <i class="fas fa-shopping-bag"></i>
-            <span>Զամբյուղ</span>
-        </a>
-        <a href="#" class="mobile-nav-item">
+        <a href="#" class="mobile-nav-item" onclick="document.querySelector('footer').scrollIntoView({behavior: 'smooth'})">
             <i class="fas fa-user"></i>
-            <span>Իմ էջ</span>
+            <span>Մեր մասին</span>
         </a>
     </div>
 </div>
