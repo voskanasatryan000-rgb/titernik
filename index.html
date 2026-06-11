@@ -1056,7 +1056,17 @@ border: none;
         padding: 10px 15px;
         min-height: 55px;
     }
-
+    #mobileTop .mobile-logo-group {
+    transition: transform 0.3s ease;
+}
+#mobileTop .mobile-logo-group:active {
+    transform: scale(1.05);
+}
+@media (hover: hover) {
+    #mobileTop .mobile-logo-group:hover {
+        transform: scale(1.05);
+    }
+}
     #mobileTop > div:last-child {
         display: flex;
         gap: 4px;
@@ -1180,8 +1190,7 @@ border: none;
     <!-- MOBILE -->
     <div class="mobile-top" id="mobileTop">
         <div style="display:flex; align-items:center; gap:8px;">
-    <div onclick="location.reload()" style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <img src="instagramtiternik.png" alt="Titernik Logo" style="height:34px;">
+<div onclick="location.reload()" class="mobile-logo-group" style="cursor:pointer; display:flex; align-items:center; gap:6px;">        <img src="instagramtiternik.png" alt="Titernik Logo" style="height:34px;">
         <img src="titernik.png" alt="Butterfly" style="height:26px;">
     </div>
     <a href="https://instagram.com/titernik_accessories" target="_blank">
