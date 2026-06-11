@@ -2427,6 +2427,32 @@ function closeWishlistPanel() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
+    const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            document.querySelectorAll('.mobile-nav-item')
+                .forEach(btn => btn.classList.remove('active'));
+            if (entry.target.classList.contains('hero-wrapper')) {
+                document.querySelectorAll('.mobile-nav-item')[0]
+                    .classList.add('active');
+            }
+            if (entry.target.classList.contains('category-controls')) {
+                document.querySelectorAll('.mobile-nav-item')[1]
+                    .classList.add('active');
+            }
+            if (entry.target.classList.contains('footer')) {
+                document.querySelectorAll('.mobile-nav-item')[3]
+                    .classList.add('active');
+            }
+        }
+    });
+}, {
+    threshold: 0.4
+});
+observer.observe(document.querySelector('.hero-wrapper'));
+observer.observe(document.querySelector('.category-controls'));
+observer.observe(document.querySelector('.footer'));
+    
     // Ավելացրու այս հատվածը այստեղ
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
