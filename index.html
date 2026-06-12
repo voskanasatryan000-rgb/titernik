@@ -1959,33 +1959,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
-
-let slideIndex = 1;
-
-function showSlide(n) {
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.dot'); 
-    if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    slides[slideIndex - 1].classList.add('active');
-    dots[slideIndex - 1].classList.add('active');
-}
-function nextSlide() {
-    showSlide(slideIndex + 1);
-}
-
-function prevSlide() {
-    showSlide(slideIndex - 1);
-}
-function currentSlide(n) {
-    showSlide(n);
-}
-// Սկզբնական ցուցադրում
-showSlide(slideIndex);
-// Ընտրովի. ավտոմատ փոխում յուրաքանչյուր 5 վայրկյանը մեկ
-setInterval(nextSlide, 5000);
 function toggleTheme() {
     const body = document.documentElement;
     const isDark = body.getAttribute('data-theme') === 'dark';
@@ -2622,8 +2595,32 @@ function animateCards() {
     cards.forEach(card => observer.observe(card));
 }
 
-    loadProductsFromSheet();
-    
+loadProductsFromSheet();
+    // ========== HERO SLIDER ==========
+let slideIndex = 1;
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot');
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+}
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
+function prevSlide() {
+    showSlide(slideIndex - 1);
+}
+
+function currentSlide(n) {
+    showSlide(n);
+}
+showSlide(1);
+setInterval(nextSlide, 5000);
 setTimeout(animateCards, 100);
 </script>
 <div class="order-modal-backdrop" id="orderModalBackdrop">
