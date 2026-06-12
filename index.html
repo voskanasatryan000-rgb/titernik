@@ -810,30 +810,6 @@ border: none;
     display: block;
     object-fit: cover;
 }
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.7);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #333;
-    transition: 0.3s;
-    z-index: 10;
-}
-.slider-btn:hover {
-    background: #fff;
-}
-.slider-btn.prev {
-    left: 20px;
-}
-.slider-btn.next {
-    right: 20px;
-}
 .slider-dots {
     position: absolute;
     bottom: 20px;
@@ -855,13 +831,7 @@ border: none;
     background: var(--brand-color);
 }
 
-@media (max-width: 768px) {
-    .slider-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
-    }
-}
+
 
 .features {
     max-width: 1400px; margin: 30px auto 0 auto; padding: 0 20px;
@@ -1366,10 +1336,7 @@ border: none;
     <div class="hero-slide">
         <img src="hero3.png" alt="Slide 3" style="width:100%; display:block;">
     </div>
-    <!-- Սլայդի կառավարման կոճակներ -->
-    <button class="slider-btn prev" onclick="prevSlide()">&#8249;</button>
-    <button class="slider-btn next" onclick="nextSlide()">&#8250;</button>
-    <!-- Սլայդի ցուցիչներ -->
+     <!-- Սլայդի ցուցիչներ -->
     <div class="slider-dots">
         <span class="dot active" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
@@ -1861,18 +1828,11 @@ function showSlide(n) {
     slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
 }
-
-function nextSlide() {
-    showSlide(slideIndex + 1);
-}
-
-function prevSlide() {
-    showSlide(slideIndex - 1);
-}
-
 function currentSlide(n) {
     showSlide(n);
 }
+
+
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
