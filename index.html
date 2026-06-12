@@ -1831,7 +1831,9 @@ function showSlide(n) {
 function currentSlide(n) {
     showSlide(n);
 }
-
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
 
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
