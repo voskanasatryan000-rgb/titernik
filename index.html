@@ -1842,36 +1842,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     updatePageLanguage();
-    // ========== HERO SLIDER ==========
-    let slideIndex = 1;
-
-    function showSlide(n) {
-        const slides = document.querySelectorAll('.hero-slide');
-        const dots = document.querySelectorAll('.dot');
-        if (n > slides.length) slideIndex = 1;
-        if (n < 1) slideIndex = slides.length;
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        slides[slideIndex - 1].classList.add('active');
-        dots[slideIndex - 1].classList.add('active');
-    }
-
-    function nextSlide() {
-        showSlide(slideIndex + 1);
-    }
-
-    function prevSlide() {
-        showSlide(slideIndex - 1);
-    }
-
-    function currentSlide(n) {
-        showSlide(n);
-    }
-
+    
     showSlide(1);
     setInterval(nextSlide, 5000);
 });
+// ========== HERO SLIDER ==========
+let slideIndex = 1;
 
+function showSlide(n) {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot');
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+}
+
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(slideIndex - 1);
+}
+
+function currentSlide(n) {
+    showSlide(n);
+}
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
 let products = [];
