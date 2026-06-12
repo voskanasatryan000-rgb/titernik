@@ -1842,6 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     updatePageLanguage();
+    showSlide(1);
 });
 let wishlist = JSON.parse(localStorage.getItem('titernik_wishlist')) || [];
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTCTpZhXJtujrzF5wMiOSEzrTHOUf6ZByDOQmBeTV4PDvvNfqYZDIAhsR_j8DHhWBXZRTZkxMo9Ixty/pub?output=csv";
@@ -2125,6 +2126,8 @@ function renderCategoryPage(cat) {
     });
     // Թարմացնել pagination կոճակները
     updatePaginationControls(cat);
+    setTimeout(animateCards, 100);
+
 }
 
 function updatePaginationControls(cat) {
