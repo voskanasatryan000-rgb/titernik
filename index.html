@@ -789,8 +789,79 @@ border: none;
     cursor: default;
     pointer-events: none;
 }
-.hero-wrapper { width: 100%; margin: 0 auto; max-height: 80vh;overflow: hidden;}
-.hero-wrapper img { width: 100%; display: block; object-fit: cover;}
+.hero-slider {
+    position: relative;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.hero-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide.active {
+    display: block;
+}
+.hero-slide img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    transition: 0.3s;
+    z-index: 10;
+}
+.slider-btn:hover {
+    background: #fff;
+}
+.slider-btn.prev {
+    left: 20px;
+}
+.slider-btn.next {
+    right: 20px;
+}
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+.slider-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.slider-dots .dot.active {
+    background: var(--brand-color);
+}
+
+@media (max-width: 768px) {
+    .slider-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+}
 
 .features {
     max-width: 1400px; margin: 30px auto 0 auto; padding: 0 20px;
@@ -1285,8 +1356,25 @@ border: none;
     </div>
 </header>
     
-<div class="hero-wrapper">
-    <img src="hero.png"  style="width:100%; display:block;">
+<div class="hero-slider">
+    <div class="hero-slide active">
+        <img src="hero.png" alt="Slide 1" style="width:100%; display:block;">
+    </div>
+    <div class="hero-slide">
+        <img src="hero2.png" alt="Slide 2" style="width:100%; display:block;">
+    </div>
+    <div class="hero-slide">
+        <img src="hero3.png" alt="Slide 3" style="width:100%; display:block;">
+    </div>
+    <!-- Սլայդի կառավարման կոճակներ -->
+    <button class="slider-btn prev" onclick="prevSlide()">&#8249;</button>
+    <button class="slider-btn next" onclick="nextSlide()">&#8250;</button>
+    <!-- Սլայդի ցուցիչներ -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
 </div>
 <section class="features">
     <div class="feature-card">
@@ -1870,7 +1958,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
-    
+
+let slideIndex = 1;
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot'); 
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+}
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(slideIndex - 1);
+}
+function currentSlide(n) {
+    showSlide(n);
+}
+// Սկզբնական ցուցադրում
+showSlide(slideIndex);
+// Ընտրովի. ավտոմատ փոխում յուրաքանչյուր 5 վայրկյանը մեկ
+setInterval(nextSlide, 5000);
 function toggleTheme() {
     const body = document.documentElement;
     const isDark = body.getAttribute('data-theme') === 'dark';
