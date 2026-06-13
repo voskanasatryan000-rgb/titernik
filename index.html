@@ -1255,25 +1255,6 @@ border: none;
 </script>
 </head>
 <body>
-<button id="pushBtn" onclick="subscribeToPush()" style="
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  z-index: 9999;
-  padding: 12px 20px;
-  background: #8e737d;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  display: none;
-">
-  🔔 Միացնել ծանուցումներ
-</button>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -2624,61 +2605,25 @@ function animateCards() {
 loadProductsFromSheet();
 setTimeout(animateCards, 100);
 
-// ========== ONE SIGNAL + MANUAL BUTTON ==========
-
-// OneSignal Init
-window.OneSignal = window.OneSignal || [];
-OneSignal.push(function() {
-  OneSignal.init({
+// ========== ONE SIGNAL - Միայն ավտոմատ կոճակ ==========
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
     appId: "75275651-b83e-4079-88d0-63ec993126a8",
     notifyButton: {
-      enable: false // ← Manual button օգտագործում ենք
+      enable: true,
+      position: 'bottom-right',
+      colors: {
+        'circle.background': '#8e737d',
+        'circle.foreground': 'white'
+      }
     },
     welcomeNotification: {
       title: "🦋 Titernik",
       message: "Դուք կստանաք ծանուցումներ նոր ապրանքների մասին!"
     }
   });
-  // Ստուգել subscription
-  OneSignal.getUserId(function(userId) {
-    if (userId) {
-      // ✅ Բաժանորդագրված է - թաքցնել կոճակը
-      document.getElementById('pushBtn').style.display = 'none';
-    } else {
-      // ❌ Չի բաժանորդագրված - ցույց տալ կոճակը
-      document.getElementById('pushBtn').style.display = 'block';
-    }
-  });
 });
-// Manual Subscribe Function
-async function subscribeToPush() {
-  // OneSignal prompt ցույց տալ
-  OneSignal.push(function() {
-    OneSignal.showSlidedownPrompt();
-  });
-  // Սպասել և ստուգել
-  setTimeout(function() {
-    OneSignal.getUserId(function(userId) {
-      if (userId) {
-        // ✅ Բաժանորդագրված է
-        document.getElementById('pushBtn').style.display = 'none';
-        showLocalNotification('✅ Դուք կստանաք ծանուցումներ!', 'Նոր ապրանքների մասին');
-      }
-    });
-  }, 3000);
-}
-// Show local notification
-function showLocalNotification(title, body) {
-  if ('Notification' in window && Notification.permission === 'granted') {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.showNotification(title, {
-        body: body,
-        icon: 'android-chrome-192x192.png',
-        badge: 'favicon-32x32.png'
-      });
-    });
-  }
-}
 </script>
 <div class="order-modal-backdrop" id="orderModalBackdrop">
   <div class="order-modal">
