@@ -795,17 +795,16 @@ border: none;
     max-height: 80vh;
     overflow: hidden;
 }
-
 .hero-slide {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    transition: opacity 1s ease;
-
+    opacity: 0;
+    transition: opacity 0.8s ease;
 }
-
 .hero-slide.active {
-    display: block;
+    position: relative;
     opacity: 1;
 }
 .hero-slide img {
@@ -833,9 +832,6 @@ border: none;
 .slider-dots .dot.active {
     background: var(--brand-color);
 }
-
-
-
 .features {
     max-width: 1400px; margin: 30px auto 0 auto; padding: 0 20px;
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
@@ -1831,13 +1827,6 @@ function showSlide(n) {
     slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
 }
-function currentSlide(n) {
-    showSlide(n);
-}
-function nextSlide() {
-    showSlide(slideIndex + 1);
-}
-
 function currentSlide(n) {
     showSlide(n);
 }
