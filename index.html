@@ -1825,16 +1825,17 @@ function showSlide(n) {
     const dots = document.querySelectorAll('.dot');
     slideIndex = n;
     if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length; slides.forEach(slide => {
-        slide.classList.remove('active');
-        slide.style.display = 'none';
-    });
+    if (n < 1) slideIndex = slides.length;
+    slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-    slides[slideIndex - 1].style.display = 'block';
-    setTimeout(() => {
-        slides[slideIndex - 1].classList.add('active');
-    }, 50);
+    slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
+}
+function currentSlide(n) {
+    showSlide(n);
+}
+function nextSlide() {
+    showSlide(slideIndex + 1);
 }
 
 function currentSlide(n) {
