@@ -2595,6 +2595,8 @@ function animateCards() {
 
 loadProductsFromSheet();
 setTimeout(animateCards, 100);
+
+
 // ========== PUSH NOTIFICATIONS (մեկ ֆայլում) ==========
 
 // Inline Service Worker (Data URI)
@@ -2637,6 +2639,7 @@ self.addEventListener('notificationclick', event => {
   }
 });
 `;
+
 // Register inline Service Worker
 if ('serviceWorker' in navigator) {
   const blob = new Blob([swCode], { type: 'application/javascript' });
@@ -2649,30 +2652,40 @@ if ('serviceWorker' in navigator) {
       console.log('SW error:', error);
     });
 }
+
 // Push Notification Subscribe
 async function subscribeToPush() {
   if (!('Notification' in window)) {
     alert('Ձեր բրաուզերը չի աջակցում Push Notifications');
     return;
   }
+
   const permission = await Notification.requestPermission();
+  
   if (permission === 'granted') {
     const registration = await navigator.serviceWorker.ready;
+    
     try {
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('YOUR_VAPID_PUBLIC_KEY')
+        applicationServerKey: urlBase64ToUint8Array('BO7wNxpPNlfoU3cLJj_GsZAM0fT8RkFhDwXgTFvenTThsV21q9cIBR00XLdCYk9cx45F4P1ihymb2KA1WR247ic')
       });
+      
       console.log('Push subscription:', subscription);
       localStorage.setItem('push_subscription', JSON.stringify(subscription));
+      
+      // ✅ Show success notification
+      showLocalNotification('✅ Դուք կստանաք ծանուցումներ!', 'Նոր ապրանքների և զեղչերի մասին');
+      
     } catch (err) {
       console.error('Push subscribe error:', err);
     }
   } else if (permission === 'denied') {
-    alert('Դուք արգելել եք ծանուցումները');
+    alert('Դուք արգելել եք ծանուցումները: Settings-ում կարող եք միացնել');
   }
 }
-// Helper function
+
+// Helper function for VAPID key
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
@@ -2685,12 +2698,25 @@ function urlBase64ToUint8Array(base64String) {
   }
   return outputArray;
 }
+// Show local notification (success message)
+function showLocalNotification(title, body) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    navigator.serviceWorker.ready.then(registration => {
+      registration.showNotification(title, {
+        body: body,
+        icon: 'android-chrome-192x192.png',
+        badge: 'favicon-32x32.png'
+      });
+    });
+  }
+}
 // Subscribe button
 function showSubscribeButton() {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') return;
   if (Notification.permission === 'denied') return;
   const btn = document.createElement('button');
+  btn.id = 'pushSubscribeBtn';
   btn.innerHTML = '🔔 Միացնել ծանուցումներ';
   btn.style.cssText = `
     position: fixed;
