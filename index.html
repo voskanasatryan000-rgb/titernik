@@ -2663,6 +2663,8 @@ async function subscribeToPush() {
   const permission = await Notification.requestPermission();
   
   if (permission === 'granted') {
+     const btn = document.getElementById('pushSubscribeBtn');
+    if (btn) btn.remove();
     const registration = await navigator.serviceWorker.ready;
     
     try {
