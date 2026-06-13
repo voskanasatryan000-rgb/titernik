@@ -800,10 +800,13 @@ border: none;
     display: none;
     width: 100%;
     height: 100%;
+    transition: opacity 1s ease;
+
 }
 
 .hero-slide.active {
     display: block;
+    opacity: 1;
 }
 .hero-slide img {
     width: 100%;
@@ -1822,12 +1825,18 @@ function showSlide(n) {
     const dots = document.querySelectorAll('.dot');
     slideIndex = n;
     if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
-    slides.forEach(slide => slide.classList.remove('active'));
+    if (n < 1) slideIndex = slides.length; slides.forEach(slide => {
+        slide.classList.remove('active');
+        slide.style.display = 'none';
+    });
     dots.forEach(dot => dot.classList.remove('active'));
-    slides[slideIndex - 1].classList.add('active');
+    slides[slideIndex - 1].style.display = 'block';
+    setTimeout(() => {
+        slides[slideIndex - 1].classList.add('active');
+    }, 50);
     dots[slideIndex - 1].classList.add('active');
 }
+
 function currentSlide(n) {
     showSlide(n);
 }
