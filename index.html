@@ -1274,8 +1274,16 @@ border: none;
 ">
   🔔 Միացնել ծանուցումներ
 </button>
-<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-<header>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "75275651-b83e-4079-88d0-63ec993126a8",
+    });
+  });
+</script>
+    <header>
     <!-- DESKTOP -->
     <div class="logo-container" style="display:flex; align-items:center; gap:10px;">
         <div class="main-brand-group" onclick="location.reload()">
