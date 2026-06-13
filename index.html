@@ -2595,56 +2595,11 @@ function animateCards() {
 
 loadProductsFromSheet();
 setTimeout(animateCards, 100);
+// ========== PUSH NOTIFICATIONS (գրանցում) ==========
 
-
-// ========== PUSH NOTIFICATIONS (մեկ ֆայլում) ==========
-
-// Inline Service Worker (Data URI)
-const swCode = `
-self.addEventListener('install', event => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  self.clients.claim();
-});
-
-self.addEventListener('push', event => {
-  const data = event.data.json();
-  const options = {
-    body: data.body || 'Նոր ապրանք ավելացվել է! 🦋',
-    icon: 'android-chrome-192x192.png',
-    badge: 'favicon-32x32.png',
-    tag: data.tag || 'new-product',
-    requireInteraction: true,
-    actions: [
-      { action: 'open', title: '🔍 Դիտել' },
-      { action: 'close', title: '✕ Փակել' }
-    ],
-    data: {
-      url: data.url || 'https://voskanasatryan000-rgb.github.io/titernik/'
-    }
-  };
-  event.waitUntil(
-    self.registration.showNotification('🦋 Titernik', options)
-  );
-});
-
-self.addEventListener('notificationclick', event => {
-  event.notification.close();
-  if (event.action === 'open' || !event.action) {
-    event.waitUntil(
-      clients.openWindow(event.notification.data.url)
-    );
-  }
-});
-`;
-
-// Register inline Service Worker
+// Register Service Worker
 if ('serviceWorker' in navigator) {
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  const swUrl = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swUrl)
+  navigator.serviceWorker.register('service-worker.js')
     .then(registration => {
       console.log('SW registered:', registration);
     })
@@ -2663,31 +2618,30 @@ async function subscribeToPush() {
   const permission = await Notification.requestPermission();
   
   if (permission === 'granted') {
-     const btn = document.getElementById('pushSubscribeBtn');
+    const btn = document.getElementById('pushSubscribeBtn');
     if (btn) btn.remove();
+    
     const registration = await navigator.serviceWorker.ready;
     
     try {
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BO7wNxpPNlfoU3cLJj_GsZAM0fT8RkFhDwXgTFvenTThsV21q9cIBR00XLdCYk9cx45F4P1ihymb2KA1WR247ic')
+        applicationServerKey: urlBase64ToUint8Array('BO7wNxpPNlfoU3cLJj_GsZAM0fT8RkFhDwXgTFvenTThsV21q9cIBR00XLdCYk9cx45F4P1ihymb2KA1WR247ic"')
       });
       
       console.log('Push subscription:', subscription);
       localStorage.setItem('push_subscription', JSON.stringify(subscription));
       
-      // ✅ Show success notification
       showLocalNotification('✅ Դուք կստանաք ծանուցումներ!', 'Նոր ապրանքների և զեղչերի մասին');
       
     } catch (err) {
       console.error('Push subscribe error:', err);
     }
   } else if (permission === 'denied') {
-    alert('Դուք արգելել եք ծանուցումները: Settings-ում կարող եք միացնել');
+    alert('Դուք արգելել եք ծանուցումները');
   }
 }
 
-// Helper function for VAPID key
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
@@ -2700,7 +2654,7 @@ function urlBase64ToUint8Array(base64String) {
   }
   return outputArray;
 }
-// Show local notification (success message)
+
 function showLocalNotification(title, body) {
   if ('Notification' in window && Notification.permission === 'granted') {
     navigator.serviceWorker.ready.then(registration => {
@@ -2712,11 +2666,12 @@ function showLocalNotification(title, body) {
     });
   }
 }
-// Subscribe button
+
 function showSubscribeButton() {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') return;
   if (Notification.permission === 'denied') return;
+
   const btn = document.createElement('button');
   btn.id = 'pushSubscribeBtn';
   btn.innerHTML = '🔔 Միացնել ծանուցումներ';
@@ -2738,11 +2693,10 @@ function showSubscribeButton() {
   `;
   btn.onclick = async () => {
     await subscribeToPush();
-    btn.remove();
   };
   document.body.appendChild(btn);
 }
-// Show button after 3 seconds
+
 setTimeout(showSubscribeButton, 3000);
 </script>
 <div class="order-modal-backdrop" id="orderModalBackdrop">
