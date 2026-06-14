@@ -1261,11 +1261,10 @@ border: none;
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "75275651-b83e-4079-88d0-63ec993126a8",
-      
-      // Սրանք պետք է լինեն հիմնական init-ի մեջ, ոչ թե notifyButton-ի
+      // ՈՒՂՂՎԱԾ ՏՈՂԵՐԸ (առանց սկզբի թեք գծի ֆայլի անվան մեջ)
       serviceWorkerParam: { scope: '/titernik/' },
-      serviceWorkerPath: '/titernik/OneSignalSDKWorker.js',
-      
+      serviceWorkerPath: 'OneSignalSDKWorker.js',
+      serviceWorkerUpdaterPath: 'OneSignalSDKUpdaterWorker.js',
       // Զանգակի (Bell) կարգավորումները
       notifyButton: {
         enable: true,
