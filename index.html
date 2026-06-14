@@ -1257,28 +1257,32 @@ border: none;
 <body>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-OneSignalDeferred.push(async function(OneSignal) {
-  await OneSignal.init({
-    appId: "75275651-b83e-4079-88d0-63ec993126a8",
-    notifyButton: {
-
-  serviceWorkerParam: { scope: '/titernik/' },
-  serviceWorkerPath: "OneSignalSDKWorker.js",
-  serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js",
-      enable: true,
-      position: 'bottom-right',
-      colors: {
-        'circle.background': '#8e737d',
-        'circle.foreground': 'white'
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "75275651-b83e-4079-88d0-63ec993126a8",
+      
+      // Սրանք պետք է լինեն հիմնական init-ի մեջ, ոչ թե notifyButton-ի
+      serviceWorkerParam: { scope: '/titernik/' },
+      serviceWorkerPath: '/titernik/OneSignalSDKWorker.js',
+      
+      // Զանգակի (Bell) կարգավորումները
+      notifyButton: {
+        enable: true,
+        position: 'bottom-right',
+        colors: {
+          'circle.background': '#8e737d',
+          'circle.foreground': 'white'
+        }
+      },
+      
+      // Ողջույնի հաղորդագրություն
+      welcomeNotification: {
+        title: "🦋 Titernik",
+        message: "Դուք կստանաք ծանուցումներ նոր ապրանքների մասին!"
       }
-    },
-    welcomeNotification: {
-      title: "🦋 Titernik",
-      message: "Դուք կստանաք ծանուցումներ նոր ապրանքների մասին!"
-    }
+    });
   });
-});
 </script>
     <header>
     <!-- DESKTOP -->
